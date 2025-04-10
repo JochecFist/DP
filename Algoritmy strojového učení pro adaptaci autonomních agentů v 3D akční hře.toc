@@ -1,0 +1,15 @@
+\babel@toc {czech}{}\relax 
+\contentsline {chapter}{Úvod}{9}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Samoučící se AI ve hrách: současné aplikace a vybrané algoritmy}{11}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Současné aplikace samoučící se AI ve hrách}{11}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Algoritmy používané pro samoučící se agenty}{11}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Návrh, implementace a testování hry a autonomního agenta}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Návrh a implementace prostředí hry}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Návrh a implementace autonomního agenta}{13}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Otestování chování agenta}{13}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Experimentování s modifikacemi agenta}{15}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Vyhodnocení různých implementací agenta}{17}{chapter.4}%
+\contentsline {chapter}{Závěr}{19}{chapter*.3}%
+\contentsline {chapter}{Literatura}{20}{chapter*.3}%
+\contentsline {chapter}{Přílohy}{22}{chapter*.4}%
+\contentsline {chapter}{\numberline {A}Název první přílohy}{23}{appendix.A}%
