@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.20)  10 APR 2025 14:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.20)  14 MAY 2025 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -402,6 +402,14 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 LaTeX Info: Redefining \[ on input line 2923.
 LaTeX Info: Redefining \] on input line 2924.
 )
+(c:/Programs/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
 (c:/Programs/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count301
@@ -412,24 +420,24 @@ File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \openout1 = `"Algoritmy strojového učení pro adaptaci autonomních agentů v
  3D akční hře.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -481,16 +489,8 @@ LaTeX Font Info:    ... okay on input line 97.
 \everyMPtoPDFconversion=\toks33
 ) (c:/Programs/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-(c:/Programs/texlive/2021/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
-
 (c:/Programs/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
@@ -503,7 +503,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package hyperref Info: Link coloring OFF on input line 97.
+Package hyperref Info: Link coloring OFF on input line 98.
 
 (c:/Programs/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -517,9 +517,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count308
 )
-LaTeX Info: Redefining \ref on input line 97.
-LaTeX Info: Redefining \pageref on input line 97.
-LaTeX Info: Redefining \nameref on input line 97.
+LaTeX Info: Redefining \ref on input line 98.
+LaTeX Info: Redefining \pageref on input line 98.
+LaTeX Info: Redefining \nameref on input line 98.
 
 (./Algoritmy strojového učení pro adaptaci autonomních agentů v 3D akční
  hře.out)
@@ -530,13 +530,24 @@ LaTeX Info: Redefining \nameref on input line 97.
  3D akční hře.out"'.
 
 \c@lstlisting=\count309
-<./Zadani+Grafika/symbol_cvut_konturova_verze_cb.pdf, id=59, 126.78566pt x 96.5
+LaTeX Font Info:    Trying to load font information for U+msa on input line 109
+.
+ (c:/Programs/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 109
+.
+
+(c:/Programs/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<./Zadani+Grafika/symbol_cvut_konturova_verze_cb.pdf, id=83, 126.78566pt x 96.5
 4268pt>
 File: ./Zadani+Grafika/symbol_cvut_konturova_verze_cb.pdf Graphic file (type pd
 f)
 <use ./Zadani+Grafika/symbol_cvut_konturova_verze_cb.pdf>
 Package pdftex.def Info: ./Zadani+Grafika/symbol_cvut_konturova_verze_cb.pdf  u
-sed on input line 114.
+sed on input line 115.
 (pdftex.def)             Requested size: 126.78534pt x 96.54243pt.
  [1
 
@@ -545,53 +556,53 @@ ni+Grafika/symbol_cvut_konturova_verze_cb.pdf>] [2
 
 
 ]
-<./Zadani+Grafika/Zadani.pdf, id=76, 597.23125pt x 844.15375pt>
+<./Zadani+Grafika/Zadani.pdf, id=100, 597.23125pt x 844.15375pt>
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf>
-Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf  used on input line 144.
+Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf  used on input line 145.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf>
-Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf  used on input line 144.
+Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf  used on input line 145.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
-<./Zadani+Grafika/Zadani.pdf, id=79, page=1, 597.23125pt x 844.15375pt>
+<./Zadani+Grafika/Zadani.pdf, id=103, page=1, 597.23125pt x 844.15375pt>
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf , page1 used on input line
- 144.
+ 145.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf , page1 used on input line
- 144.
+ 145.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf , page1 used on input line
- 144.
+ 145.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf , page1 used on input line
- 144.
+ 145.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: ./Zadani+Grafika/Zadani.pdf Graphic file (type pdf)
 <use ./Zadani+Grafika/Zadani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Zadani.pdf , page1 used on input line
- 144.
+ 145.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
  [3 <./Zadani+Grafika/Zadani.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./Zadani+Grafika/Prohlaseni_o_samostatnosti_
 vypracovani.pdf): PDF inclusion: found PDF version <1.7>, but at most version <
 1.5> allowed
-<./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, id=87, 597.55246p
-t x 845.07718pt>
+<./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, id=111, 597.55246
+pt x 845.07718pt>
 File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file 
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf  used on input line 167.
+i.pdf  used on input line 168.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 
@@ -602,7 +613,7 @@ File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf  used on input line 167.
+i.pdf  used on input line 168.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 
@@ -614,43 +625,43 @@ vypracovani.pdf): PDF inclusion: found PDF version <1.7>, but at most version <
 pdfTeX warning: pdflatex.exe (file ./Zadani+Grafika/Prohlaseni_o_samostatnosti_
 vypracovani.pdf): PDF inclusion: found PDF version <1.7>, but at most version <
 1.5> allowed
-<./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, id=90, page=1, 59
-7.55246pt x 845.07718pt>
+<./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, id=114, page=1, 5
+97.55246pt x 845.07718pt>
 File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file 
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf , page1 used on input line 167.
+i.pdf , page1 used on input line 168.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file 
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf , page1 used on input line 167.
+i.pdf , page1 used on input line 168.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
 File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file 
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf , page1 used on input line 167.
+i.pdf , page1 used on input line 168.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
 File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file 
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf , page1 used on input line 167.
+i.pdf , page1 used on input line 168.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
 File: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf Graphic file 
 (type pdf)
 <use ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf, page 1>
 Package pdftex.def Info: ./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovan
-i.pdf , page1 used on input line 167.
+i.pdf , page1 used on input line 168.
 (pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
 [4 <./Zadani+Grafika/Prohlaseni_o_samostatnosti_vypracovani.pdf>] [5]
 \odstavecbox=\box62
 \vyskaodstavce=\skip58
 
-Overfull \hbox (27.72pt too wide) in paragraph at lines 203--222
+Overfull \hbox (27.72pt too wide) in paragraph at lines 204--223
 [][] 
  []
 
@@ -669,66 +680,235 @@ Overfull \hbox (27.72pt too wide) in paragraph at lines 203--222
 
 ]
 Kapitola 1.
-(./Kapitoly/1/1.tex) [11] [12
+(./Kapitoly/1/1.tex [11] [12]
+<./Kapitoly/1/Obrazky//1-1.jpg, id=274, 1046.40938pt x 606.76688pt>
+File: ./Kapitoly/1/Obrazky//1-1.jpg Graphic file (type jpg)
+<use ./Kapitoly/1/Obrazky//1-1.jpg>
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-1.jpg  used on input line 30.
+(pdftex.def)             Requested size: 429.03062pt x 248.77603pt.
 
-]
+Overfull \hbox (2.23929pt too wide) in paragraph at lines 30--32
+ [][] 
+ []
+
+[13pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.44 
+      <./Kapitoly/1/Obrazky//1-1.jpg>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+<./Kapitoly/1/Obrazky//1-2.png, id=294, 1156.32pt x 748.59676pt>
+File: ./Kapitoly/1/Obrazky//1-2.png Graphic file (type png)
+<use ./Kapitoly/1/Obrazky//1-2.png>
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-2.png  used on input line 64.
+(pdftex.def)             Requested size: 427.83171pt x 276.97646pt.
+
+Overfull \hbox (1.04037pt too wide) in paragraph at lines 64--66
+ [][] 
+ []
+
+[15pdfTeX warning (ext4): destination with the same identifier (name{figure.1.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.74 
+      <./Kapitoly/1/Obrazky//1-2.png>]
+Overfull \hbox (7.36595pt too wide) in paragraph at lines 81--82
+\T1/cmr/m/n/12 stat-n�ho pro-gramu na-psa-n�ho v Ja-vaScriptu. Tyto pro-gramy p
+�ed-sta-vuj� ^^Rdovednosti^^P
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+<./Kapitoly/1/Obrazky//1-3.png, id=313, 426.393pt x 199.34476pt>
+File: ./Kapitoly/1/Obrazky//1-3.png Graphic file (type png)
+<use ./Kapitoly/1/Obrazky//1-3.png>
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-3.png  used on input line 94.
+(pdftex.def)             Requested size: 426.39195pt x 199.34425pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17pdfTeX warning (ext4): destination with the same identifier (name{figure.1.
+3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.103 
+       <./Kapitoly/1/Obrazky//1-3.png>] [18]
+<./Kapitoly/1/Obrazky//1-4.png, id=340, 102.3825pt x 76.3653pt>
+File: ./Kapitoly/1/Obrazky//1-4.png Graphic file (type png)
+<use ./Kapitoly/1/Obrazky//1-4.png>
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-4.png  used on input line 127.
+
+(pdftex.def)             Requested size: 409.52899pt x 305.46039pt.
+ [19pdfTeX warning (ext4): destination with the same identifier (name{figure.1.
+4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.141 \newpage
+               <./Kapitoly/1/Obrazky//1-4.png>] [20] [21]
+<./Kapitoly/1/Obrazky//1-5.png, id=367, 645.00975pt x 242.70676pt>
+File: ./Kapitoly/1/Obrazky//1-5.png Graphic file (type png)
+<use ./Kapitoly/1/Obrazky//1-5.png>
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-5.png  used on input line 193.
+
+(pdftex.def)             Requested size: 432.15428pt x 162.61267pt.
+
+Overfull \hbox (5.36295pt too wide) in paragraph at lines 193--195
+ [][] 
+ []
+
+[22pdfTeX warning (ext4): destination with the same identifier (name{figure.1.5
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.199 \newpage
+               <./Kapitoly/1/Obrazky//1-5.png>]
+<./Kapitoly/1/Obrazky//1-6.png, id=376, 1108.14pt x 602.25pt>
+File: ./Kapitoly/1/Obrazky//1-6.png Graphic file (type png)
+<use ./Kapitoly/1/Obrazky//1-6.png>
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-6.png  used on input line 223.
+
+(pdftex.def)             Requested size: 387.85481pt x 210.79065pt.
+ [23]) [24pdfTeX warning (ext4): destination with the same identifier (name{fig
+ure.1.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.247 \chapter
+              {Návrh, implementace a testování hry a autonomního agenta} <.
+/Kapitoly/1/Obrazky//1-6.png>]
 Kapitola 2.
-(./Kapitoly/2/2.tex) [13] [14
+(./Kapitoly/2/2.tex) [25
+
+] [26
 
 ]
 Kapitola 3.
-(./Kapitoly/3/3.tex) [15] [16
+(./Kapitoly/3/3.tex) [27] [28
 
 ]
 Kapitola 4.
-(./Kapitoly/4/4.tex) [17] [18
+(./Kapitoly/4/4.tex) [29] [30
 
-] (./Kapitoly/Zaver/Zaver.tex) [19] [20
+] (./Kapitoly/Zaver/Zaver.tex) [31] [32
 
-
-]
-(./Citace/Citace.tex)
-
-LaTeX Warning: Empty `thebibliography' environment on input line 274.
-
-[21] [22
 
 ]
-P\v {r}\'{\i }loha A.
+(./Citace/Citace.tex
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-86.
+.
+
 (c:/Programs/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [23]
+)
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+[]\T1/cmr/m/n/12 CONTRIBUTORS, Wi-ki-pe-dia. \T1/cmr/m/it/12 Chat-GPT\T1/cmr/m/
+n/12 . On-line. In: Wi-ki-pe-dia:
+ []
+
+
+Underfull \hbox (badness 7704) in paragraph at lines 5--6
+\T1/cmr/m/n/12 the free en-cyclo-pe-dia. San Fran-cisco (CA): Wi-ki-me-dia Foun
+-dation,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+\T1/cmr/m/n/12 2001-, https://en.wikipedia.org/wiki/Main_Page. Do-stupn� z: []$
+\T1/cmtt/m/n/12 https :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+\T1/cmtt/m/n/12 / / en . wikipedia . org / w / index . php ? title = ChatGPT & 
+oldid = 1290307244$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 2181) in paragraph at lines 8--9
+\T1/cmtt/m/n/12 / / en . wikipedia . org / w / index . php ? title = Dota _ 2 &
+ oldid = 1288870722$[]\T1/cmr/m/n/12 . [cit.
+ []
+
+
+Underfull \hbox (badness 5878) in paragraph at lines 17--18
+[]\T1/cmr/m/n/12 TEAM, Ope-nAI Five. \T1/cmr/m/it/12 Ope-nAI Five de-fe-ats Dot
+a 2 world cham-pi-
+ []
+
+
+Underfull \hbox (badness 3601) in paragraph at lines 17--18
+\T1/cmr/m/it/12 ons\T1/cmr/m/n/12 . On-line. Ope-nAI. 2019. Do-stupn� z: []$\T1
+/cmtt/m/n/12 https : / / openai . com / index /
+ []
+
+[33]
+Underfull \hbox (badness 1178) in paragraph at lines 32--33
+\T1/cmr/m/it/12 tar: Mas-te-ring the real-time stra-tegy game Star-Craft II\T1/
+cmr/m/n/12 . On-line. Go-o-gle
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+\T1/cmtt/m/n/12 alphastar-[]mastering-[]the-[]real-[]time-[]strategy-[]game-[]s
+tarcraft-[]ii/$[]\T1/cmr/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 1694) in paragraph at lines 44--45
+[]\T1/cmr/m/n/12 CONTRIBUTORS, Wi-ki-pe-dia. \T1/cmr/m/it/12 Star-Craft II\T1/c
+mr/m/n/12 . On-line. In: Wi-ki-pe-dia: the
+ []
+
+) [34]
+P\v {r}\'{\i }loha A.
+[35
+
+]
 (./Algoritmy strojového učení pro adaptaci autonomních agentů v 3D akční
  hře.aux)
 Package rerunfilecheck Info: File `"Algoritmy strojového učení pro adaptaci 
 autonomních agentů v 3D akční hře".out' has not changed.
-(rerunfilecheck)             Checksum: 9ED6DA6D44E199A697CF7231A117423E;3058.
+(rerunfilecheck)             Checksum: 00715EA0D7195B1F6D9E4A5AA01A5C63;3771.
  ) 
 Here is how much of TeX's memory you used:
- 13144 strings out of 480437
- 196805 string characters out of 5898174
- 523400 words of memory out of 5000000
- 30532 multiletter control sequences out of 15000+600000
- 415372 words of font info for 54 fonts, out of 8000000 for 9000
+ 13356 strings out of 480437
+ 200037 string characters out of 5898174
+ 531231 words of memory out of 5000000
+ 30673 multiletter control sequences out of 15000+600000
+ 420484 words of font info for 70 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 72i,17n,80p,524b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 72i,17n,80p,979b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Programs/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
-}<c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb>
+}{c:/Programs/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+}<c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+><c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
+><c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
+<c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:
+/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:
+/Programs/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
+b><c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb
+><c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb>
 <c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb><
 c:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c
-:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:
-/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/
-Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb><c:/P
-rograms/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb><c:/Pr
-ograms/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/Pro
-grams/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+:/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:
+/Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/
+Programs/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/P
+rograms/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/Pr
+ograms/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb><c:/Pro
+grams/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb><c:/Prog
+rams/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/Progr
+ams/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
 Output written on "Algoritmy strojového učení pro adaptaci autonomních agen
-tů v 3D akční hře.pdf" (23 pages, 734651 bytes).
+tů v 3D akční hře.pdf" (35 pages, 2763718 bytes).
 PDF statistics:
- 332 PDF objects out of 1000 (max. 8388607)
- 245 compressed objects within 3 object streams
- 38 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 570 PDF objects out of 1000 (max. 8388607)
+ 437 compressed objects within 5 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 

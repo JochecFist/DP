@@ -22,27 +22,81 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \babel@aux{czech}{}
 \@writefile{toc}{\contentsline {chapter}{Úvod}{9}{chapter*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {1}Samoučící se AI ve hrách: současné aplikace a vybrané algoritmy}{11}{chapter.1}\protected@file@percent }
+\citation{Vinyalsbr}
+\citation{WikiSC}
+\citation{WikiDB}
+\citation{AlphaGo}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Samoučící se AI ve hrách}{11}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Současné aplikace samoučící se AI ve hrách}{11}{section.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Algoritmy používané pro samoučící se agenty}{11}{section.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Návrh, implementace a testování hry a autonomního agenta}{13}{chapter.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.1}AlphaStar}{11}{subsection.1.1.1}\protected@file@percent }
+\citation{Jaderberg2017}
+\citation{OpenAIFive}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Vizualizace rozhodovacího procesu AlphaStaru během zápasu proti hráči. Systém zpracovává syrová pozorování, aktivuje neuronové sítě, vyhodnocuje potenciální akce a předpovídá výsledky zápasu.}}{13}{figure.1.1}\protected@file@percent }
+\newlabel{obrAlphaStar}{{1.1}{13}{Vizualizace rozhodovacího procesu AlphaStaru během zápasu proti hráči. Systém zpracovává syrová pozorování, aktivuje neuronové sítě, vyhodnocuje potenciální akce a předpovídá výsledky zápasu}{figure.1.1}{}}
+\citation{Dota2}
+\citation{PPOOpenAI}
+\citation{Schulman2017}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}OpenAI Five}{14}{subsection.1.1.2}\protected@file@percent }
+\citation{Wangbr}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Architektura tréninkového systému OpenAI Five. Rollout workeři generují data ze zápasů, která jsou následně zpracována optimalizačním modulem využívajícím metodu PPO. Výsledné aktualizace jsou sdíleny napříč instancemi a evaluovány ve specifických herních prostředích.}}{15}{figure.1.2}\protected@file@percent }
+\newlabel{obrOpenAIFive}{{1.2}{15}{Architektura tréninkového systému OpenAI Five. Rollout workeři generují data ze zápasů, která jsou následně zpracována optimalizačním modulem využívajícím metodu PPO. Výsledné aktualizace jsou sdíleny napříč instancemi a evaluovány ve specifických herních prostředích}{figure.1.2}{}}
+\citation{ChatGPT}
+\citation{ChatGPT}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.3}Voyager}{16}{subsection.1.1.3}\protected@file@percent }
+\citation{PPOOpenAI}
+\citation{Schulman2017}
+\citation{Schulman2015}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces Vizualizace propojení hlavních komponent systému Voyager.}}{17}{figure.1.3}\protected@file@percent }
+\newlabel{obrVoyager}{{1.3}{17}{Vizualizace propojení hlavních komponent systému Voyager}{figure.1.3}{}}
+\citation{Watkins1992}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Algoritmy a techniky používané pro samoučící se agenty}{18}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.1}Proximal Policy Optimization (PPO)}{18}{subsection.1.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces Vizualizace architektury algoritmu PPO. Agent interaguje s prostředím, zatímco dvě neuronové sítě — actor a critic — slouží k výběru akcí a odhadu hodnoty stavu. Politika je aktualizována pomocí oříznutého objektivu a výhod jsou počítány pomocí Generalized Advantage Estimation (GAE).}}{19}{figure.1.4}\protected@file@percent }
+\newlabel{obrPPO}{{1.4}{19}{Vizualizace architektury algoritmu PPO. Agent interaguje s prostředím, zatímco dvě neuronové sítě — actor a critic — slouží k výběru akcí a odhadu hodnoty stavu. Politika je aktualizována pomocí oříznutého objektivu a výhod jsou počítány pomocí Generalized Advantage Estimation (GAE)}{figure.1.4}{}}
+\citation{Schulman2018}
+\citation{MuJoCo}
+\citation{Zhang2024}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}Self-Play}{21}{subsection.1.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces Srovnání tří přístupů k tréninku agentů: \uv  {self-play} (SP), kde agent hraje sám proti sobě; \uv  {population-play} (PP), kde interaguje s různými agenty v populaci; a \uv  {behavioral cloning play} (BCP), kde se učení zakládá na lidských demonstračních datech.}}{22}{figure.1.5}\protected@file@percent }
+\newlabel{obrSPvsPPvsBCP}{{1.5}{22}{Srovnání tří přístupů k tréninku agentů: \uv {self-play} (SP), kde agent hraje sám proti sobě; \uv {population-play} (PP), kde interaguje s různými agenty v populaci; a \uv {behavioral cloning play} (BCP), kde se učení zakládá na lidských demonstračních datech}{figure.1.5}{}}
+\citation{Jaderberg2017}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.3}Population Based Training}{23}{subsection.1.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces Population-Based Training neuronových sítí začíná jako náhodné prohledávání, ale v průběhu tréninku umožňuje jednotlivým modelům využít dílčí výsledky ostatních (fáze \uv  {exploit}) a zároveň zkoušet nové kombinace hyperparametrů (fáze \uv  {explore}).}}{24}{figure.1.6}\protected@file@percent }
+\newlabel{obrPBT}{{1.6}{24}{Population-Based Training neuronových sítí začíná jako náhodné prohledávání, ale v průběhu tréninku umožňuje jednotlivým modelům využít dílčí výsledky ostatních (fáze \uv {exploit}) a zároveň zkoušet nové kombinace hyperparametrů (fáze \uv {explore})}{figure.1.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Návrh, implementace a testování hry a autonomního agenta}{25}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Návrh a implementace prostředí hry}{13}{section.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Návrh a implementace autonomního agenta}{13}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Otestování chování agenta}{13}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Experimentování s modifikacemi agenta}{15}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Návrh a implementace prostředí hry}{25}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Návrh a implementace autonomního agenta}{25}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Otestování chování agenta}{25}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Experimentování s modifikacemi agenta}{27}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Vyhodnocení různých implementací agenta}{17}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Vyhodnocení různých implementací agenta}{29}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{Závěr}{19}{chapter*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Literatura}{20}{chapter*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Přílohy}{22}{chapter*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Název první přílohy}{23}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Závěr}{31}{chapter*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Literatura}{32}{chapter*.3}\protected@file@percent }
+\bibcite{AlphaGo}{1}
+\bibcite{ChatGPT}{2}
+\bibcite{Dota2}{3}
+\bibcite{Jaderberg2017}{4}
+\bibcite{MuJoCo}{5}
+\bibcite{OpenAIFive}{6}
+\bibcite{PPOOpenAI}{7}
+\bibcite{Schulman2015}{8}
+\bibcite{Schulman2017}{9}
+\bibcite{Schulman2018}{10}
+\bibcite{Vinyalsbr}{11}
+\bibcite{Wangbr}{12}
+\bibcite{Watkins1992}{13}
+\bibcite{WikiDB}{14}
+\bibcite{WikiSC}{15}
+\bibcite{Zhang2024}{16}
+\@writefile{toc}{\contentsline {chapter}{Přílohy}{35}{chapter*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Název první přílohy}{35}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\gdef \@abspage@last{23}
+\gdef \@abspage@last{35}
