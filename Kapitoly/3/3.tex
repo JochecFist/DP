@@ -1,0 +1,272 @@
+\section{Základní logika hry}
+\subsection{Hráčská postava}
+Po spuštění hry se aktivuje úvodní funkce, která inicializuje několik klíčových podsystémů hráčské postavy. Nejprve se připojí mapa ovládacích vstupů, která umožňuje hráči ovládat pohyb postavy pomocí klávesnice. Následně se k postavě připojí tzv. průhledový displej (HUD), díky kterému se zobrazují herní informace na obrazovce. Součástí této inicializace je také aktivace zaměřovače, který se synchronizuje s HUDem a reaguje na hráčovy vstupy. Další funkce aktivují systémy obnovování – konkrétně regeneraci života, energie a baterie svítilny. Zároveň se zpřístupní sekce HUDu, které tyto parametry zobrazují. Následující část vytváří proměnné potřebné pro propojení postavy v blueprintu s logikou sběru předmětů a obsluhou zbraní. Závěrečná inicializační funkce rozšiřuje HUD o prvek zobrazující typ právě vybavené zbraně.
+
+Pohyb hráčovy kamery je řízen pomocí pohybu myši – horizontálně po ose Z a vertikálně po ose Y. Samotný pohyb postavy po mapě se realizuje zvlášť pro směr vpřed/vzad a pro pohyb do stran. V obou případech se využívají směrové vektory a výsledná hodnota se předává do funkce pro fyzický posun postavy. Systém zároveň detekuje, zda hráč běží či se plíží, aby mohl spustit nebo zastavit příslušné zvukové efekty.
+
+Pro plynulé ozvučení pohybu je využito makro, které opakovaně volá funkci zajišťující přehrávání kroků. Pokud hráč přestal padat (například po skoku), znovu se aktivuje zvuk chůze. Systém zároveň detekuje typ povrchu pod nohama pomocí trasovací linky – podle nalezeného materiálu se přehrává odpovídající zvuk kroků.
+
+\newpage
+
+Běhání je vázáno na dostupnou energii. Pokud hráč neběží a není v podřepu, ale začne se pohybovat a má dostatek energie, hra aktivuje běh. Energie se začne postupně snižovat a změní se rychlost přehrávání zvuku chůze. Jakmile běh ustane, energie se opět pomalu doplňuje a rytmus zvuku se přizpůsobí.
+
+Podobně je řešen i úskok do stran. Pokud má hráč více než 15 bodů energie a není v podřepu, může provést úskok ve směru aktuálně stisknuté pohybové klávesy. Po dokončení úskoku se po krátké pauze začne energie obnovovat.
+
+Při plížení (podřepu) systém kontroluje, zda hráč neběží ani neuskočil a zda má dostatek staminy. Pokud ano, postava se přepne do podřepu, tempo chůze se zpomalí a začne se doplňovat energie. Při návratu do vzpřímené pozice se část energie spotřebuje, ale opět začne regenerace.
+
+Součástí logiky hráčské postavy je také systém pozastavení hry. Po stisknutí příslušného tlačítka se hra přeruší a na obrazovce se zobrazí menu pauzy.
+
+Mechanismus spotřeby a regenerace energie (staminy) je řízen samostatnými funkcemi. Během běhu nebo jiných fyzicky náročných akcí se každým tikem odečítá stanovené množství staminy. Jakmile její hodnota klesne na nulu, postava přestane běžet. Naopak, pokud hráč není aktivně v pohybu, aktivuje se obnova energie, která ji postupně přičítá až do maximální hodnoty.
+
+Postava má také funkce pro správu zdraví. Pokud je hráč zraněn, aktivuje se odečet životů. Následně, pokud postava stále žije, začne pomalá regenerace zdraví. Jakmile hodnota života dosáhne maxima, regenerace se pozastaví. Pokud však zdraví klesne na nulu, postava umírá – ovládání se zablokuje, zvuky se vypnou a zobrazí se obrazovka smrti. Odtud má hráč možnost hru ukončit nebo začít od začátku.
+
+\newpage
+
+\subsection{Zbraňový systém}
+Zbraňový systém ve hře je navržen tak, aby simuloval chování střelných zbraní, včetně střelby, přebíjení, sběru munice a interakce s prostředím. Na začátku se vytvoří ukazatel na hráče, což umožňuje přímou interakci mezi zbraní a hráčskou postavou.
+
+Při výstřelu se automaticky odebere jeden náboj ze zásobníku a spustí se dvě animace – jedna vizualizuje samotný výstřel zbraně, druhá animaci hráče při střelbě. Pokud jsou náboje v zásobníku vyčerpány, zbraň začne vydávat charakteristický zvuk prázdného cvaknutí, který hráče upozorní na nutnost přebít.
+
+Přebíjení se spustí pouze tehdy, pokud zásobník není plný. Systém nejprve zjistí, kolik nábojů chybí do plné kapacity zásobníku, a poté doplní chybějící náboje z celkové zásoby. Tento proces je doprovázen přehráním animace přebíjení. Pokud hráč na mapě sebere náboje, ověří se, zda ještě není překročen maximální počet. Pokud ne, náboje se přičtou do celkové zásoby.
+
+K interakci se zbraněmi na mapě slouží dvě specifická tlačítka – tlačítko E pro sběr zbraní ze země a tlačítko B pro jejich odhození. Při sběru zbraně hra detekuje její přítomnost v okolí hráče, načte informace o typu zbraně, aktuálním počtu nábojů v zásobníku a celkové zásobě, a tyto údaje převede do inventáře hráče. Zbraň se následně odstraní ze světa a nahradí ji aktivní zbraň v rukou hráče, která je vizuálně připojena k jeho postavě.
+
+Při odhození zbraně se zbraň v rukou hráče zničí a na místě před hráčem se vytvoří nová zbraň, kterou je možné znovu sebrat.
+
+Logika střelby zohledňuje typ zbraně. Pokud má hráč v ruce automatickou pušku, hra aktivuje opakovanou střelbu, dokud jsou v zásobníku náboje. U brokovnice je implementována funkce náhodného rozptylu projektilů, která simuluje široký zásahový úhel typický pro tento typ zbraně. Brokovnice vystřelí několik střel najednou, každou s mírně odlišnou trajektorií. V případě odstřelovací pušky se spouští klasická střelba s jedním přesným výstřelem.
+
+Střelba je iniciována funkcí, která detekuje rotaci a pozici hráčovy kamery. Ze zbraně je vyslána přímka simulující trajektorii střely, která může ovlivnit nepřátelskou umělou inteligenci. Další paprsek vychází přímo z kamery hráče a končí ve vzdálenosti určené směrem pohledu. Simulace rovněž zohledňuje nepřesnosti způsobené pohybem postavy a náhodný rozptyl u brokovnice.
+
+Po výstřelu dochází k simulaci zpětného rázu, která upraví směr pohledu hráče. Pokud je zasažen nepřítel, aplikuje se poškození. V případě zásahu objektu s fyzikální interakcí se na něj aplikuje síla v opačném směru vůči směru střely.
+
+Každý výstřel také spustí zvukový event, na který mohou nepřátelé reagovat. Zbraň rovněž generuje efekt vyhození prázdné nábojnice – ta po výstřelu vyletí ze zbraně a po určité době automaticky zmizí ze scény.
+
+\newpage
+
+Tlačítko pro přebíjení (R) volá funkci, která spustí výše popsaný proces doplnění zásobníku, čímž je zajištěna plná integrace mezi hráčovými vstupy a systémem správy munice.
+
+Celý zbraňový systém je pečlivě propojen s HUDem, který hráči poskytuje vizuální zpětnou vazbu o typu zbraně, počtu nábojů a stavu zásob.
+
+Agent využívá podobný zbraňový systém, který je však zjednodušený – nevyužívá všechny funkce ani některé modifikátory.
+
+\subsection{Logika řízení herních kol}
+Logika řízení herních kol a nepřátelských jednotek ve hře začíná inicializací základních proměnných. Po spuštění úrovně se nastaví ukazatel na hráče, obnoví se hlasitost zvukových efektů podle posledního uloženého nastavení a zavolá se funkce pro zahájení nové herní seance.
+
+V rámci této funkce se resetuje proměnná určující, zda již byli všichni nepřátelé naspawnováni, inkrementuje se čítač aktuálního kola a spustí se časovač, který po uplynutí definované doby aktivuje začátek nového kola.
+
+Zahájení kola zahrnuje nastavení počtu nepřátel, kteří se mají v daném kole objevit. Poté se spustí časovač, který s definovaným zpožděním volá funkci pro výběr náhodného místa spawnování. Na tomto místě se následně vytvoří nová instance nepřítele. Každý nepřítel je implementován jako trenér neuronové sítě, který je součástí tréninkové logiky.
+
+Každý spawnovaný nepřítel je vytvořen na základě pozice a orientace předem definovaných spawnovacích bodů, čímž se zajišťuje variabilita a nepředvídatelnost jednotlivých kol.
+
+Paralelně běží neustále se opakující kontrolní funkce, která monitoruje počet aktivních nepřátel. Jakmile systém detekuje, že byli všichni nepřátelé eliminováni, automaticky aktivuje ukončení aktuálního kola.
+
+Závěrečná funkce každého kola zjišťuje, jakou zbraň měl hráč v ruce a jaké měl nastavené brnění (logika brnění je popsána dále v kapitole), a následně spouští další kolo.
+
+\newpage
+
+\subsection{Systém sbírání předmětů}
+Logika sběru herních předmětů je založena na detekci kolize mezi hráčovou postavou a specifickou kolizní sférou umístěnou kolem sbíratelných objektů. Jakmile dojde ke kontaktu těchto dvou komponent, spustí se funkce, která aktivuje možnost interakce a zvednutí daného objektu. Pokud hráč oblast opustí, volání funkce se přeruší a předmět zůstane nedotčen.
+
+Při sběru zbraní kolizní sféra kromě detekce kontaktu uchovává také informace o konkrétní zbrani – například její typ a počet nábojů v zásobníku i celkové zásobě. Po stisknutí příslušné klávesy předá sféra tyto údaje hráčovu blueprintu, čímž dojde k přenosu zbraně do rukou hráče a následnému odstranění objektu ze scény.
+
+Pro sběr nábojů se využívá obdobná logika. Když hráč vstoupí do kolizní oblasti s municí, systém zkontroluje, zda má pro daný typ nábojů (automatická puška, brokovnice, odstřelovací puška) dostatek volné kapacity. Pokud ano, náboje se přidají do odpovídající zásoby. V opačném případě zůstávají na místě a mohou být sebrány později, jakmile bude dostatek prostoru.
+
+\subsection{Herní rozhraní (HUD)}
+V hlavním menu má hráč na výběr několik možností. Tlačítko „Play“ spustí samotnou hru. Volba „Controls“ otevře obrazovku, na které jsou vizuálně zobrazeny všechny ovládací klávesy. Možnost „Options“ poskytuje přístup k nastavení hlasitosti, kvality audia a vizuálních parametrů pro optimalizaci výkonu. Změny lze potvrdit tlačítkem „Apply“ nebo zrušit pomocí „Back“. Tlačítko „Quit Game“ slouží k ukončení hry.
+
+Během hraní může hráč kdykoli otevřít pauzovací menu stiskem klávesy P. Toto menu obsahuje stejné volby jako hlavní menu, s výjimkou toho, že tlačítko „Play“ zde slouží k návratu zpět do hry a „Main Menu“ přesměrovává do úvodního menu. Pokud hráč během hry zemře, zobrazí se speciální nabídka se třemi možnostmi: „Restart“ (nové spuštění hry), „Quit to Main Menu“ (návrat do hlavního menu) a „Quit“ (vypnutí hry).
+
+Hlavní herní HUD je komplexní a rozčleněný do několika oblastí. V levém dolním rohu se nacházejí tři informační lišty: horní zobrazuje stav baterie svítilny na zbrani, prostřední udává úroveň zdraví a spodní ukazuje energii postavy. Vedle těchto lišt se zobrazuje číslo aktuálního kola. Pravý dolní roh zobrazuje počet nábojů v zásobníku, počet náhradních nábojů a informace o aktuálně držené zbrani (její název a typ).
+
+Střed obrazovky je vybaven zaměřovačem, jehož velikost se dynamicky mění v závislosti na rychlosti pohybu hráče, což napomáhá přesnějšímu míření. V horní části displeje je umístěn časovač, který odpočítává čas do začátku nového kola. V pravém horním rohu se nachází panel zobrazující změny atributů nepřátel, které vznikají na základě výstupu z neuronové sítě, a nad ním také počítadlo snímkové frekvence (FPS), které slouží ke sledování výkonnosti hry.
+
+\section{Autonomní agent}
+\subsection{První verze agenta}
+Pro začátek jsem chtěl otestovat, jak probíhá trénování, vytváření modelu a nasazení natrénovaného modulu na simulaci v pluginu NevarokML. Proto jsem se pro první verzi rozhodl vytvořit jednoduchého agenta, který se dokáže pohybovat a postupně si v průběhu tréninku i simulace zlepšovat svou schopnost dosáhnout cíle.
+
+\subsubsection{Trénovací mapa}
+Na trénovací mapě se nachází hlavní entita typu NevarokMLTrainer, která slouží k tréninku agenta v rámci pluginu NevarokML. Pod ní funguje 270 podřízených entit typu NevarokMLEnvironment, z nichž každá obsahuje simulovaný herní svět pro konkrétního agenta. V každém prostředí je zároveň přítomna entita \uv{agent}, na níž probíhá samotný trénink nebo simulace.
+
+Dále se v každém prostředí nachází pouze podlaha (bez stěn — v této první verzi nejde o uzavřený prostor), pod kterou je umístěna spouštěcí oblast typu Trigger s názvem AbyssTrigger. Kromě toho je poblíž každého agenta ještě jeden Trigger s názvem GoalTrigger, který slouží jako cíl simulace.
+
+\subsubsection{NevarokMLTrainer}
+V NevarokMLTrainer se nejprve nastaví velikost tzv. \uv{Action Space} (akčního prostoru), aby NevarokMLEnvironment věděl, kolik typů akcí může agent provádět — buď jednu po druhé, nebo, pokud je to tak nastavené, i několik akcí během jednoho tiku tréninku či simulace. V první verzi, kdy agent zvládne pouze pohyb, má akční prostor pět akcí, které může provádět sekvenčně.
+
+Dále se připravuje tzv. \uv{Observation Space} (pozorovací prostor), kam agent během hry ukládá určená data sloužící k učení a rozhodování v průběhu tréninku a simulace. Po vytvoření Action Space a Observation Space se aktivuje Blueprint uzel nazvaný PPO, což je algoritmus zvolený pro všechny tři verze tréninku a simulace. Tento uzel definuje klíčové hyperparametry:
+
+\begin{itemize}
+
+\item \uv{Policy = MlpPolicy} — agent používá plně propojenou vícervrstvou perceptronovou síť pro aproximaci politiky i hodnotové funkce.
+
+\item \uv{Learning Rate} — ovlivňuje velikost kroků při aktualizaci vah, nižší hodnota znamená stabilnější, ale pomalejší učení.
+
+\item \uv{N Steps} — počet kroků simulace sbíraných před aktualizací politiky.
+
+\item \uv{Batch Size} — počet přechodů (stav–akce–odměna) zpracovaných v jednom mini‑batchi.
+
+\item \uv{N Epochs} — kolikrát se síť trénuje na nasbíraných datech před jejich zaházením.
+
+\item \uv{Gamma} — diskontní faktor pro budoucí odměny.
+
+\item \uv{GAE Lambda} — vyvažuje bias a variance při výpočtu výhodnosti pomocí Generalized Advantage Estimation.
+
+\item \uv{Clip Range} — omezuje změny politiky při aktualizaci, aby se zabránilo nestabilnímu učení.
+
+\item \uv{Ent Coef} — zvyšuje exploraci odměňováním vyšší entropie politiky.
+
+\item \uv{Vf Coef} — určuje váhu hodnotové funkce v celkové ztrátě.
+
+\item \uv{Max Grad Norm} — slouží k ořezání gradientů a prevenci divergence.
+
+\end{itemize}
+
+Volitelné parametry zahrnují:
+\uv{Use SDE} pro stavový šum, \uv{Sde Sample Freq} pro jeho frekvenci, a \uv{Verbose} pro aktivaci logů během tréninku.
+
+Po uzlu PPO následuje uzel Learn, který spouští samotný trénink či simulaci pomocí zvoleného algoritmu:
+
+\begin{itemize}
+
+\item \uv{Device} — umožňuje volbu mezi CPU a GPU.
+
+\item \uv{Timesteps} — celkový počet tréninkových kroků.
+
+\item \uv{Eval Eps} — počet evaluačních epizod.
+
+\item \uv{Save Freq} a \uv{Log Interval} — určují frekvenci ukládání modelů a zapisování logů.
+
+\item \uv{Load Model Path} a \uv{Save Model Name} — správa checkpointů a ukládání nových verzí.
+
+\item \uv{Deterministic} — zajišťuje deterministické chování při vyhodnocení po tréninku.
+
+\end{itemize}
+
+Volitelné ladicí volby jako \uv{Show Tensorboard}, \uv{Show Reward}, \uv{Show Step Debug} a \uv{Show Reset Debug} umožňují vizualizaci a sledování průběhu učení i chování agenta.
+
+\subsubsection{NevarokMLEnviroment}
+Po inicializaci prostředí se nejprve spustí událost \uv{Event On Init}. Ta zkontroluje, zda je aktivní proměnná \uv{Simulate}, která určuje, zda začít od začátku nebo pokračovat s uloženým modelem. Pokud je podmínka splněna, vytvoří se instance uzlu \uv{NNEModule}, která načte a inicializuje uložený model. Tento uzel vyžaduje vstupy z \uv{Action Sample} a \uv{Observation Sample}, aby model věděl, s jakými akčními a pozorovacími daty bude pracovat.
+
+Následně se výstup modelu uloží do proměnné \uv{Inference Model}, která slouží pro predikce akcí agenta. V této fázi se zároveň uloží počáteční pozice agenta do proměnné \uv{Agent Initial Location}, získané z uzlu \uv{Get Actor Location}. Tato pozice slouží k resetování prostředí na začátku každé epizody. Agent se pak přidá do seznamu \uv{Ignore Actors} pomocí uzlu \uv{Add Unique}, aby byl ignorován při raycast kolizích během simulace.
+
+Po inicializaci následuje průběžná simulace skrze událost \uv{Event On Step}. Pokud je opět aktivní \uv{Simulate}, zavolá se uzel \uv{Predict}, který navrhne akce pro aktuální stav prostředí. Tyto akce se aplikují pomocí uzlu \uv{Apply Actions}, zatímco aktuální stav se zaznamená přes uzel \uv{Collect Observations}. Odměny za akce vyhodnotí funkce \uv{Handle Rewards}, případně se zobrazí ladicí výstup přes uzel \uv{Debug}, který umožňuje sledování průběhu simulace.
+
+Mezi hlavními ticky definovanými parametrem \uv{Trainer->TickInterval} lze volitelně spustit událost \uv{Event On Step Skip}. Ta slouží například k aplikaci akcí v jemnějších krocích nebo k vyplnění mezer mezi hlavními kroky. Pozorování získaná během \uv{Step Skip} se do tréninku nezahrnují.
+
+Nakonec se spustí událost \uv{Event On Reset}, volaná před prvním krokem epizody a po jejím skončení. Slouží k resetování prostředí do výchozího stavu. Nejprve se aktivuje ladicí uzel \uv{Debug} pro indikaci poslední odměny. Poté \uv{Reset Triggers} a \uv{Reset Agent} obnoví stav agentů a spouštěcích oblastí. Uzel \uv{Clear} vymaže nasbírané akce a pozorování (\uv{Action Sample}), aby se nová epizoda sbírala od nuly. Na závěr \uv{Collect Observations} uloží počáteční stav prostředí, který se použije jako výchozí bod pro trénink/simulaci.
+
+Tento hlavní řetězec událostí zajišťuje kompletní cyklus tréninku a simulace agenta — od inicializace přes jednotlivé kroky s predikcemi modelu až po resetování prostředí na začátku nové epizody.
+
+Při spuštění sběru pozorování (\uv{Collect Observations}) z hlavního cyklu se nejprve nastaví proměnná \uv{Index Counter} na výchozí hodnotu $(0,0)$, která reprezentuje indexy pro iteraci senzorů v mřížce. Následně se tato proměnná postupně inkrementuje pomocí funkčních bloků \uv{Index Plus Plus}, kde každé volání posune index o jeden krok ve směru osy $Y$ (parametr \uv{Step dx = 0, dy = 1}). Tento mechanismus zajišťuje sekvenční průchod jednotlivými senzory nebo směry detekce.
+
+Během každé iterace se načte aktuální pozice agenta i cílového senzoru. Pomocí uzlu \uv{Get World Location} se získá pozice senzoru, a pomocí \uv{Get Actor Location} se načte aktuální poloha agenta. Funkce \uv{Find Look at Rotation} vypočítá rotaci směrem k cílovému bodu, která je následně aplikována na senzor pomocí \uv{Set World Rotation}. Tento postup zajistí, že senzor směřuje správným směrem před vlastním trasováním.
+
+\newpage
+
+Následně proběhne vzorkování pomocí uzlu \uv{Sample Box Line Trace}, který funguje jako raycast s definovanou délkou (\uv{Trace Length = 1000.0}) a kanálem (\uv{Trace Channel = Visibility}). Parametry \uv{Difference Multiplier} a \uv{Velocity Multiplier} škálují rozdíly vzdáleností a rychlosti pro ukládání do pozorovacího prostoru. Do uzlu jsou také připojeny seznamy \uv{Ignore Actors} a volitelně \uv{Trace Tags}, které určují objekty, jež se mají ignorovat, a typy kolizí, které se vyhodnocují.
+
+Výstupy raycastu se ukládají do \uv{Observation Sample}, kde zahrnují indexy a hodnoty jako \uv{Velocity Length Index}, \uv{Difference Length Index}, \uv{X/Y/Z Velocity Index}, \uv{Direction Index} a \uv{Normal Index}. Tyto indexy reprezentují složky rychlosti, směru a normály zásahu, které slouží jako vstupní data pro neuronovou síť během tréninku nebo inferencí. Nepoužité výstupy se vedou na pin \uv{Unused}.
+
+Pro vizualizaci a ladění se využívají volitelné parametry na pravé straně uzlu: \uv{Debug Trace} pro zobrazení trasování paprsků ve scéně, \uv{Debug Duration = 0.1} pro určení délky zobrazení, \uv{Debug Color} pro barvu paprsku a \uv{Debug Log} pro textový výpis do konzole.
+
+Celý tento postup zajišťuje, že agent nasbírá strukturovaná pozorování z okolního prostředí prostřednictvím senzorů a line trace, která se následně předávají do pozorovacího prostoru pro rozhodování a učení.
+
+Po obdržení pokynu z hlavního řetězce se spouští událost \uv{Apply Actions}, která převádí diskrétní akce agenta na pohyb ve světě. Nejprve se povolí pohybový tick pro komponentu \uv{Nevarok ML Character Input} prostřednictvím uzlu \uv{Enable Movement Tick}. Tento krok zajistí, že budou zpracovávány vstupy pohybu v aktuálním kroku.
+
+Následně se z \uv{Action Sample} získá hodnota diskrétní akce pomocí uzlu \uv{Get Discrete Value}. Tato hodnota určuje, kterou akci agent provede. Hodnota je poté předána do uzlu \uv{Add Discrete World Move Input}, který mapuje jednotlivé akce na konkrétní směry pohybu v herním světě:
+
+\begin{itemize}
+\item \uv{Left (1)} — pohyb vlevo,
+\item \uv{Forward Left (-1)} — diagonálně vlevo vpřed,
+\item \uv{Forward (2)} — vpřed,
+\item \uv{Forward Right (-1)} — diagonálně vpravo vpřed,
+\item \uv{Right (3)} — vpravo,
+\item \uv{Backward Right (-1)} — diagonálně vpravo vzad,
+\item \uv{Backward (4)} — vzad,
+\item \uv{Backward Left (-1)} — diagonálně vlevo vzad.
+\end{itemize}
+
+V tomto případě má povolen agent pouze pohyb vpřed, vzad či do stran, žádný diagonální pohyb.
+
+Volba \uv{Grounded Only} omezuje aplikaci pohybu pouze na situace, kdy je agent v kontaktu se zemí. Po zpracování akce je pomocí uzlu \uv{Force Movement Tick} vynuceno provedení pohybového snímku, aby se změna polohy okamžitě projevila v simulaci.
+
+Tento mechanismus umožňuje převést diskrétní rozhodnutí neuronové sítě na konkrétní pohyb agenta v prostředí a zajistit, že každá akce se projeví v rámci jednoho kroku simulace či tréninku.
+
+Po obdržení pokynu z hlavního řetězce se spouští událost \uv{Handle Rewards}, která vyhodnocuje odměny, penalizace a podmínky ukončení epizody agenta. Logika je rozdělena do několika částí, které se vyhodnocují sekvenčně.
+
+První část představuje časový postih za každý krok (\uv{Penalty "Time/Step"}). Pomocí uzlu \uv{Add Reward} je agent penalizován malou zápornou hodnotou, typicky –0.01, aby byl motivován dosáhnout cíle co nejrychleji a nezdržovat epizodu.
+
+Následuje kontrola podmínek pro ukončení epizody. První z nich je dosažení maximálního počtu kroků (\uv{Done condition "Time out"}). Počet aktuálních kroků (\uv{Steps}) se porovná s \uv{Max Steps}. Pokud je hodnota větší nebo rovna maxima, proměnná \uv{Done} se nastaví na pravdu a epizoda končí kvůli vypršení časového limitu.
+
+Další podmínkou je pád agenta mimo herní prostor (\uv{Done condition "Fell out"}). Detekuje se pomocí uzlu \uv{Is Triggered}, který je připojen k \uv{Abyss Trigger}. V případě pádu epizoda končí a je přidělena penalizace \uv{Penalty "Fell out"} = –1.0, aby se agent učil pádu vyhýbat.
+
+Poslední vyhodnocovanou podmínkou je dosažení cíle (\uv{Done condition "Target reached"}). Uzel \uv{Is Triggered}, připojený k \uv{Goal Trigger}, detekuje vstup do cílové oblasti. Pokud je cíl dosažen, proměnná \uv{Done} se nastaví a agent obdrží kladnou odměnu \uv{Bonus "Target reached"} = +1.0, což motivuje opakování úspěšného chování.
+
+Celá sekvence tedy kombinuje:
+
+\begin{itemize}
+
+\item drobnou penalizaci za zbytečné zdržování,
+
+\item výraznou penalizaci za neúspěch,
+
+\item vysokou odměnu za splnění cíle,
+
+\end{itemize}
+
+čímž vzniká základní reward shaping, který pomáhá neuronové síti efektivněji se učit správnému chování v prostředí.
+
+\newpage
+
+Součástí logiky prostředí jsou také pomocné funkce, které zajišťují správné resetování a ladění epizod.
+
+Funkce \uv{Reset Triggers} se stará o obnovu pozice cílového i propastného spouštěče na začátku každé epizody. Nejprve se vygeneruje náhodný vektor v rovině XY pomocí uzlu \uv{XY Random Vector}, který je následně normalizován uzlem \uv{Normalize}. Tento směr se vynásobí škálovacím faktorem (např. 500) a přičte se k aktuální pozici získané uzlem \uv{Get Actor Location}. Výsledkem je nová pozice spouštěče, která se nastaví uzlem \uv{Set Actor Location}. Poté se volají uzly \uv{Reset Trigger} pro cílový i propastný spouštěč (\uv{Goal Trigger} a \uv{Abyss Trigger}), čímž se zajistí jejich výchozí stav pro nadcházející epizodu.
+
+Funkce \uv{Reset Agent} obnoví agenta do pozice uložené v proměnné \uv{Agent Initial Location}. Tato pozice se aplikuje uzlem \uv{Set Actor Location} přímo na agenta a následně se pomocí uzlu \uv{Reset Input} vymažou všechny předchozí vstupy komponenty \uv{Nevarok ML Character Input}. Tím je zajištěno, že agent vždy zahajuje každou epizodu z výchozího stavu bez zbytkového pohybu.
+
+Funkce \uv{Debug} slouží k vizuálnímu i textovému ladění průběhu epizody. Využívá uzel \uv{Draw Debug String}, který zobrazuje nad agentem text s aktuální kumulovanou odměnou (\uv{Episode Reward}). Barva textu a délka zobrazení (\uv{Duration}) jsou nastavitelné, což umožňuje snadné a rychlé sledování chování agenta během simulace nebo tréninku.
+
+Společně tyto tři funkce — \uv{Reset Triggers}, \uv{Reset Agent} a \uv{Debug} — zajišťují spolehlivé resetování prostředí, vynulování stavu agenta a intuitivní vizualizaci průběhu epizody.
+
+\subsubsection{Agent, GoalTrigger, AbyssTrigger}
+Tyto Actors neobsahují žádný vlastní kód — slouží pouze k zajištění provozuschopnosti systému NevarokMLEnvironment.
+
+Agent disponuje několika sensory orientovanými do stran, aby získal informace o okolí. Dále obsahuje komponentu NevarokMLCharacterInput, která umožňuje jeho ovládání prostřednictvím NevarokMLEnvironment, rovněž tzv. obyčejný NevarokML senzor a senzor pro detekci zásahů.
+
+AbyssTrigger obsahuje obyčejný NevarokML senzor a trigger typu NevarokMLBoxTrigger, který při kontaktu s agentem ukončí probíhající učicí epizodu, jak bylo výše popsáno. Goal Trigger funguje obdobně, liší se však ve své specifické funkci a využití v rámci prostředí.
+
+\newpage
+
+\subsubsection{Funkčnost a vzhled modelu}
+Funkčnost tohoto modelu je téměř stoprocentní, což lze očekávat vzhledem ke zjednodušené povaze první verze, která se zabývala pouze pohybem agenta. Model sloužil čistě k ověření funkčnosti a k naučení práce s NevarokML. Práce s tímto systémem je netradiční: neusilujete o návrh vlastních vrstev či funkcí v síti — tyto části zajišťuje samotný NevarokML. Místo toho programujete chování v rámci funkcí CollectObservations, ApplyActions, HandleRewards atd., a NevarokML se pokusí model automaticky trénovat a používat na základě zadané logiky.
+
+\begin{figure}[ht]
+\includegraphics[scale=0.6]{3-1.png} 
+\centering
+\caption{Vzhled modelu z první verze agenta}
+\label{obrModel1} 
+\end{figure}
+
+Pro představu lze v obrázku \ref{obrModel1} vidět exportovaný ONNX model první verze. Model reprezentuje jednoduchou neuronovou síť typu MLP se dvěma skrytými vrstvami a převážně actor–critic architekturou. Vstupní pole \uv{obs} má tvar $1 \times 1 \times 3$, které je následně převedeno uzlem \uv{Cast} a zploštěno (Flatten) na trojici hodnot představujících stavové pozorování.
+
+Síť se dále větví do dvou částí:
+
+\begin{enumerate}
+	\item Policy head (levá větev):
+	\begin{itemize}
+		\item obsahuje dvě plně propojené vrstvy (\uv{Gemm} $3 \to 64$ a $64 \to 64$) s aktivační funkcí \uv{Tanh}, následované výstupní vrstvou ($64 \to 5$) pro pět diskrétních akcí. Výstup je dále zpracován pomocí \uv{ReduceLogSumExp}, normalizován funkcí \uv{Softmax} a převeden pomocí \uv{ArgMax}, který vrací index akce s nejvyšší pravděpodobností.
+	\end{itemize} 
+	\item Value head (pravá větev):
+	\begin{itemize}
+		\item má stejnou strukturu skrytých vrstev ($3 \to 64$ a $64 \to 64$ s \uv{Tanh}) a končí výstupní vrstvou ($64 \to 1$), která poskytuje skalární odhad hodnoty stavu (baseline pro algoritmus PPO).
+	\end{itemize} 
+\end{enumerate}
+
+V pravé části grafu jsou také podpůrné uzly (\uv{Unsqueeze}, \uv{Shape}, \uv{Slice}, \uv{GatherElements}), které slouží k úpravě tvarů tenzorů a indexování výstupů při inferenci napříč více instancemi prostředí.
+
+\subsection{Druhá verze agenta}
+
+
+\subsection{Poslední verze agenta}
+
+
+\subsection{Porovnání všech verzí}

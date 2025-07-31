@@ -22,7 +22,7 @@
 %\usepackage{epsfig} % balíčky pro vkládání grafických souborů typu EPSs
 \usepackage{float} % rozšířené možnosti umístění obrázků
 
-\graphicspath{{./Kapitoly/1/Obrazky/} {./Kapitoly/2/Obrazky/} {./Kapitoly/3/Obrazky/} {./Kapitoly/4/Obrazky/}}
+\graphicspath{{./Kapitoly/1/Obrazky/} {./Kapitoly/2/Obrazky/} {./Kapitoly/3/Obrazky/} {./Kapitoly/PrilohaA/Obrazky/} {./Kapitoly/PrilohaB/Obrazky/}}
 
 %\usepackage{caption} % pro popisky obrázků, tabulek atd.
 
@@ -86,8 +86,8 @@
 
 \newcommand{\klicova}{hry, umělá inteligence, adaptace, autonomní agent, strojové učení}   % zde NAPIŠTE česky max. 5 klíčových slov
 \newcommand{\keyword}{games, artificial intelligence, adaptation, autonomous agent, machine learning}       % zde NAPIŠTE anglicky max. 5 klíčových slov (přeložte z češtiny)
-\newcommand{\abstrCZ}{}    % zde NAPIŠTE abstrakt v češtině (cca 7 vět, min. 80 slov)
-\newcommand{\abstrEN}{} % zde NAPIŠTE abstrakt v angličtině
+\newcommand{\abstrCZ}{Tato diplomová práce se zabývá algoritmy strojového učení pro adaptaci autonomního agenta na chování uživatele ve 3D akční hře. Hlavním cílem je vytvořit jednoduchého autonomního agenta, který dokáže přizpůsobit své chování i vybavení protihráči. Práce představuje existující herní agenty, jako jsou AlphaStar, OpenAI Five a Voyager, a popisuje některé algoritmy a techniky používané při jejich vývoji – například Proximal Policy Optimization nebo Self-Play. Dále se zaměřuje na použité technologie, například Unreal Engine či NevarokML, a na samotný návrh, který je s jejich pomocí realizován. Závěrem jsou výsledky experimentu vyhodnoceny.}    % zde NAPIŠTE abstrakt v češtině (cca 7 vět, min. 80 slov)
+\newcommand{\abstrEN}{This thesis focuses on machine learning algorithms for adapting an autonomous agent to user behavior in a 3D action game. The main objective is to create a simple autonomous agent capable of adjusting its behavior and equipment in response to the player. The work introduces existing game agents such as AlphaStar, OpenAI Five, and Voyager, and describes some of the algorithms and techniques used in their development – for example, Proximal Policy Optimization and Self-Play. It then focuses on the technologies used, such as Unreal Engine and NevarokML, and the design that is implemented using them. Finally, the results of the experiment are evaluated.} % zde NAPIŠTE abstrakt v angličtině
 
 \newcommand{\podekovani}{Děkuji Ing. Josefu Novému, Ph.D., za vedení mé diplomové práce a za případnou pomoc při její tvorbě.} % NAPIŠTE poděkování, např. svému vedoucímu:
 % Děkuji Ing. Eleonoře Krtečkové, Ph.D. za vedení mé bakalářské práce a za podnětné návrhy, které ji obohatily.
@@ -240,21 +240,17 @@
 
 \input{./Kapitoly/Uvod/Uvod.tex}
 
-\chapter{Samoučící se AI ve hrách}
+\chapter{AI agenti ve hrách a jejich algoritmy a techniky}
 
 \input{./Kapitoly/1/1.tex}
 
-\chapter{Návrh, implementace a testování hry a autonomního agenta}
+\chapter{Použité technologie a návrh hry}
 
 \input{./Kapitoly/2/2.tex}
 
-\chapter{Experimentování s modifikacemi agenta}
+\chapter{Implementace hry a agenta, vylepšení jeho algoritmu a porovnání verzí}
 
 \input{./Kapitoly/3/3.tex}
-
-\chapter{Vyhodnocení různých implementací agenta}
-
-\input{./Kapitoly/4/4.tex}
 
 \chapter*{Závěr} % SEM NESAHEJTE!
 \addcontentsline{toc}{chapter}{Závěr} % SEM NESAHEJTE!
@@ -282,11 +278,13 @@
 
 %%%%%%%%%%%% Příloha A (tj. 1. kapitola v rámci příloh) %%%%%%%%%%%%
 
-\chapter{Název první přílohy}
+\chapter{Jak zprovoznit program}
 
-Zde napište text první přílohy nebo jej vložte, např.: \texttt{\textbackslash input\{priloha\_A.tex\}}.
+\input{./Kapitoly/PrilohaA/PrilohaA.tex}
 
-%\input{priloha_A.tex} % text vkládán ze souboru, kde je i příkaz \chapter{...}
+\chapter{Jak opravit problém s programem}
+
+\input{./Kapitoly/PrilohaB/PrilohaB.tex}
 
 
 \end{document} % SEM NESAHEJTE! Konec.
