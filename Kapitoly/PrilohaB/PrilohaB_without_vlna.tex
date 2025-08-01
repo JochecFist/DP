@@ -1,0 +1,45 @@
+\begin{enumerate}
+	\item Pokud se vám zdá, že agent za vámi nechodí a odchází jedním směrem pryč, nebo se na obrazovce zobrazí chybová hláška zobrazená na obrázku \ref{obrB1}, tato příloha vám poradí, jak danou chybu opravit.
+	
+\begin{figure}[ht]
+	\includegraphics[scale=1.1]{B-1.png} 
+	\centering
+	\label{obrB1} 
+\end{figure}
+	
+	\item Tato chyba je bohužel známým problémem pluginu NevarokML, ale naštěstí má jednoduché řešení.
+	\item Po otevření projektu klikněte ve spodním levém rohu na tlačítko \uv{Content Drawer} a přejděte do složky \texttt{All/Content/NPC/AI}, jak je znázorněno na obrázku \ref{obrB2}. Zde otevřete \uv{Blueprint} s názvem \texttt{NPC\_Enviroment}.
+	
+\begin{figure}[ht]
+	\includegraphics[scale=0.45]{B-2.png} 
+	\centering
+	\label{obrB2} 
+\end{figure}
+
+\newpage
+
+	\item Po otevření \uv{Blueprintu} byste měli na levé straně vidět sekci \uv{Functions}, kde otevřete funkci \uv{CollectObservations}, jak je znázorněno na obrázku \ref{obrB3}. Pokud tuto sekci nevidíte, klikněte nahoře na tlačítko \uv{Window} a v části \uv{Graph Editor} zaškrtněte položku \uv{My Blueprint}.
+	
+\begin{figure}[ht]
+	\includegraphics[scale=1.1]{B-3.png} 
+	\centering
+	\label{obrB3} 
+\end{figure}
+
+	\item Ve funkci \uv{CollectObservations} se nachází uzel \uv{Set Index Counter} a pět uzlů s názvem \uv{Index Plus Plus}. Pokud se agent nepohybuje nebo se zobrazila chyba z obrázku \ref{obrB1}, je pravděpodobné, že tyto uzly vypadají tak, jak je znázorněno na obrázku \ref{obrB4}. V uzlu \uv{Set Index Counter} je třeba nahradit dvě červené záporné jedničky nulami. Ve všech uzlech \uv{Index Plus Plus} pak nahraďte záporné jedničky tak, že do prvního políčka zadáte nulu a do druhého jedničku, jak je znázorněno na obrázku \ref{obrB5}.
+	
+	\begin{figure}[ht]
+	\includegraphics[scale=1.0]{B-4.png} 
+	\centering
+	\label{obrB4} 
+\end{figure}
+
+\begin{figure}[ht]
+	\includegraphics[scale=1.03]{B-5.png} 
+	\centering
+	\label{obrB5} 
+\end{figure}
+
+	\item Tímto je agent opraven a měl by nyní fungovat správně.
+
+\end{enumerate}
