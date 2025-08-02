@@ -1,49 +1,49 @@
 \babel@toc {czech}{}\relax 
 \contentsline {chapter}{Úvod}{9}{chapter*.2}%
 \contentsline {chapter}{\numberline {1}AI agenti ve hrách a jejich algoritmy a techniky}{11}{chapter.1}%
-\contentsline {section}{\numberline {1.1}AI agenti ve hrách}{11}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}AlphaStar}{11}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}OpenAI Five}{14}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}Voyager}{16}{subsection.1.1.3}%
-\contentsline {section}{\numberline {1.2}Některé z~algoritmů a~technik používané pro agenty}{18}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Proximal Policy Optimization (PPO)}{18}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Deep Q-Network}{21}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Self-Play}{23}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {1.2.4}Population Based Training}{25}{subsection.1.2.4}%
-\contentsline {chapter}{\numberline {2}Použité technologie a návrh hry}{27}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Použité technologie}{27}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Unreal Engine}{27}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Visual Studio}{29}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}NevarokML}{30}{subsection.2.1.3}%
-\contentsline {section}{\numberline {2.2}Návrh hry}{32}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Návrh prostředí hry}{32}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Návrh agenta}{33}{subsection.2.2.2}%
-\contentsline {chapter}{\numberline {3}Implementace hry a agenta, vylepšení jeho algoritmu a porovnání verzí}{35}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Základní logika hry}{35}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Hráčská postava}{35}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Zbraňový systém}{36}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Logika řízení herních kol}{37}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Systém sbírání předmětů}{38}{subsection.3.1.4}%
-\contentsline {subsection}{\numberline {3.1.5}Krabice s~vybavením}{38}{subsection.3.1.5}%
-\contentsline {subsection}{\numberline {3.1.6}Herní rozhraní (HUD)}{39}{subsection.3.1.6}%
-\contentsline {section}{\numberline {3.2}Autonomní agent}{40}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}První verze agenta}{40}{subsection.3.2.1}%
-\contentsline {subsubsection}{Trénovací mapa}{40}{section*.3}%
-\contentsline {subsubsection}{Nevarok trenér}{40}{section*.4}%
-\contentsline {subsubsection}{Nevarok prostředí}{41}{section*.5}%
-\contentsline {subsubsection}{Agent, GoalTrigger a~AbyssTrigger}{45}{section*.6}%
-\contentsline {subsubsection}{Spolehlivost a~vzhled modelu}{46}{section*.7}%
-\contentsline {subsection}{\numberline {3.2.2}Druhá verze agenta}{48}{subsection.3.2.2}%
-\contentsline {subsubsection}{Změny v~trénovací mapě}{48}{section*.8}%
-\contentsline {subsubsection}{Změny v~trenérovi}{48}{section*.9}%
-\contentsline {subsubsection}{Změny v~prostředí}{49}{section*.10}%
-\contentsline {subsubsection}{Spolehlivost modelu}{52}{section*.11}%
-\contentsline {subsection}{\numberline {3.2.3}Finální verze agenta}{53}{subsection.3.2.3}%
-\contentsline {subsubsection}{Modifikace prostředí}{53}{section*.12}%
-\contentsline {subsubsection}{Spolehlivost a~vzhled finálního modelu}{54}{section*.13}%
-\contentsline {subsection}{\numberline {3.2.4}Shrnutí všech verzí}{57}{subsection.3.2.4}%
-\contentsline {chapter}{Závěr}{59}{chapter*.14}%
-\contentsline {chapter}{Literatura}{60}{chapter*.14}%
-\contentsline {chapter}{Přílohy}{64}{chapter*.15}%
-\contentsline {chapter}{\numberline {A}Jak zprovoznit program}{65}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Jak opravit problém s programem}{67}{appendix.B}%
+\contentsline {section}{\numberline {1.1}Strojové učení a~algoritmy posilovaného učení}{11}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Proximal Policy Optimization (PPO)}{12}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Deep Q-Network}{15}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Self-Play}{17}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Population Based Training}{19}{subsection.1.1.4}%
+\contentsline {section}{\numberline {1.2}AI agenti ve hrách}{21}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}AlphaStar}{21}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}OpenAI Five}{24}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Voyager}{26}{subsection.1.2.3}%
+\contentsline {chapter}{\numberline {2}Použité technologie a návrh hry}{29}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Použité technologie}{29}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Unreal Engine}{29}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Visual Studio}{31}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}NevarokML}{32}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Návrh hry}{34}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Návrh prostředí hry}{34}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Návrh agenta}{35}{subsection.2.2.2}%
+\contentsline {chapter}{\numberline {3}Implementace hry a agenta, vylepšení jeho algoritmu a porovnání verzí}{37}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Základní logika hry}{37}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Hráčská postava}{37}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Zbraňový systém}{39}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Logika řízení herních kol}{40}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Systém sbírání předmětů}{40}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Krabice s~vybavením}{41}{subsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.1.6}Herní rozhraní (HUD)}{41}{subsection.3.1.6}%
+\contentsline {section}{\numberline {3.2}Autonomní agent}{42}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}První verze agenta}{42}{subsection.3.2.1}%
+\contentsline {subsubsection}{Trénovací mapa}{42}{section*.3}%
+\contentsline {subsubsection}{Nevarok trenér}{42}{section*.4}%
+\contentsline {subsubsection}{Nevarok prostředí}{44}{section*.5}%
+\contentsline {subsubsection}{Agent, GoalTrigger a~AbyssTrigger}{47}{section*.6}%
+\contentsline {subsubsection}{Model první verze}{48}{section*.7}%
+\contentsline {subsection}{\numberline {3.2.2}Druhá verze agenta}{51}{subsection.3.2.2}%
+\contentsline {subsubsection}{Změny v~trénovací mapě}{51}{section*.8}%
+\contentsline {subsubsection}{Změny v~trenérovi}{51}{section*.9}%
+\contentsline {subsubsection}{Změny v~prostředí}{51}{section*.10}%
+\contentsline {subsubsection}{Model druhé verze}{54}{section*.11}%
+\contentsline {subsection}{\numberline {3.2.3}Finální verze agenta}{56}{subsection.3.2.3}%
+\contentsline {subsubsection}{Modifikace prostředí}{56}{section*.12}%
+\contentsline {subsubsection}{Finální verze modelu}{57}{section*.13}%
+\contentsline {subsection}{\numberline {3.2.4}Shrnutí všech verzí}{61}{subsection.3.2.4}%
+\contentsline {chapter}{Závěr}{63}{chapter*.14}%
+\contentsline {chapter}{Literatura}{64}{chapter*.14}%
+\contentsline {chapter}{Přílohy}{68}{chapter*.15}%
+\contentsline {chapter}{\numberline {A}Jak zprovoznit program}{69}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Jak opravit problém s programem}{71}{appendix.B}%

@@ -1,105 +1,20 @@
-\section{AI agenti ve hrách}
-\subsection{AlphaStar}
-AlphaStar\cite{Vinyalsbr} je agent umělé inteligence (AI), který byl vyvinut společností DeepMind pro hraní StarCraft II\cite{WikiSC}, známé a dynamické online strategie v reálném čase od společnosti Blizzard Entertainment. Projekt byl poprvé představen veřejnosti v lednu 2019. Již v srpnu téhož roku AlphaStar dosáhl hodnosti \uv{Grandmaster}, což představovalo významný milník nejen v oblasti AI zaměřené na videohry, ale do jisté míry i pro celý obor vývoje inteligentních systémů.
+\section{Strojové učení a algoritmy posilovaného učení}
+Strojové učení je oblast umělé inteligence zaměřená na vývoj algoritmů, které umožňují systémům zlepšovat své chování na základě dat bez nutnosti explicitního naprogramování konkrétních pravidel. Tyto algoritmy se učí rozpoznávat vzory a rozhodovací strategie přímo z datových vstupů a adaptují se podle získaných zkušeností.
 
-Hry navržené pro lidské hráče slouží jako cenná měřítka pokroku v oblasti umělé inteligence, jelikož nabízejí komplexní a dynamická prostředí s externí validitou. Zatímco dřívější milníky, jako Deep Blue\cite{WikiDB} od IBM nebo AlphaGo od DeepMind\cite{AlphaGo}\cite{Sutton2018}, ukázaly schopnosti AI v tahových hrách s úplnou informací, StarCraft přináší nové výzvy díky hraní v reálném čase, částečné pozorovatelnosti, absenci jediné optimální strategie a rozsáhlému prostoru možných akcí. Přesto je mezi výzkumníky považován za řešitelný s využitím moderních technologií, a to díky svému diskrétnímu charakteru, známým pravidlům a omezenému počtu objektů, což z něj činí ideální testovací prostředí pro agenty, jako je AlphaStar.
+Využití strojového učení je obzvláště důležité v případech, kdy nelze snadno vytvořit ručně definovaná pravidla — například při řízení autonomních agentů v nelineárním a stochastickém prostředí.
 
-DeepMind Technologies byla založena ve Spojeném království v roce 2010. Již v roce 2011 spoluzakladatel Demis Hassabis označil StarCraft za \uv{další krok vpřed} po hrách jako Go. Poté, co DeepMind předvedl schopnosti svých agentů na základě posilovaného učení (Reinforcement Learning), kteří překonali lidské hráče v klasických hrách na Atari 2600, byla společnost v roce 2014 odkoupena firmou Google, což otevřelo cestu k dalším ambiciózním projektům. Jedním z nich byl právě vývoj AI pro StarCraft II, o který zájem postupně rostl.
+Existují čtyři hlavní přístupy ke strojovému učení:
+\begin{enumerate}
+\item \textbf{Učení s učitelem (Supervised Learning)} – modely se učí na základě dat s předem známým výstupem.
+\item \textbf{Učení bez učitele (Unsupervised Learning)} – cílem je nalézt strukturu nebo vzory v datech bez označených výstupů.
+\item \textbf{Částečně řízené učení (Semi-Supervised Learning)} – kombinuje malé množství označených dat s velkým množstvím neoznačených.
+\item \textbf{Posilované učení (Reinforcement Learning)} – agent se učí prostřednictvím interakcí s prostředím a získává odměny za dosažení cílů.
+\end{enumerate}
 
-\newpage
-
-Počítačový vědec Zachary Mason v roce 2015 předpověděl, že výzkum DeepMind by mohl během pěti až deseti let vést k průlomu právě v této hře. Myšlenka získala větší váhu v roce 2016, kdy AlphaGo porazil světového šampiona v Go, Lee Sedola. Po tomto úspěchu Hassabis veřejně projevil zájem vytvořit autonomního agenta pro StarCraft, přičemž zdůraznil jeho strategickou hloubku, částečnou pozorovatelnost, skryté informace a vlastnosti, které ho činí ještě náročnějším než Go.
-
-Formální spolupráce mezi DeepMind a Blizzardem byla oznámena na BlizzConu v listopadu 2016, spolu s plánem na vydání otevřeného vývojového prostředí pro boty na začátku roku 2017. Do poloviny roku 2017 už DeepMind začal zpracovávat herní data ze StarCraft II. V srpnu téhož roku pak obě společnosti uvolnily nástroje pro vývoj botů a soubor 65000 záznamů z profesionálních zápasů. Odborníci tehdy odhadovali, že potrvá ještě několik let, než AI porazí špičkového hráče. Tyto předpovědi se však ukázaly jako příliš opatrné, protože v prosinci 2018 porazil agent od DeepMind profesionálního hráče Grzegorze \uv{MaNu} Komincze poměrem 5:0. V lednu 2019 byl tento agent oficiálně představen veřejnosti pod jménem \uv{AlphaStar}. Navzdory tomuto úspěchu se však objevila kritika.
-
-AlphaStar měl výhodu v podobě přímé komunikace s hrou přes API, což mu umožňovalo provádět akce s chirurgickou přesností. Dále měl globální přehled o mapě místo omezení herní kamerou a mohl v rámci daného časového okna rozložit akce nerovnoměrně, čímž byl schopen vyvinout extrémní tlak v klíčových momentech. DeepMind na tyto připomínky reagoval přeškolením AlphaStar pod realističtějšími omezeními, která více odpovídala lidským možnostem. V následném zápase proti MaNově už tato verze prohrála.
-
-Od července 2019 začal upravený AlphaStar anonymně soutěžit na veřejném evropském žebříčku v režimu 1v1, kde se utkával s hráči, kteří s tímto experimentem souhlasili. Na konci srpna 2019, jak již bylo zmíněno, dosáhl AlphaStar hodnosti \uv{Grandmaster}, čímž se zařadil mezi nejlepších 0{,}2\% lidských hráčů a potvrdil tak významný pokrok v oblasti autonomních agentů pro komplexní hry v reálném čase.
-
-Zatímco zpětná propagace (Backpropagation, BP) je stále hlavní metodou trénování neuronových sítí, AlphaStar využívá pokročilejší přístup zvaný Population-Based Training (PBT)\cite{Jaderberg2017}. Tento přístup kombinuje výhody evolučních algoritmů (EAs), které slouží k průzkumu globálního prostoru řešení, s lokální optimalizací pomocí BP. AlphaStar konkrétně používá Lamarckovskou evoluci, kde úspěšné sítě předávají své parametry a upravené hyperparametry méně výkonným sítím.
-
-Pro zvládnutí vysoké výpočetní náročnosti je PBT navržen jako asynchronní a distribuovaný systém, což umožňuje paralelní trénink agentů bez nutnosti synchronizace. Na rozdíl od klasických generačních evolučních algoritmů využívá PBT tzv. steady-state přístup, kdy jsou agenti průběžně aktualizováni bez zastavení procesu. Tento mechanismus zvyšuje efektivitu, udržuje diverzitu a umožňuje průběžné přizpůsobování hyperparametrů—což je klíčové v prostředích s proměnlivým tréninkovým chováním, jako je hluboké posilované učení.
+Z hlediska této práce je nejdůležitější čtvrtý přístup – posilované učení (Reinforcement Learning), které umožňuje agentům učit se strategie řízení chování prostřednictvím zpětné vazby získané z prostředí. Následující kapitoly se proto zaměřují právě na RL a konkrétní algoritmy, které tento přístup využívají.
 
 \newpage
 
-AlphaStar dále využívá kompetitivní koevoluci, při níž se agenti neučí pouze proti svým předchozím verzím, ale proti celé populaci různorodých protivníků. Tento přístup poskytuje přirozenou tréninkovou křivku a zároveň zvyšuje robustnost strategií, jelikož agent musí zvládnout široké spektrum herních stylů. Výběr soupeřů se provádí na základě podobnosti výkonnosti (např. Elo skóre), což umožňuje plynulý rozvoj bez stagnace.
-
-Proces učení a rozhodování AlphaStaru lze ilustrovat na konkrétním příkladu herní situace, kde agent zpracovává aktuální stav mapy, aktivuje neuronové sítě a vyhodnocuje dostupné možnosti. Vizualizace tohoto procesu je znázorněna na obrázku \ref{obrAlphaStar}.
-
-\begin{figure}[ht]
-\includegraphics[scale=0.41]{1-1.jpg}
-\centering
-\caption{Vizualizace rozhodovacího procesu AlphaStaru během zápasu proti hráči. Systém zpracovává syrová pozorování, aktivuje neuronové sítě, vyhodnocuje potenciální akce a předpovídá výsledky zápasu.\cite{AlphaStar2019}}
-\label{obrAlphaStar}
-\end{figure}
-
-Protože StarCraft II nemá jednu univerzální vítěznou strategii, AlphaStar neusiluje o vytvoření jediného dokonalého agenta. Místo toho udržuje populaci různorodých strategií, vybraných na základě Nashovy distribuce—tedy takových, které jsou vůči sobě navzájem nejméně zranitelné.
-
-Tento přístup odpovídá principům kvalitní diverzity (Quality Diversity – QD). Místo hledání jediné nejlepší varianty QD algoritmy podporují vznik více kvalitních, ale odlišných řešení. V AlphaStaru jsou strategie určovány pomocí herně specifických charakteristik—například preferencí pro určité jednotky nebo schopností porazit konkrétní protivníky. Tyto charakteristiky se navíc během tréninku dynamicky upravují, čímž vzniká rozmanitější a odolnější sada řešení.
-
-Díky tomuto přístupu AlphaStar operuje s portfoliem strategií, které jsou přizpůsobivé, méně náchylné k porážce a lépe si poradí s různorodostí lidských protivníků.
-
-\subsection{OpenAI Five}
-OpenAI Five\cite{OpenAIFive} je agent umělé inteligence určený pro hraní týmové videohry Dota 2, ve které proti sobě nastupují dvě pětičlenná družstva. Poprvé se veřejnosti představil v roce 2017 při živé demonstraci, během níž porazil profesionálního hráče Dendiho v duelu jeden na jednoho. V následujícím roce systém pokročil natolik, že zvládl ovládat celý tým pěti agentů a porážet i profesionální lidské týmy.
-
-Společnost OpenAI si zvolila Dota 2\cite{Dota2} kvůli její složitosti, nepředvídatelnosti a plynulému průběhu, který lépe odráží podmínky skutečného světa. Díky tomu byla hra vhodná pro vývoj univerzálnějších systémů pro řešení komplexních problémů. Algoritmy a kód vytvořené pro OpenAI Five byly později využity také v dalších projektech, například pro ovládání robotické ruky pomocí neuronové sítě. OpenAI Five bývá často zmiňován vedle jiných přelomových AI systémů, které porazily lidi v konkrétních úlohách—například AlphaStar ve StarCraft II, AlphaGo ve hře Go nebo Deep Blue v šachu.
-
-Vývoj algoritmů, na nichž je OpenAI Five postaven, začal v listopadu 2016. OpenAI si zvolila Dota 2 jako testovací prostředí mimo jiné kvůli popularitě hry na platformách jako Twitch, nativní podpoře Linuxu a dostupnosti aplikačního rozhraní (API).
-
-První významná veřejná demonstrace proběhla v srpnu 2017 na turnaji The International, což je každoroční vrcholná událost ve světě Dota 2. Během této akce porazil raný model bota profesionálního hráče Dendiho v duelu jeden na jednoho. Podle technického ředitele OpenAI Grega Brockmana se systém učil metodou posilovaného učení (reinforcement learning), přičemž si své schopnosti zlepšoval hraním sám proti sobě po dobu dvou týdnů. V tomto režimu agent získával odměny za klíčové akce ve hře, jako je zabíjení nepřátel nebo ničení struktur.
-
-V červnu 2018 už byl systém rozšířen do plnohodnotného pětičlenného týmu, který dokázal porážet amatérské a poloprofesionální lidské soupeře. Na The International 2018 se OpenAI Five zúčastnil dvou exhibičních zápasů proti týmům na profesionální úrovni—proti brazilskému paiN Gaming a proti výběru bývalých elitních čínských hráčů. Přestože boti obě utkání prohráli, zkušenost byla pro vývojový tým cenná, protože umožnila další ladění strategií a rozhodovacích mechanismů.
-
-Závěrečná veřejná prezentace projektu proběhla v dubnu 2019, kdy OpenAI Five porazil v sérii na dvě vítězství tým OG, tehdejší mistry světa z turnaje The International 2018. Ve stejném měsíci proběhla i čtyřdenní online událost otevřená veřejnosti, během níž se systém zúčastnil více než 42\,000 zápasů—z nichž vyhrál přibližně 99{,}4\%.
-
-OpenAI Five je založen na rámci hlubokého posilovaného učení, jehož jádrem je metoda Proximal Policy Optimization (PPO)\cite{PPOOpenAI}\cite{Schulman2017}—gradientní algoritmus politiky, který vyvažuje stabilitu učení, jednoduchost implementace a efektivitu využití dat. PPO představuje vylepšení oproti dřívějším metodám, jako jsou běžné policy gradients nebo Trust Region Policy Optimization (TRPO), a to díky zavedení tzv. \uv{clipped surrogate} objektivní funkce, která zabraňuje příliš razantním aktualizacím politiky a zajišťuje konzistentní pokrok při tréninku.
-
-Každý agent je reprezentován neuronovou sítí s jednou vrstvou typu LSTM o 4096 jednotkách, která zpracovává informace o aktuálním stavu hry pomocí API poskytovaného vývojáři Dota 2. Tento stav je zakódován jako vektor přibližně 20\,000 číselných hodnot, které popisují prostředí z pohledu daného agenta.
-
-Rozhodování probíhá prostřednictvím několika nezávislých akčních hlav, z nichž každá odpovídá za jiný aspekt chování—například volbu konkrétní akce, její umístění na prostorové mřížce nebo zpoždění provedení o určitý počet ticků. Tyto hlavy vytvářejí osm výstupních hodnot pro každé rozhodnutí, což umožňuje širokou škálu koordinovaných akcí bez nutnosti využívat lidská trénovací data.
-
-Trénink probíhal na interní infrastruktuře Rapid, která umožňuje rozsáhlý paralelní výpočet a koordinaci tisíců strojů. Díky tomu mohl OpenAI Five provádět trénink skrze masivní self-play. Do roku 2018 systém odehrál ekvivalent více než 180 let herního času, a to na 256 GPU a 128\,000 CPU jádrech. Schéma tohoto výpočetního procesu je znázorněno na obrázku \ref{obrOpenAIFive}.
-
-\begin{figure}[ht]
-\includegraphics[scale=0.37]{1-2.png}
-\centering
-\caption{Architektura tréninkového systému OpenAI Five. Rollout workeři generují data ze zápasů, která jsou následně zpracována optimalizačním modulem využívajícím metodu PPO. Výsledné aktualizace jsou sdíleny napříč instancemi a evaluovány ve specifických herních prostředích.\cite{Five2018}}
-\label{obrOpenAIFive}
-\end{figure}
-
-Díky své robustnosti, efektivitě a jednoduché integraci do distribuovaných systémů byl PPO mimořádně vhodný pro tuto aplikaci. Umožnil rozsáhlý paralelní trénink bez přeučení, přičemž jeho kompatibilita se sdílenými politikami, hodnotovými funkcemi a rekurentními vrstvami typu LSTM přispěla k jeho úspěchu v komplexním prostředí, jakým je Dota 2.
-
-\subsection{Voyager}
-Voyager\cite{Wangbr} je agent umělé inteligence, který propojuje výhody velkých jazykových modelů (LLM) se schopností samostatného učení ve složitých, otevřených prostředích. Na rozdíl od předchozích přístupů, které spoléhají na ručně vytvořené cíle, odměnové funkce nebo specificky upravená prostředí, Voyager operuje v původní verzi hry Minecraft, a to bez jakékoli lidské intervence nebo ručního ladění. Jedná se tak o příklad tzv. ztělesněného agenta (embodied agent), který nejen interpretuje herní svět, ale v něm i fyzicky jedná, sbírá zkušenosti a postupně se zlepšuje.
-
-Výběr hry Minecraft nebyl náhodný. Jde o jedno z mála prostředí, které kombinuje otevřenost, dlouhodobé cíle, nutnost plánování, nelineární obtížnost a procedurálně generované světy. Neexistuje zde žádný \uv{konec hry}, a úspěch se nedá snadno kvantifikovat. To činí z Minecraftu ideální testovací prostředí pro dlouhodobé učení bez explicitní odměny. Agent musí samostatně odhalit základní principy světa – od těžby a výroby nástrojů, přes přežití v noci, až po složité postupy jako farmaření nebo výroba lektvarů.
-
-Aby toho dosáhl, Voyager využívá kombinaci tří klíčových mechanismů, které společně umožňují otevřené, samostatné a škálovatelné učení. Prvním z nich je automatická tvorba kurikula. Agent si sám generuje posloupnost úkolů pomocí velkého jazykového modelu GPT-4\cite{ChatGPT}, přičemž tyto úkoly jsou vždy odvozeny ze současného stavu světa, inventáře, vybavení, aktuální lokace a historie předchozích úspěchů i selhání. Místo toho, aby agent postupoval podle předem definovaného scénáře, sám si formuluje dosažitelné, smysluplné cíle – například \uv{vytvoř kamenný krumpáč}, \uv{postav pec}, nebo \uv{zabij zombíka}.
-
-Tyto úkoly nejsou náhodné. GPT-4 při jejich generování zohledňuje různé faktory, jako je biome, čas dne, přítomnost entit v okolí nebo například to, jaké úkoly již byly splněny. Díky tomu agent postupuje přirozeným tempem, které reflektuje jeho aktuální schopnosti a možnosti. Tento mechanismus tak vytváří dynamické, adaptivní kurikulum, které maximalizuje diverzitu dovedností bez nutnosti ručně nastavovat, co má být cílem.
-
-Každý úkol, který se agentovi podaří splnit, je následně převeden do podoby samostatného programu napsaného v JavaScriptu. Tyto programy představují \uv{dovednosti} (skills), které Voyager ukládá do tzv. knihovny dovedností. Tato knihovna není statická – každá nově naučená dovednost je indexována vektorově pomocí embeddingu popisu, který vytvoří jazykový model GPT-3.5\cite{ChatGPT}. Tím vzniká databáze, ve které může agent v budoucnu vyhledávat relevantní programy, jež mu pomohou vyřešit nové úkoly.
-
-Dovednosti jsou přitom konstruovány hierarchicky. Složitější akce (např. \uv{vytvoř železný krumpáč}) využívají jednodušší dovednosti jako \uv{vypal železnou rudu}, která sama závisí na dovednosti \uv{těž železnou rudu} a \uv{vyrob pec}. Tento kompoziční přístup umožňuje agentovi stavět na tom, co se již naučil, a minimalizuje nutnost začínat stále od nuly. Zároveň se tím eliminuje problém tzv. katastrofického zapomínání, který je běžný u běžných metod posilovaného učení.
-
-\newpage
-
-V rámci samotného učení Voyager nevyužívá klasický přístup typu \uv{pozorování → akce}, ale spoléhá na iterativní promptování. Při řešení úkolu agent nejprve navrhne program, který by měl daný úkol vyřešit. Tento program se následně provede v prostředí a výstup – včetně chyb a výjimek – je znovu předložen GPT-4. Na základě této zpětné vazby model prompt upraví, program opraví a zkusí jej znovu. Tento proces se opakuje, dokud tzv. sebe-verifikátor, opět založený na GPT-4, nevyhodnotí, že byl úkol úspěšně dokončen.
-
-Iterativní přístup se ukázal jako klíčový zejména v případech, kdy agent narazí na nekonzistence mezi plánem a realitou. Například pokud program selže s chybou typu \uv{I cannot make a stick because I need: 2 more planks}, systém je schopen automaticky provést korekci a aktualizovat plán. Pokud se problém opakuje (čtyři po sobě jdoucí neúspěšné pokusy), agent daný úkol opustí a vygeneruje si nový.
-
-Ve srovnání s předchozími přístupy, jako jsou ReAct, Reflexion nebo AutoGPT, dosáhl Voyager výrazně lepších výsledků. V prostředí MineDojo získal 3{,}3× více unikátních předmětů, prozkoumal svět do větší vzdálenosti (2{,}3× delší trasy) a dosáhl technologického pokroku až 15{,}3× rychleji. Navíc jako jediný agent zvládl tzv. zero-shot úlohy, kde byl přenesen do nového světa s novým úkolem, který dosud neřešil – např. vytvoření dalekohledu nebo nalezení diamantů.
-
-Díky kombinaci autonomního generování úkolů, kompoziční knihovny dovedností a schopnosti iterativní korekce chyb se Voyager přibližuje představě agenta, který je schopen dlouhodobého, otevřeného učení bez potřeby lidského zásahu. Schéma na obrázku~\ref{obrVoyager} přehledně znázorňuje propojení těchto tří klíčových komponent. V prostředí, které není explicitně navrženo pro AI trénink, vykazuje chování, které je zároveň zvídavé, adaptivní i efektivní – a představuje tak významný krok k obecné umělé inteligenci v otevřeném světě.
-
-\begin{figure}[ht]
-\includegraphics[scale=1]{1-3.png} 
-\centering
-\caption{Vizualizace propojení hlavních komponent systému Voyager.\cite{Voyager2023}}
-\label{obrVoyager} 
-\end{figure}
-
-\section{Některé z algoritmů a technik používané pro agenty}
 \subsection{Proximal Policy Optimization (PPO)}
 Proximal Policy Optimization (PPO)\cite{PPOOpenAI}\cite{Schulman2017} je jedním z nejrozšířenějších algoritmů pro trénování agentů pomocí hlubokého posilovaného učení. Vyvinut byl výzkumníky ze společnosti OpenAI jako reakce na klíčové nedostatky tehdejších metod policy gradient algoritmů, které často provádějí příliš velké aktualizace politiky bez jakékoli kontroly, a složitější metody jako Trust Region Policy Optimization (TRPO)\cite{Schulman2015}, které jsou výpočetně náročné a obtížně implementovatelné. PPO nabízí kompromis: spojuje jednoduchost implementace s vysokou stabilitou učení a efektivním využitím dat.
 
@@ -119,30 +34,30 @@ kde
 r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_{\text{old}}}(a_t \mid s_t)}
 \]
 
-je poměr pravděpodobností podle nové a staré politiky a $\hat{A}_t$ je odhad tzv. advantage funkce, která kvantifikuje, jak výhodná byla daná akce vzhledem k očekávanému vývoji. Hodnota $\epsilon$ je hyperparametr, typicky nastavený na 0{,}1 až 0{,}3, který určuje toleranci změn politiky. Symbol $\hat{\mathbb{E}}_t$ představuje empirické očekávání vypočtené na základě vzorků nasbíraných během interakcí agenta s prostředím.
+Je poměr pravděpodobností podle nové a staré politiky a $\hat{A}_t$ je odhad tzv. advantage funkce, která kvantifikuje, jak výhodná je daná akce vzhledem k očekávanému vývoji. Hodnota $\epsilon$ je hyperparametr, typicky nastavený na 0{,}1 až 0{,}3, který určuje toleranci změn politiky. Symbol $\hat{\mathbb{E}}_t$ představuje empirické očekávání vypočtené na základě vzorků nasbíraných během interakcí agenta s prostředím.
 
 \newpage
 
-Smyslem výrazu \textit{clip} je omezit motivaci agenta k tomu, aby příliš radikálně měnil svou strategii, pokud taková změna vede k výraznému zvýšení pravděpodobnosti akcí. Pokud je změna politiky příliš výrazná (např. $r_t > 1 + \epsilon$), je výpočet výsledku \uv{oříznut} tak, aby nevedl k nadhodnocení zisku. Naopak, pokud je změna v rámci povoleného pásma, je výpočet ponechán. Výsledkem je stabilnější učení, které se vyhýbá oscilacím a přetížení aktualizací. Celý proces je vizuálně shrnut na obrázku~\ref{obrPPO}, který zachycuje architekturu PPO včetně interakce s prostředím, výpočtu hodnoty akce a aktualizace politiky.
+Smyslem výrazu \textit{clip} je omezit motivaci agenta k tomu, aby příliš radikálně měnil svou strategii, pokud taková změna vede k výraznému zvýšení pravděpodobnosti akcí. Pokud je změna politiky příliš výrazná (např. $r_t > 1 + \epsilon$), je výpočet výsledku \uv{oříznut}, aby nevedl k nadhodnocení zisku. Naopak, pokud je změna v rámci povoleného pásma, výpočet se ponechává. Výsledkem je stabilnější učení, které se vyhýbá oscilacím a přetížení aktualizací. Celý proces vizuálně shrnuje obrázek~\ref{obrPPO}, který zachycuje architekturu PPO včetně interakce s prostředím, výpočtu hodnoty akce a aktualizace politiky.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \includegraphics[scale=4]{1-4.png} 
 \centering
-\caption{Vizualizace architektury algoritmu PPO. Agent interaguje s prostředím, zatímco dvě neuronové sítě — actor a critic — slouží k výběru akcí a odhadu hodnoty stavu. Politika je aktualizována pomocí oříznutého objektivu a výhod jsou počítány pomocí Generalized Advantage Estimation (GAE).\cite{PPO2021}}
+\caption{Vizualizace architektury algoritmu PPO. Agent interaguje s prostředím, zatímco dvě neuronové sítě — actor a critic — slouží k výběru akcí a odhadu hodnoty stavu. Politika se aktualizuje pomocí oříznutého objektivu (clipped objective) a výhody se počítají pomocí metody Generalized Advantage Estimation (GAE).\cite{PPO2021}}
 \label{obrPPO} 
 \end{figure}
 
-Kromě této hlavní ztrátové funkce lze PPO dále rozšířit o dvě další složky — penalizaci chyby odhadu hodnoty a entropickou regulaci. Celková ztrátová funkce pak má tvar:
+Kromě této hlavní ztrátové funkce lze algoritmus PPO dále rozšířit o dvě další složky — penalizaci chyby odhadu hodnoty a entropickou regulaci. Celková ztrátová funkce pak má následující tvar:
 
 \[
 L^{\text{PPO}}_t(\theta) = \hat{\mathbb{E}}_t\left[ L^{\text{CLIP}}_t(\theta) - c_1 L^{\text{VF}}_t(\theta) + c_2\, \mathcal{S}\left(\pi_\theta, s_t\right) \right],
 \]
 
-kde $L^{\text{VF}}_t$ je kvadratická chyba hodnotové funkce, $\mathcal{S}(\pi_\theta, s_t)$ je entropie distribuční politiky ve stavu $s_t$ a $c_1$, $c_2$ jsou váhové koeficienty. Přidání entropické složky pomáhá zajistit průzkum prostředí (exploration), zejména v počátečních fázích tréninku, a zabraňuje tomu, aby se agent \uv{zasekl} v lokálním maximu.
+Kde $L^{\text{VF}}t$ představuje kvadratickou chybu hodnotové funkce, $\mathcal{S}(\pi\theta, s_t)$ označuje entropii distribuční politiky ve stavu $s_t$ a $c_1$, $c_2$ jsou váhové koeficienty. Přidání entropické složky pomáhá zajistit průzkum prostředí (exploration), zejména v počátečních fázích tréninku, a zabraňuje tomu, aby se agent \uv{zasekl} v lokálním maximu.
 
 \newpage
 
-Pro výpočet výše zmíněné advantage funkce $\hat{A}_t$ se často používá metoda Generalized Advantage Estimation (GAE)\cite{Schulman2018}. Ta snižuje rozptyl odhadů tím, že kombinuje okamžité odměny a odhady hodnoty pomocí exponenciálního vážení parametrizovaného faktorem $\lambda$:
+Pro výpočet výše zmíněné advantage funkce $\hat{A}_t$ se často používá metoda Generalized Advantage Estimation (GAE)\cite{Schulman2018}. Tato metoda snižuje rozptyl odhadů tím, že kombinuje okamžité odměny a odhady hodnoty pomocí exponenciálního vážení parametrizovaného faktorem $\lambda$:
 
 \[
 \hat{A}_t = \delta_t + (\gamma \lambda) \delta_{t+1} + (\gamma \lambda)^2 \delta_{t+2} + \dots,
@@ -154,36 +69,36 @@ kde
 \delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)
 \]
 
-a $\gamma$ je diskontní faktor. GAE tak umožňuje lepší kompromis mezi zkreslením a rozptylem, což se v praxi promítá do rychlejšího a stabilnějšího učení.
+a $\gamma$ představuje diskontní faktor. GAE tak umožňuje lepší kompromis mezi zkreslením a rozptylem, což se v praxi promítá do rychlejšího a stabilnějšího učení.
 
-Implementace PPO obvykle probíhá ve stylu tzv. \textit{actor-critic}. Paralelní agenti (herní instance) generují trajektorie, typicky v rozsahu stovek časových kroků, a výsledné vzorky se následně použijí pro více iterací minibatch SGD nad ztrátovou funkcí. Při tréninku se často používá optimalizátor Adam a architektura s oddělenou politikou a hodnotovou funkcí, i když v některých případech lze využít i sdílené parametry.
+Implementace PPO obvykle probíhá ve stylu tzv. actor-critic. Paralelní agenti (herní instance) generují trajektorie, typicky v rozsahu stovek časových kroků, a výsledné vzorky se následně používají pro více iterací minibatch SGD nad ztrátovou funkcí. Při tréninku se často využívá optimalizátor Adam a architektura s oddělenou politikou a hodnotovou funkcí, i když v některých případech lze využít i sdílené parametry.
 
-Z praktického hlediska byl PPO úspěšně aplikován na širokou škálu prostředí. V oblasti spojité kontroly (např. úkoly v prostředí MuJoCo\cite{MuJoCo}) překonal algoritmus PPO jiné tehdy běžně používané přístupy jako TRPO, A2C nebo CEM, a to jak z hlediska dosažené odměny, tak z hlediska rychlosti konvergence. Rovněž ve hrách z prostředí Atari, kde byl porovnáván s A2C a ACER, ukázal PPO vysokou robustnost napříč různými herními scénáři. Navíc oproti metodám s pevným KL penalizačním koeficientem dosahoval stabilnějších výsledků díky použití tzv. \textit{adaptive KL penalty} nebo oříznutí podle výše uvedeného pravidla.
+Z praktického hlediska se PPO úspěšně aplikuje na širokou škálu prostředí. V oblasti spojité kontroly (např. úkoly v prostředí MuJoCo\cite{MuJoCo}) překonává jiné běžně používané přístupy jako TRPO, A2C nebo CEM, a to jak z hlediska dosažené odměny, tak z hlediska rychlosti konvergence. Rovněž ve hrách z prostředí Atari, kde se porovnává s A2C a ACER, vykazuje PPO vysokou robustnost napříč různými herními scénáři. Oproti metodám s pevným KL penalizačním koeficientem dosahuje stabilnějších výsledků díky použití tzv. adaptive KL penalty nebo oříznutí podle výše uvedeného pravidla.
 
-PPO se stal preferovaným algoritmem v mnoha aplikacích nejen díky výkonu, ale i díky snadné integraci do různých tréninkových rámců. Kromě empirických výsledků je výhodou PPO i jeho jednoduchost. Z hlediska implementace vyžaduje pouze mírnou úpravu klasického policy gradient frameworku a nevyžaduje řešení složitých optimalizačních úloh jako TRPO (např. pomocí konjugovaného gradientu). Díky tomu se stal PPO standardní volbou v mnoha open-source knihovnách posilovaného učení, včetně OpenAI Baselines, Stable Baselines nebo RLlib.
+PPO se stává preferovaným algoritmem v mnoha aplikacích nejen díky svému výkonu, ale i díky snadné integraci do různých tréninkových rámců. Kromě empirických výsledků spočívá jeho výhoda i v jednoduchosti. Z hlediska implementace vyžaduje pouze mírnou úpravu klasického policy gradient frameworku a nevyžaduje řešení složitých optimalizačních úloh jako TRPO (např. pomocí konjugovaného gradientu). Díky tomu se PPO řadí mezi standardní volby v mnoha open-source knihovnách posilovaného učení, včetně OpenAI Baselines, Stable Baselines nebo RLlib.
 
-Celkově lze PPO vnímat jako rozumný kompromis mezi výpočetní náročností, robustností a výkonem. Jeho úspěch spočívá v jednoduché, ale účinné úpravě klasických policy gradient metod, která zajišťuje, že každá aktualizace politiky zůstane \uv{blízko} té původní, čímž se zamezí katastrofálním změnám a zároveň se umožní efektivní učení.
+Celkově lze PPO vnímat jako rozumný kompromis mezi výpočetní náročností, robustností a výkonem. Jeho úspěch spočívá v jednoduché, ale účinné úpravě klasických policy gradient metod, která zajišťuje, že každá aktualizace politiky zůstává \uv{blízko} té původní, čímž se zamezuje katastrofálním změnám a zároveň se umožňuje efektivní učení.
 
 \newpage
 
 \subsection{Deep Q-Network}
-Algoritmus Deep Q-Network (DQN)\cite{Sutton2018}\cite{Mnih2013}\cite{Mnih2015} je metoda posilovaného učení kombinující klasický Q-learning s hlubokými neuronovými sítěmi pro aproximaci akčně-hodnotové funkce $Q^*(s,a)$. Funkce $Q^*(s,a)$ udává očekávanou kumulovanou diskontovanou odměnu po provedení akce $a$ ve stavu $s$ a následném sledování optimální politiky. Teoretickým základem DQN je Bellmanova optimální rovnice:
+Algoritmus Deep Q-Network (DQN)\cite{Sutton2018}\cite{Mnih2013}\cite{Mnih2015} představuje metodu posilovaného učení, která kombinuje klasický Q-learning s hlubokými neuronovými sítěmi pro aproximaci akčně-hodnotové funkce $Q^(s,a)$. Funkce $Q^(s,a)$ udává očekávanou kumulovanou diskontovanou odměnu po provedení akce $a$ ve stavu $s$ a následném sledování optimální politiky. Teoretický základ DQN tvoří Bellmanova optimální rovnice:
 
 $$
 Q^*(s_t, a_t) = \mathbb{E}\Big[r_{t+1} + \gamma \max_{a'} Q^*(s_{t+1}, a') \,\Big|\, s_t, a_t \Big]
 $$
 
-kde $s_t$ je stav, $a_t$ zvolená akce, $r_{t+1}$ okamžitá odměna, $s_{t+1}$ následující stav a $\gamma \in [0,1]$ diskontní faktor. Klasický Q-learning provádí aktualizaci tabulky hodnot podle vztahu:
+kde $s_t$ označuje stav, $a_t$ zvolenou akci, $r_{t+1}$ okamžitou odměnu, $s_{t+1}$ následující stav a $\gamma \in [0,1]$ diskontní faktor. Klasický Q-learning aktualizuje tabulku hodnot podle vztahu:
 
 $$
 Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \Big( r_{t+1} + \gamma \max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t) \Big)
 $$
 
-kde $\alpha$ je rychlost učení. V prostředích s vysokodimenzionálním stavovým prostorem není tabulkové ukládání hodnot možné. DQN používá hlubokou neuronovou síť $Q(s,a; \theta)$ s parametry $\theta$, která na vstupu přijímá stav $s$ a na výstupu poskytuje vektor Q-hodnot pro všechny akce.
+kde $\alpha$ označuje rychlost učení. V prostředích s vysokodimenzionálním stavovým prostorem není tabulkové ukládání hodnot možné. DQN využívá hlubokou neuronovou síť $Q(s,a; \theta)$ s parametry $\theta$, která na vstupu přijímá stav $s$ a na výstupu poskytuje vektor Q-hodnot pro všechny akce.
 
-Trénink DQN minimalizuje časový rozdíl (TD error) mezi odhadovanou Q-hodnotou a cílovou hodnotou z Bellmanovy rovnice. Stabilizace učení využívá dvě hlavní techniky: přehrávací paměť (experience replay) a cílovou síť (target network). Přehrávací paměť $\mathcal{D}$ ukládá přechody $(s_t, a_t, r_{t+1}, s_{t+1})$ a umožňuje náhodné vzorkování mini-batchů, což přerušuje korelace a zlepšuje rozmanitost tréninkových dat. Cílová síť $Q(s,a; \theta^-)$ je kopie online sítě aktualizovaná periodicky, aby poskytovala stabilní cílové hodnoty.
+Trénink DQN minimalizuje časový rozdíl (TD error) mezi odhadovanou Q-hodnotou a cílovou hodnotou z Bellmanovy rovnice. Stabilizace učení využívá dvě hlavní techniky: přehrávací paměť (experience replay) a cílovou síť (target network). Přehrávací paměť $\mathcal{D}$ ukládá přechody $(s_t, a_t, r_{t+1}, s_{t+1})$ a umožňuje náhodné vzorkování mini-batchů, čímž přerušuje korelace a zvyšuje rozmanitost tréninkových dat. Cílová síť $Q(s,a; \theta^-)$ představuje kopii online sítě, která se aktualizuje periodicky, aby poskytovala stabilní cílové hodnoty.
 
-Pro přechod v mini-batchi jsou cílová hodnota $y_t$ a ztrátová funkce $L_t(\theta)$ definovány:
+Pro přechod v mini-batchi se cílová hodnota $y_t$ a ztrátová funkce $L_t(\theta)$ definují následovně:
 
 $$
 y_t = r_{t+1} + \gamma \max_{a'} Q(s_{t+1}, a'; \theta^-) 
@@ -209,7 +124,7 @@ $$
 
 Tréninkový cyklus zahrnuje sledování stavu $s_t$, výběr akce $a_t$ pomocí $\epsilon$-greedy politiky, provedení akce, získání odměny $r_{t+1}$ a nového stavu $s_{t+1}$, uložení přechodu do paměti $\mathcal{D}$, vzorkování mini-batche, výpočet $y_t$, minimalizaci TD chyby a periodickou aktualizaci cílové sítě.
 
-DQN je citlivé na nestabilitu a divergenci kvůli kombinaci nelineární aproximace neuronovou sítí a bootstrapovaných aktualizací. Přehrávací paměť redukuje autokorelaci dat a zvyšuje efektivitu využití zkušeností, cílová síť poskytuje stabilní referenční hodnoty. Pokročilé varianty zahrnují Double DQN, Dueling DQN a Prioritized Experience Replay, které zlepšují konvergenci, stabilitu a efektivitu učení v komplexních prostředích.
+Algoritmus DQN je citlivý na nestabilitu a divergenci kvůli kombinaci nelineární aproximace neuronovou sítí a bootstrapovaných aktualizací. Přehrávací paměť redukuje autokorelaci dat a zvyšuje efektivitu využití zkušeností, cílová síť poskytuje stabilní referenční hodnoty. Pokročilé varianty, jako jsou Double DQN, Dueling DQN a Prioritized Experience Replay, zlepšují konvergenci, stabilitu a efektivitu učení v komplexních prostředích.
 
 \begin{figure}[ht]
 \includegraphics[scale=0.45]{1-7.png}
@@ -221,15 +136,15 @@ DQN je citlivé na nestabilitu a divergenci kvůli kombinaci nelineární aproxi
 \newpage
 
 \subsection{Self-Play}
-Self-play\cite{Zhang2024} je technika v oblasti posilovaného učení, která umožňuje agentům zlepšovat své strategie prostřednictvím interakce se sebou samými — tedy s kopiemi, staršími verzemi nebo současnými protivníky v rámci jednoho tréninkového rámce. Tato metoda se ukázala jako zásadní pro dosažení vyšších výkonů ve hrách, jako jsou Go, šachy, StarCraft II nebo Dota 2. Na rozdíl od klasického posilovaného učení, kde agent interaguje s předem daným prostředím, zde prostředí zahrnuje další agentní entity, jejichž chování se v čase mění — a tím se vytváří dynamický a nelineární tréninkový proces.
+Self-play\cite{Zhang2024} je technika v oblasti posilovaného učení, která umožňuje agentům zlepšovat své strategie prostřednictvím interakce se sebou samými — tedy s kopiemi, staršími verzemi nebo současnými protivníky v rámci jednoho tréninkového rámce. Tato metoda se ukazuje jako zásadní pro dosažení vyšších výkonů ve hrách, jako jsou Go, šachy, StarCraft II nebo Dota 2. Na rozdíl od klasického posilovaného učení, kde agent interaguje s předem daným prostředím, zde prostředí zahrnuje další agentní entity, jejichž chování se v čase mění — a tím vytváří dynamický a nelineární tréninkový proces.
 
-Základní přístup self-play spočívá v tom, že agent trénuje proti svým vlastním kopiím, ať už současným, nebo historickým. Nejjednodušší forma, tzv. \uv{vanilla self-play}, spočívá v tom, že se agent neustále střetává s poslední verzí sebe sama. Tato metoda je velmi efektivní v tranzitivních hrách, kde lze jednotlivé strategie jednoznačně seřadit dle síly, avšak v nestranově tranzitivních prostředích (například kámen-nůžky-papír) vede často ke cyklickému chování a může konvergovat k suboptimálním strategiím.
+Základní přístup self-play spočívá v tom, že agent trénuje proti svým vlastním kopiím, ať už současným, nebo historickým. Nejjednodušší forma, tzv. \uv{vanilla self-play}, znamená, že se agent neustále střetává s poslední verzí sebe sama. Tato metoda funguje velmi efektivně v tranzitivních hrách, kde lze jednotlivé strategie jednoznačně seřadit dle síly. V nestranově tranzitivních prostředích (například kámen-nůžky-papír) však často vede ke cyklickému chování a může konvergovat k suboptimálním strategiím.
 
-Aby se tyto nedostatky zmírnily, vznikly složitější varianty. \uv{Fiktivní self-play} rozšiřuje trénink tak, že agent hraje proti průměru všech svých předchozích verzí. Tím se posiluje robustnost učení a eliminuje riziko zacyklení. \uv{Prioritizovaná fiktivní self-play} (např. použitá v AlphaStar) dále zavádí vážený výběr protivníků, čímž zvýhodňuje ty, proti nimž si agent vede hůře — tedy záměrně trénuje proti \uv{slabým místům} své strategie.
+Aby se tyto nedostatky zmírnily, vznikají složitější varianty. \uv{Fiktivní self-play} rozšiřuje trénink tak, že agent hraje proti průměru všech svých předchozích verzí. Tím se posiluje robustnost učení a eliminuje riziko zacyklení. \uv{Prioritizovaná fiktivní self-play} (např. použitá v AlphaStar) dále zavádí vážený výběr protivníků, čímž zvýhodňuje ty, proti nimž si agent vede hůře — tedy záměrně trénuje proti \uv{slabým místům} své strategie.
 
-Další variantou je \uv{$\delta$-uniform self-play}, která používá hyperparametr $\delta$ k určení, jaké části historické populace budou použity jako soupeři. Nižší $\delta$ znamená širší spektrum historických politik, vyšší hodnoty naopak preferují nedávné soupeře.
+Další variantou je \uv{$\delta$-uniform self-play}, která používá hyperparametr $\delta$ k určení, jaké části historické populace se použijí jako soupeři. Nižší $\delta$ znamená širší spektrum historických politik, vyšší hodnoty naopak preferují nedávné soupeře.
 
-Moderní rámce self-play algoritmů se často integrují s tzv. \uv{population-based} přístupy. Místo jednoho agenta existuje populace politik $\Pi$, která se v čase rozšiřuje o nové verze. Každá nová politika je trénována vůči vzorku soupeřů, vybíraných z $\Pi$ na základě určité metastrategie $\Sigma$, často reprezentované interakční maticí. Tento proces vytváří bohatý prostor pro evoluci strategií a vzájemnou adaptaci.
+Moderní rámce self-play algoritmů se často integrují s tzv. \uv{population-based} přístupy. Místo jednoho agenta existuje populace politik $\Pi$, která se v čase rozšiřuje o nové verze. Každá nová politika se trénuje vůči vzorku soupeřů vybíraných z $\Pi$ na základě určité metastrategie $\Sigma$, často reprezentované interakční maticí. Tento proces vytváří bohatý prostor pro evoluci strategií a vzájemnou adaptaci.
 
 Základní tréninková smyčka obvykle probíhá následovně:
 
@@ -239,11 +154,11 @@ Základní tréninková smyčka obvykle probíhá následovně:
     \item Nově natrénované politiky se přidají do populace a proces se opakuje.
 \end{enumerate}
 
-Z hlediska výpočetní efektivity se rozlišuje mezi tzv. \uv{lazy initialization}, kdy se politiky inicializují až v okamžiku potřeby, a \uv{immediate initialization}, kdy je celá populace vytvořena hned na začátku. Dále rozlišujeme \uv{standardní trénink}, kde se v každé iteraci trénuje pouze jeden agent, a \uv{průběžný trénink} (např. FTW agent), kde jsou všechny politiky trénovány souběžně.
+Z hlediska výpočetní efektivity rozlišujeme mezi tzv. \uv{lazy initialization}, kdy se politiky inicializují až v okamžiku potřeby, a \uv{immediate initialization}, kdy se celá populace vytváří hned na začátku. Dále rozlišujeme \uv{standardní trénink}, kde se v každé iteraci trénuje pouze jeden agent, a \uv{průběžný trénink} (např. FTW agent), kde se všechny politiky trénují souběžně.
 
-Zvláštní pozornost si zaslouží tzv. PSRO (Policy-Space Response Oracles), které rozšiřují klasické self-play o výpočet rovnovážných strategií v rámci tzv. meta-herního prostoru. Místo toho, aby se agent učil proti jednotlivým politikám, PSRO používá například Nashovu rovnováhu jako metastrategii, vůči níž se hledají nejlepší odpovědi.
+Zvláštní pozornost si zasluhuje tzv. PSRO (Policy-Space Response Oracles), které rozšiřují klasické self-play o výpočet rovnovážných strategií v rámci tzv. meta-herního prostoru. Místo toho, aby se agent učil proti jednotlivým politikám, PSRO používá například Nashovu rovnováhu jako metastrategii, vůči níž se hledají nejlepší odpovědi.
 
-Kromě klasických her našla self-play široké uplatnění i v komplexních videohrách a reálných scénářích, například v robotice, autonomním řízení nebo syntéze proteinů. Také se používá, zatím v menší míře, v kontextu velkých jazykových modelů, například pro sebezdokonalování (self-improvement) nebo samostatnou konstrukci výukových dat. Základní rozdíl mezi přístupy self-play, population-play a behavioral cloning play je naznačen na obrázku~\ref{obrSPvsPPvsBCP}.
+Kromě klasických her nachází self-play široké uplatnění i v komplexních videohrách a reálných scénářích, například v robotice, autonomním řízení nebo syntéze proteinů. Také se, zatím v menší míře, využívá v kontextu velkých jazykových modelů — například pro sebezdokonalování (self-improvement) nebo samostatnou konstrukci výukových dat. Základní rozdíl mezi přístupy self-play, population-play a behavioral cloning play ilustruje obrázek~\ref{obrSPvsPPvsBCP}.
 
 \begin{figure}[ht]
 \includegraphics[scale=0.67]{1-5.png} 
@@ -255,39 +170,142 @@ Kromě klasických her našla self-play široké uplatnění i v komplexních vi
 \newpage
 
 \subsection{Population Based Training}
-Population-Based Training (PBT)\cite{Jaderberg2017} je technika, která propojuje samotný trénink neuronových sítí s automatickým laděním hyperparametrů. Místo toho, aby se model trénoval s pevně danou konfigurací a po dokončení se hledala optimální nastavení v dalších bězích, PBT tento proces spojuje — optimalizuje váhy i hyperparametry zároveň a průběžně. To je zvláště užitečné v oblastech, kde jsou optimální hyperparametry v čase proměnlivé, například u posilovaného učení nebo generativních modelů.
+Population-Based Training (PBT)\cite{Jaderberg2017} je technika, která propojuje samotný trénink neuronových sítí s automatickým laděním hyperparametrů. Místo toho, aby se model trénuje s pevně danou konfigurací a po dokončení se hledají optimální nastavení v dalších bězích, PBT tento proces spojuje — optimalizuje váhy i hyperparametry zároveň a průběžně. To je zvláště užitečné v oblastech, kde se optimální hyperparametry v čase mění, například u posilovaného učení nebo generativních modelů.
 
-Na začátku PBT inicializuje populaci modelů, kde každý má své vlastní váhy i hyperparametry. Všichni členové této populace jsou trénováni paralelně a nezávisle — často metodami jako gradient descent. Po určitém počtu kroků, nebo jakmile model dosáhne dostatečného výkonu, probíhá tzv. \uv{exploit-and-explore} fáze. Pokud je některý z modelů podprůměrný, může být jeho obsah nahrazen jiným, výkonnějším modelem z populace. Zároveň se na něj aplikuje lehce pozměněná verze jeho hyperparametrů — čímž vzniká nový \uv{směr} učení.
+Na začátku PBT inicializuje populaci modelů, z nichž každý má své vlastní váhy i hyperparametry. Všichni členové této populace se trénují paralelně a nezávisle — často metodami jako gradient descent. Po určitém počtu kroků, nebo jakmile model dosáhne stanoveného výkonu, nastává tzv. \uv{exploit-and-explore} fáze. Pokud některý z modelů vykazuje podprůměrný výkon, jeho obsah se nahrazuje jiným, výkonnějším modelem z populace. Zároveň se na něj aplikuje lehce pozměněná verze jeho hyperparametrů — čímž vzniká nový \uv{směr} učení.
 
-Tento přístup vytváří smyčku, ve které probíhá klasický trénink modelů, ale průběžně se mezi sebou také sdílejí informace a testují se nové kombinace. Tím dochází nejen k rychlejšímu konvergenci, ale také ke zlepšení finálního výkonu, protože hyperparametry nejsou fixní, ale průběžně se přizpůsobují aktuálnímu stavu tréninku.
+Tento přístup vytváří smyčku, ve které probíhá klasický trénink modelů, ale průběžně se mezi nimi také sdílejí informace a testují nové kombinace. Tím dochází nejen k rychlejší konvergenci, ale také ke zlepšení finálního výkonu, protože hyperparametry nejsou fixní, ale průběžně se přizpůsobují aktuálnímu stavu tréninku.
 
-Z praktického hlediska je PBT velmi dobře škálovatelný. Nevyžaduje centrální koordinaci — modely komunikují jen skrze jednoduché sdílení výkonových metrik a checkpointů. Díky tomu je možné PBT provozovat i na heterogenních nebo nestabilních výpočetních platformách, například v cloudovém prostředí s preemptibilními instancemi.
+Z praktického hlediska je PBT velmi dobře škálovatelný. Nevyžaduje centrální koordinaci — modely komunikují pouze prostřednictvím jednoduchého sdílení výkonových metrik a checkpointů. Díky tomu lze PBT provozovat i na heterogenních nebo nestabilních výpočetních platformách, například v cloudovém prostředí s preemptibilními instancemi.
 
 Základní smyčka algoritmu vypadá následovně:
 
 \begin{enumerate}
-    \item Každý model ve své instanci trénuje standardními optimalizačními metodami (například SGD nebo Adam) pomocí aktuální konfigurace hyperparametrů.
-    \item Po určité době se jeho výkon vyhodnotí (například pomocí validace nebo herní odměny).
-    \item Pokud je model označen jako \uv{ready}, provede se fáze \uv{exploit} — model si může zkopírovat váhy a hyperparametry od lepšího modelu v populaci.
-    \item Poté následuje fáze \uv{explore}, kde jsou hyperparametry lehce pozměněny (například násobkem 1.2 nebo 0.8), případně náhodně přegenerovány.
-    \item Trénink pokračuje s těmito novými parametry.
+	\item Každý model ve své instanci trénuje pomocí standardních optimalizačních metod (například SGD nebo Adam) s aktuální konfigurací hyperparametrů.
+	\item Po určité době se vyhodnocuje jeho výkon (například pomocí validace nebo herní odměny).
+	\item Pokud je model označen jako \uv{ready}, probíhá fáze \uv{exploit} — model si kopíruje váhy a hyperparametry od výkonnějšího modelu v populaci.
+	\item Následuje fáze \uv{explore}, při které se hyperparametry lehce pozměňují (například násobkem 1{,}2 nebo 0{,}8), případně se náhodně přegenerovávají.
+	\item Trénink pokračuje s nově nastavenými parametry.
 \end{enumerate}
 
-Tento proces je znázorněn na obrázku~\ref{obrPBT}, kde je vidět, jak modely mezi sebou sdílejí váhy a mění hyperparametry na základě výkonnosti.
+Tento proces ilustruje obrázek~\ref{obrPBT}, který ukazuje, jak si modely mezi sebou sdílejí váhy a mění hyperparametry na základě výkonnosti.
 
 \begin{figure}[ht]
 \includegraphics[scale=0.35]{1-6.png} 
 \centering
-\caption{Population-Based Training neuronových sítí začíná jako náhodné prohledávání, ale v průběhu tréninku umožňuje jednotlivým modelům využít dílčí výsledky ostatních (fáze \uv{exploit}) a zároveň zkoušet nové kombinace hyperparametrů (fáze \uv{explore})./cite{PBT2017}}
+\caption{Population-Based Training neuronových sítí začíná jako náhodné prohledávání, ale v průběhu tréninku umožňuje jednotlivým modelům využít dílčí výsledky ostatních (fáze \uv{exploit}) a zároveň zkoušet nové kombinace hyperparametrů (fáze \uv{explore}).\cite{PBT2017}}
 \label{obrPBT} 
 \end{figure}
 
 \newpage
 
-Důležité je, že PBT není citlivý na přesné nastavení toho, kdy se fáze \uv{exploit-and-explore} provádí — obvykle stačí, aby mezi dvěma takovými událostmi uplynulo dost kroků na to, aby gradientové učení mělo čas ukázat efekt.
+Důležité je, že PBT není citlivý na přesné načasování fáze \uv{exploit-and-explore} — obvykle stačí, aby mezi dvěma takovými událostmi uplynulo dost kroků na to, aby gradientové učení mělo čas projevit efekt.
 
-Technika PBT byla úspěšně aplikována v několika odlišných oblastech. V oblasti posilovaného učení pomohla například zrychlit trénink agentů v prostředí DeepMind Lab, StarCraft II nebo Atari. V těchto případech se automaticky ladily parametry jako learning rate, entropická penalizace nebo délka rozvinutí sítě (unroll length). V oblasti strojového překladu pomocí Transformerů PBT automaticky našla hyperparametrové rozvrhy, které překonaly ručně laděné baseline modely. A u GANů PBT dokázala zlepšit stabilitu tréninku i finální kvalitu generovaných obrázků.
+Technika PBT nachází uplatnění v různých oblastech. V rámci posilovaného učení například zrychluje trénink agentů v prostředích jako DeepMind Lab, StarCraft II nebo Atari. V těchto případech se automaticky ladí parametry jako learning rate, entropická penalizace nebo délka rozvinutí sítě (unroll length). Ve strojovém překladu pomocí Transformerů PBT nalézá hyperparametrové rozvrhy, které překonávají ručně laděné baseline modely. U GANů pak zlepšuje stabilitu tréninku i finální kvalitu generovaných obrázků.
 
-Klíčovou výhodou PBT oproti klasickým metodám ladění (jako je grid search nebo Bayesian optimization) je, že probíhá \uv{online} — tedy současně s tréninkem. Díky tomu je výrazně efektivnější, protože modely nejsou trénovány od začátku znovu po každé změně hyperparametrů. PBT tak nabízí kombinaci výhod klasického evolučního přístupu a gradientového učení.
+Klíčovou výhodou PBT oproti klasickým metodám ladění (jako je grid search nebo Bayesian optimization) je, že probíhá \uv{online} — tedy současně s tréninkem. Díky tomu je výrazně efektivnější, protože modely není nutné trénovat znovu od začátku po každé změně hyperparametrů. PBT tak nabízí kombinaci výhod klasického evolučního přístupu a gradientového učení.
 
-Celkově lze PBT vnímat jako techniku, která vnáší do optimalizace adaptivitu a sdílení znalostí v reálném čase. Je to metoda, která se výborně doplňuje s dalšími technikami, jako je self-play.
+Celkově lze PBT vnímat jako techniku, která do optimalizace vnáší adaptivitu a sdílení znalostí v reálném čase. Výborně se doplňuje s dalšími technikami, jako je self-play.
+
+\newpage
+
+\section{AI agenti ve hrách}
+\subsection{AlphaStar}
+AlphaStar\cite{Vinyalsbr} představuje agenta umělé inteligence (AI), kterého vyvíjí společnost DeepMind pro hraní StarCraft II\cite{WikiSC}, známé a dynamické online strategie v reálném čase od společnosti Blizzard Entertainment. Projekt je veřejnosti představen od ledna 2019. Již v srpnu téhož roku dosahuje AlphaStar hodnosti \uv{Grandmaster}, což představuje významný milník nejen v oblasti AI zaměřené na videohry, ale do jisté míry i pro celý obor vývoje inteligentních systémů.
+
+Hry navržené pro lidské hráče slouží jako cenná měřítka pokroku v oblasti umělé inteligence, jelikož nabízejí komplexní a dynamická prostředí s externí validitou. Zatímco dřívější milníky, jako Deep Blue\cite{WikiDB} od IBM nebo AlphaGo od DeepMind\cite{AlphaGo}\cite{Sutton2018}, demonstrují schopnosti AI v tahových hrách s úplnou informací, StarCraft přináší nové výzvy díky hraní v reálném čase, částečné pozorovatelnosti, absenci jediné optimální strategie a rozsáhlému prostoru možných akcí. Přesto výzkumná komunita považuje tuto hru za řešitelnou s využitím moderních technologií, a to díky jejímu diskrétnímu charakteru, známým pravidlům a omezenému počtu objektů. To z ní činí ideální testovací prostředí pro agenty, jako je AlphaStar.
+
+Společnost DeepMind Technologies vzniká ve Spojeném království v roce 2010. Již v roce 2011 označuje spoluzakladatel Demis Hassabis StarCraft za \uv{další krok vpřed} po hrách jako Go. Poté, co DeepMind demonstruje schopnosti svých agentů na základě posilovaného učení (Reinforcement Learning), kteří překonávají lidské hráče v klasických hrách na Atari 2600, získává v roce 2014 podporu od společnosti Google, což otevírá cestu k dalším ambiciózním projektům — včetně vývoje AI pro StarCraft II, o který výzkumný zájem postupně roste.
+
+Počítačový vědec Zachary Mason v roce 2015 předpovídá, že výzkum DeepMind může během pěti až deseti let vést k průlomu právě v této hře. Myšlenka získává větší váhu v roce 2016, kdy AlphaGo poráží světového šampiona v Go, Lee Sedola. Po tomto úspěchu Hassabis veřejně projevuje zájem vytvořit autonomního agenta pro StarCraft, přičemž zdůrazňuje jeho strategickou hloubku, částečnou pozorovatelnost, skryté informace a vlastnosti, které z něj činí ještě náročnější hru než Go.
+
+Formální spolupráce mezi DeepMind a Blizzardem se oznamuje na BlizzConu v listopadu 2016 spolu s plánem na vydání otevřeného vývojového prostředí pro boty na začátku roku 2017. Do poloviny roku 2017 už DeepMind zpracovává herní data ze StarCraft II. V srpnu téhož roku pak obě společnosti uvolňují nástroje pro vývoj botů a soubor 65 000 záznamů z profesionálních zápasů. Odborníci v té době odhadují, že potrvá ještě několik let, než AI porazí špičkového hráče. Tyto předpovědi se však ukazují jako příliš opatrné, protože v prosinci 2018 poráží agent od DeepMind profesionálního hráče Grzegorze \uv{MaNu} Komincze poměrem 5:0. V lednu 2019 je tento agent oficiálně představen veřejnosti pod jménem \uv{AlphaStar}. Navzdory tomuto úspěchu se však objevuje i kritika.
+
+\newpage
+
+AlphaStar má výhodu v podobě přímé komunikace s hrou přes API, což mu umožňuje provádět akce s chirurgickou přesností. Dále disponuje globálním přehledem o mapě místo omezení herní kamerou a může v rámci daného časového okna rozkládat akce nerovnoměrně, čímž vyvíjí extrémní tlak v klíčových momentech. DeepMind na tyto připomínky reaguje přeškolením AlphaStar pod realističtějšími omezeními, která více odpovídají lidským možnostem. V následném zápase proti MaNově tato verze prohrává.
+
+Od července 2019 soutěží upravený AlphaStar anonymně na veřejném evropském žebříčku v režimu 1v1, kde se utká s hráči, kteří s tímto experimentem souhlasí. Na konci srpna 2019, jak již bylo zmíněno, dosahuje AlphaStar hodnosti \uv{Grandmaster}, čímž se zařazuje mezi nejlepších 0{,}2~\% lidských hráčů a potvrzuje tím významný pokrok v oblasti autonomních agentů pro komplexní hry v reálném čase.
+
+Zatímco zpětná propagace (Backpropagation, BP) zůstává hlavní metodou trénování neuronových sítí, AlphaStar využívá pokročilejší přístup zvaný Population-Based Training (PBT)\cite{Jaderberg2017}. Tento přístup kombinuje výhody evolučních algoritmů (EAs), které slouží k průzkumu globálního prostoru řešení, s lokální optimalizací pomocí BP. AlphaStar konkrétně používá lamarckovskou evoluci, kdy úspěšné sítě předávají své parametry a upravené hyperparametry méně výkonným sítím.
+
+Pro zvládnutí vysoké výpočetní náročnosti je PBT navržen jako asynchronní a distribuovaný systém, který umožňuje paralelní trénink agentů bez nutnosti synchronizace. Na rozdíl od klasických generačních evolučních algoritmů využívá PBT tzv. steady-state přístup, kdy se agenti průběžně aktualizují bez přerušení procesu. Tento mechanismus zvyšuje efektivitu, udržuje diverzitu a umožňuje průběžné přizpůsobování hyperparametrů — což je klíčové v prostředích s proměnlivým tréninkovým chováním, jako je hluboké posilované učení.
+
+AlphaStar dále využívá kompetitivní koevoluci, při níž se agenti neučí pouze proti svým předchozím verzím, ale proti celé populaci různorodých protivníků. Tento přístup poskytuje přirozenou tréninkovou křivku a zároveň zvyšuje robustnost strategií, jelikož agent musí zvládnout široké spektrum herních stylů. Výběr soupeřů probíhá na základě podobnosti výkonnosti (např. Elo skóre), což umožňuje plynulý rozvoj bez stagnace.
+
+Proces učení a rozhodování AlphaStaru ilustruje konkrétní příklad herní situace, v níž agent zpracovává aktuální stav mapy, aktivuje neuronové sítě a vyhodnocuje dostupné možnosti. Vizualizaci tohoto procesu zachycuje obrázek~\ref{obrAlphaStar}.
+
+\begin{figure}[H]
+\includegraphics[scale=0.41]{1-1.jpg}
+\centering
+\caption{Vizualizace rozhodovacího procesu AlphaStaru během zápasu proti hráči. Systém zpracovává syrová pozorování, aktivuje neuronové sítě, vyhodnocuje potenciální akce a předpovídá výsledky zápasu.\cite{AlphaStar2019}}
+\label{obrAlphaStar}
+\end{figure}
+
+Protože StarCraft II neobsahuje jednu univerzální vítěznou strategii, AlphaStar neusiluje o vytvoření jediného dokonalého agenta. Místo toho udržuje populaci různorodých strategií, vybraných na základě Nashovy distribuce — tedy takových, které jsou vůči sobě navzájem nejméně zranitelné.
+
+Tento přístup odpovídá principům kvalitní diverzity (Quality Diversity, QD). Namísto hledání jediné nejlepší varianty podporují QD algoritmy vznik více kvalitních, ale odlišných řešení. Ve AlphaStaru se strategie určují pomocí herně specifických charakteristik — například preferencí pro určité jednotky nebo schopností porazit konkrétní protivníky. Tyto charakteristiky se navíc během tréninku dynamicky upravují, čímž vzniká rozmanitější a odolnější sada řešení.
+
+Díky tomuto přístupu AlphaStar operuje s portfoliem strategií, které jsou přizpůsobivé, méně náchylné k porážce a lépe si poradí s různorodostí lidských protivníků.
+
+\newpage
+
+\subsection{OpenAI Five}
+OpenAI Five\cite{OpenAIFive} představuje agenta umělé inteligence určeného pro hraní týmové videohry Dota 2, ve které proti sobě nastupují dvě pětičlenná družstva. Poprvé se veřejnosti představuje v roce 2017 při živé demonstraci, během níž poráží profesionálního hráče Dendiho v duelu jeden na jednoho. V následujícím roce systém pokročuje natolik, že zvládá ovládat celý tým pěti agentů a poráží i profesionální lidské týmy.
+
+Společnost OpenAI volí Dota 2\cite{Dota2} kvůli její složitosti, nepředvídatelnosti a plynulému průběhu, který lépe odráží podmínky skutečného světa. Díky tomu slouží tato hra jako vhodné prostředí pro vývoj univerzálnějších systémů pro řešení komplexních problémů. Algoritmy a kód vytvořené pro OpenAI Five se později využívají také v dalších projektech — například pro ovládání robotické ruky pomocí neuronové sítě. OpenAI Five bývá často zmiňován vedle jiných přelomových AI systémů, které porážejí lidi v konkrétních úlohách — například AlphaStar ve StarCraft II, AlphaGo ve hře Go nebo Deep Blue v šachu.
+
+Vývoj algoritmů, na nichž OpenAI Five stojí, začíná v listopadu 2016. OpenAI volí Dota 2 jako testovací prostředí mimo jiné kvůli popularitě hry na platformách jako Twitch, nativní podpoře Linuxu a dostupnosti aplikačního rozhraní (API).
+
+První významná veřejná demonstrace probíhá v srpnu 2017 na turnaji The International, což je každoroční vrcholná událost ve světě Dota 2. Během této akce poráží raný model bota profesionálního hráče Dendiho v duelu jeden na jednoho. Podle technického ředitele OpenAI Grega Brockmana se systém učí metodou posilovaného učení (reinforcement learning), přičemž své schopnosti zlepšuje hraním sám proti sobě po dobu dvou týdnů. V tomto režimu agent získává odměny za klíčové akce ve hře, jako je zabíjení nepřátel nebo ničení struktur.
+
+V červnu 2018 se systém rozšiřuje do plnohodnotného pětičlenného týmu, který dokáže porážet amatérské a poloprofesionální lidské soupeře. Na The International 2018 se OpenAI Five účastní dvou exhibičních zápasů proti týmům na profesionální úrovni — proti brazilskému paiN Gaming a proti výběru bývalých elitních čínských hráčů. Přestože boti obě utkání prohrávají, zkušenost je pro vývojový tým cenná, protože umožňuje další ladění strategií a rozhodovacích mechanismů.
+
+Závěrečná veřejná prezentace projektu probíhá v dubnu 2019, kdy OpenAI Five poráží v sérii na dvě vítězství tým OG, tehdejší mistry světa z turnaje The International 2018. Ve stejném měsíci probíhá i čtyřdenní online událost otevřená veřejnosti, během níž se systém účastní více než 42,000 zápasů — z nichž vyhrává přibližně 99{,}4~%.
+
+OpenAI Five je založen na rámci hlubokého posilovaného učení, jehož jádrem je metoda Proximal Policy Optimization (PPO)\cite{PPOOpenAI}\cite{Schulman2017} — gradientní algoritmus politiky, který vyvažuje stabilitu učení, jednoduchost implementace a efektivitu využití dat. PPO představuje vylepšení oproti dřívějším metodám, jako jsou běžné policy gradients nebo Trust Region Policy Optimization (TRPO), a to díky zavedení tzv. \uv{clipped surrogate} objektivní funkce, která zabraňuje příliš razantním aktualizacím politiky a zajišťuje konzistentní pokrok při tréninku.
+
+Každý agent je reprezentován neuronovou sítí s jednou vrstvou typu LSTM o 4096 jednotkách, která zpracovává informace o aktuálním stavu hry pomocí API poskytovaného vývojáři Dota 2. Tento stav je zakódován jako vektor přibližně 20,000 číselných hodnot, které popisují prostředí z pohledu daného agenta.
+
+Rozhodování probíhá prostřednictvím několika nezávislých akčních hlav, z nichž každá odpovídá za jiný aspekt chování — například volbu konkrétní akce, její umístění na prostorové mřížce nebo zpoždění provedení o určitý počet ticků. Tyto hlavy generují osm výstupních hodnot pro každé rozhodnutí, což umožňuje širokou škálu koordinovaných akcí bez nutnosti využívat lidská trénovací data.
+
+Trénink probíhá na interní infrastruktuře Rapid, která umožňuje rozsáhlý paralelní výpočet a koordinaci tisíců strojů. Díky tomu OpenAI Five provádí trénink skrze masivní self-play. Do roku 2018 systém odehrává ekvivalent více než 180 let herního času, a to na 256 GPU a 128,000 CPU jádrech. Schéma tohoto výpočetního procesu ilustruje obrázek~\ref{obrOpenAIFive}.
+
+\begin{figure}[ht]
+\includegraphics[scale=0.37]{1-2.png}
+\centering
+\caption{Architektura tréninkového systému OpenAI Five. Rollout workeři generují data ze zápasů, která jsou následně zpracována optimalizačním modulem využívajícím metodu PPO. Výsledné aktualizace jsou sdíleny napříč instancemi a evaluovány ve specifických herních prostředích.\cite{Five2018}}
+\label{obrOpenAIFive}
+\end{figure}
+
+Díky své robustnosti, efektivitě a jednoduché integraci do distribuovaných systémů je PPO mimořádně vhodný pro tuto aplikaci. Umožňuje rozsáhlý paralelní trénink bez přeučení, přičemž jeho kompatibilita se sdílenými politikami, hodnotovými funkcemi a rekurentními vrstvami typu LSTM přispívá k jeho úspěchu v komplexním prostředí, jakým je Dota 2.
+
+\newpage
+
+\subsection{Voyager}
+Voyager\cite{Wangbr} představuje agenta umělé inteligence, který propojuje výhody velkých jazykových modelů (LLM) se schopností samostatného učení ve složitých, otevřených prostředích. Na rozdíl od předchozích přístupů, které spoléhají na ručně vytvořené cíle, odměnové funkce nebo specificky upravená prostředí, Voyager operuje v původní verzi hry Minecraft — bez jakékoli lidské intervence nebo ručního ladění. Jedná se tak o příklad tzv. ztělesněného agenta (embodied agent), který nejen interpretuje herní svět, ale zároveň v něm jedná, sbírá zkušenosti a postupně se zlepšuje.
+
+Volba hry Minecraft není náhodná. Jde o jedno z mála prostředí, která kombinují otevřenost, dlouhodobé cíle, nutnost plánování, nelineární obtížnost a procedurálně generované světy. Neexistuje zde žádný \uv{konec hry} a úspěch se nedá snadno kvantifikovat. To činí z Minecraftu ideální testovací prostředí pro dlouhodobé učení bez explicitní odměny. Agent musí samostatně odhalovat základní principy světa — od těžby a výroby nástrojů, přes přežití v noci, až po složité postupy jako farmaření nebo výroba lektvarů.
+
+Aby toho dosáhl, Voyager využívá kombinaci tří klíčových mechanismů, které společně umožňují otevřené, samostatné a škálovatelné učení. Prvním z nich je automatická tvorba kurikula. Agent si sám generuje posloupnost úkolů pomocí velkého jazykového modelu GPT-4\cite{ChatGPT}, přičemž tyto úkoly vždy vycházejí ze současného stavu světa, inventáře, vybavení, aktuální lokace a historie předchozích úspěchů i selhání. Místo toho, aby agent postupoval podle předem definovaného scénáře, sám si formuluje dosažitelné a smysluplné cíle — například \uv{vytvoř kamenný krumpáč}, \uv{postav pec} nebo \uv{zabij zombíka}.
+
+Tyto úkoly nejsou náhodné. GPT-4 při jejich generování zohledňuje různé faktory, jako je biom, čas dne, přítomnost entit v okolí nebo například to, jaké úkoly již byly splněny. Díky tomu agent postupuje přirozeným tempem, které reflektuje jeho aktuální schopnosti a možnosti. Tento mechanismus vytváří dynamické, adaptivní kurikulum, které maximalizuje diverzitu dovedností bez nutnosti ručně nastavovat, co má být cílem.
+
+Každý úkol, který agent úspěšně dokončí, se následně převádí do podoby samostatného programu napsaného v JavaScriptu. Tyto programy představují \uv{dovednosti} (skills), které Voyager ukládá do tzv. knihovny dovedností. Tato knihovna není statická — každá nově naučená dovednost se indexuje vektorově pomocí embeddingu popisu, který vytváří jazykový model GPT-3.5\cite{ChatGPT}. Tím vzniká databáze, ve které může agent v budoucnu vyhledávat relevantní programy, jež mu pomáhají řešit nové úkoly.
+
+Dovednosti jsou konstruovány hierarchicky. Složitější akce (např. \uv{vytvoř železný krumpáč}) využívají jednodušší dovednosti jako \uv{vypal železnou rudu}, která sama závisí na dovednostech \uv{těž železnou rudu} a \uv{vyrob pec}. Tento kompoziční přístup umožňuje agentovi stavět na tom, co se již naučil, a minimalizuje nutnost začínat znovu. Zároveň eliminuje problém tzv. katastrofického zapomínání, který je běžný u standardních metod posilovaného učení.
+
+V rámci samotného učení Voyager nevyužívá klasický přístup typu \uv{pozorování → akce}, ale spoléhá na iterativní promptování. Při řešení úkolu agent nejprve navrhuje program, který daný úkol řeší. Tento program se následně provádí v prostředí a výstup — včetně chyb a výjimek — se znovu předkládá GPT-4. Na základě této zpětné vazby model upravuje prompt, opravuje program a zkouší jej znovu. Tento proces se opakuje, dokud tzv. sebe-verifikátor, opět založený na GPT-4, nevyhodnotí, že je úkol úspěšně splněn.
+
+Iterativní přístup se ukazuje jako klíčový zejména v případech, kdy agent naráží na nekonzistence mezi plánem a realitou. Například pokud program selže s chybou typu \uv{I cannot make a stick because I need: 2 more planks}, systém automaticky provádí korekci a aktualizuje plán. Pokud se problém opakuje (například při čtyřech po sobě jdoucích neúspěšných pokusech), agent daný úkol opouští a generuje si nový.
+
+Ve srovnání s předchozími přístupy, jako jsou ReAct, Reflexion nebo AutoGPT, dosahuje Voyager výrazně lepších výsledků. V prostředí MineDojo získává 3{,}3× více unikátních předmětů, prozkoumává svět do větší vzdálenosti (2{,}3× delší trasy) a dosahuje technologického pokroku až 15{,}3× rychleji. Navíc jako jediný agent zvládá tzv. zero-shot úlohy, kdy je přenesen do nového světa s dosud neřešeným úkolem — například vytvoření dalekohledu nebo nalezení diamantů.
+
+Díky kombinaci autonomního generování úkolů, kompoziční knihovny dovedností a schopnosti iterativní korekce chyb se Voyager přibližuje představě agenta, který je schopen dlouhodobého, otevřeného učení bez potřeby lidského zásahu. Schéma na obrázku~\ref{obrVoyager} přehledně znázorňuje propojení těchto tří klíčových komponent. V prostředí, které není explicitně navrženo pro AI trénink, vykazuje chování, které je zároveň zvídavé, adaptivní i efektivní — a představuje tak významný krok směrem k obecné umělé inteligenci v otevřeném světě.
+
+\begin{figure}[ht]
+\includegraphics[scale=1]{1-3.png} 
+\centering
+\caption{Vizualizace propojení hlavních komponent systému Voyager.\cite{Voyager2023}}
+\label{obrVoyager} 
+\end{figure}

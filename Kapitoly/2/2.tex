@@ -1,48 +1,48 @@
 \section{Použité technologie}
 \subsection{Unreal Engine}
-Prostředí, ale i~agent budou vytvářeni a~použiti v~Unreal Engine 5.2, který zajišťuje mapu i~herní mechanismy s~moderními renderovacími funkcemi v~reálném čase. Některé z~použitých prvků ve hře (hlavně modely a~animace) pocházejí z~FABu – nového tržiště od Epic Games, které spojilo staré Unreal Marketplace, Sketchfab, Quixel a~ArtStation v~jednu online platformu.
+Prostředí i~agent se vytváří a~používají v~Unreal Engine 5.2, který zajišťuje mapu i~herní mechanismy s~moderními renderovacími funkcemi v~reálném čase. Některé z~použitých prvků ve hře (hlavně modely a~animace) pocházejí z~FABu — nové online platformy od Epic Games, která spojuje starý Unreal Marketplace, Sketchfab, Quixel a~ArtStation v~jednotné řešení.
 
-Unreal Engine (UE)\cite{Unreal2025}, vyvíjený společností Epic Games, je výsledkem evoluce začínající v~roce 1998 a~dnes představuje špičkový engine pro vytváření her, filmů či vizualizací. Jeho pružnost, nastavitelnost a~výkon jsou velmi ceněné mezi vývojáři po celém světě.
+Unreal Engine (zkráceně UE)\cite{Unreal2025}, vyvíjený společností Epic Games, vzniká z~více než dvacetileté evoluce začínající v~roce 1998 a~dnes představuje špičkový engine pro tvorbu her, filmů i~vizualizací. Jeho pružnost, nastavitelnost a~výkon si získávají uznání vývojářů po celém světě.
 
-Velkou předností UE je systém Blueprint vizuálního skriptování, což je nadstavba C++, která umožňuje vytvářet herní logiku, interakce nebo AI pomocí uzlů a~grafů místo čistého C++. Díky tomu je tvorba her dostupnější i~kreativcům, kteří nejsou programátoři. A~pokud jsou jednotlivé uzly přehledně poskládány, může být práce s~nimi dokonce rychlejší pro prototypování a~nasazení systémů než při použití čistého C++.
+Mezi výrazné přednosti UE patří systém Blueprint vizuálního skriptování — nadstavba nad C++, která umožňuje vytvářet herní logiku, interakce a~AI pomocí uzlů a~grafů místo klasického kódu v~C++. Díky tomu je vývoj her přístupnější i~kreativcům bez programátorského zázemí. Když jsou uzly přehledně poskládány, může být práce s~nimi dokonce rychlejší pro prototypování a~nasazení systémů než použití čistého C++.
 
-Spíše UE5 než UE obecně si získal oblibu nejen mezi vývojáři her, ale i~ve filmové produkci, architektonické vizualizaci, produktovém designu nebo v~průmyslovém a~tréninkovém softwaru. Filmoví tvůrci ho využívají pro virtuální natáčení v~simulovaných prostředích, architekti jej nasazují pro interaktivní prezentace klientům a~byl také využit v~lékařství či obraně ke školení zaměstnanců ve vysoce realistických scénářích.
+Značnou oblibu nachází spíše UE5 než UE obecně — a~to nejen mezi herními vývojáři, ale i~ve filmové produkci, architektonické vizualizaci, produktovém designu nebo v~průmyslu a~tréninkových simulacích. Filmové týmy využívají UE5 pro virtuální natáčení v~simulovaných prostředích, architekti jej používají v~interaktivních prezentacích klientům a~v~medicíně či obraně slouží k~tréninku zaměstnanců ve vysoce realistických scénářích.
 
 \newpage
 
-Důvody, proč byl zvolen Unreal Engine před alternativami jako je Unity, jsou následující:
+Důvody volby Unreal Engine oproti alternativám jako Unity:
 \begin{enumerate}
 	\item C++:
 	\begin{itemize}
-		\item Jazyk C++ je jeden ze dvou použitých jazyků v~Unreal Enginu. Tento jazyk je velice rychlý, což je u~aplikací, jako jsou např. hry běžící v~reálném čase, potřebné. V~tomto jazyce mám zároveň nejvíce zkušeností oproti např. C\#, které používá Unity.
+		\item C++ je jedním ze dvou hlavních jazyků v~Unreal Enginu a~umožňuje velmi rychlý kód, což je klíčové pro aplikace běžící v~reálném čase, jako jsou hry. Navíc je v~něm největší zkušenost vývojového týmu (v~porovnání s~C\#, který je standardní v~Unity).
 	\end{itemize} 
 	\item Programovací nadstavba Blueprint:
 	\begin{itemize}
-		\item Jak už bylo zmíněno výše, Blueprint je nadstavba pro programovací jazyk C++ a~velice zjednodušuje programování v~UE, což znamená, že ho dokáže používat téměř kdokoliv, i~s~minimálními programovacími schopnostmi.
+		\item Blueprint je vizuální nadstavba nad C++, která výrazně zjednodušuje tvorbu herní logiky, interakcí a~AI. Díky ní mohou tvořit i~uživatelé s~omezenou znalostí programování — někteří pracovníci s~minimálními schopnostmi dosahují produktivity vyšší než při čistém C++.
 	\end{itemize} 
 	\item FAB:
 	\begin{itemize}
-		\item Také bylo výše zmíněno, že dříve byly Unreal Marketplace, Sketchfab, Quixel a~ArtStation samostatná tržiště/programy, kde jste na Unreal tržišti mohli sehnat kód nebo modely, Sketchfab vám umožňoval upravovat modely, Quixel je něco mezi Unreal tržištěm a~Sketchfabem a~ArtStation slouží také k~vyhledávání a~získávání modelů. Tyto čtyři obchody byly spojeny v~jeden pro Epic Games pod jménem FAB. Díky FABu nebylo zapotřebí vytvářet téměř žádné modely, protože většina modelů, které byly použity ke tvorbě mapy, hráčské postavy, zbraní atd., pochází z~FABu. Toto dokáže mnohonásobně zrychlit vývoj her.
+		\item Platforma FAB, kterou provozuje Epic Games, sjednocuje dřívější tržiště Unreal Marketplace, Sketchfab, Quixel a~ArtStation. Díky tomu poskytuje široké spektrum assetů (modely, animace…), což výrazně urychluje vývoj bez nutnosti tvořit každou položku od nuly.
 	\end{itemize}
 	\item Pluginy:
 	\begin{itemize}
-		\item Pokud je zapotřebí rozšířit Unreal Engine o~funkce, které neobsahuje v~základním balíčku, lze přidat různé pluginy pomocí obchodu s~pluginy, nebo také přidáním pluginu přímo do složky, kde je Unreal Engine nainstalovaný.
+		\item Unreal Engine umožňuje snadné rozšíření funkcionality prostřednictvím pluginů. Ty lze instalovat přímo z~oficiálního obchodu, nebo je přidávat ručně do instalační složky UE — flexibilní řešení pro specifické funkce.
 	\end{itemize}
-	\item 3D:
+	\item 3D architektura:
 	\begin{itemize}
-		\item UE je navržený od základů pro 3D tvorbu. V~Unity nebo např. Godotu lze vytvářet 3D hry, ale jejich tvorba je mnohem náročnější než v~UE, a~kvůli tomu se tyto nástroje spíše hodí pro 2D nebo 2.5D projekty.
+		\item UE je navržen od základu pro komplexní 3D tvorbu. V~Unity nebo Godotu lze sice vyvíjet 3D aplikace, ale těchto nástrojů se častěji využívá pro 2D či 2.5D projekty kvůli nižší náročnosti.
 	\end{itemize}
 \end{enumerate}
 
-Unreal Engine má ale i~své nevýhody oproti např. Unity nebo dokonce i~Godotu:
+Nevýhody Unreal Enginu oproti Unity či Godotu:
 \begin{enumerate}
 	\item Menší komunita:
 	\begin{itemize}
-		\item Unity má stále širší uživatelskou základnu oproti Unreal Enginu, takže někdy může být těžší najít odpovědi na specifické problémy v~UE, než by bylo v~Unity. Godot je na tom ale podobně jako UE.
+		\item Unity Unity má širší uživatelskou základnu, což zajišťuje větší dostupnost řešení specifických problémů. Godot je v~tomto ohledu srovnatelný s~Unreal Enginem.
 	\end{itemize} 
-	\item Náročnější nároky na výkon:
+	\item Vyšší hardwarové nároky:
 	\begin{itemize}
-		\item Na rozdíl od Unity, které dokáže být celkem svižné s~CPU, který má 6~jader, 16 GB RAM a~GTX 1060, Unreal Engine 5~pro dobrý výkon ideálně vyžaduje minimálně 32 GB RAM, ale spíše doporučované minimum je 64 GB RAM, moderní vícejádrové CPU a~minimálně grafickou kartu RTX 3080, ideálně však RTX 4080 nebo RTX 4090 pro real-time renderování. Na stanicích, které používá Epic Games pro UE, se běžně vyskytují konfigurace se 128 nebo dokonce 256 GB RAM, procesory Threadripper a~RTX 4080 pro zpracování rozsáhlých scén bez kompromisů.
+		\item Unreal Engine 5~pro optimální výkon obvykle vyžaduje 32–64GB RAM, moderní vícejádrový procesor a~grafickou kartu minimálně RTX4080, ideálně RTX4090. Epic Games standardně využívá pracovní stanice s~128–256GB RAM, procesory AMD Threadripper a~grafikami RTX4080 pro efektivní zpracování rozsáhlých scén. Naproti tomu Unity běží pohodlně i~na konfiguraci se 6jádrovým CPU, 16GB RAM a~grafickou kartou GTX1060.
 	\end{itemize} 
 \end{enumerate}
 
@@ -54,116 +54,128 @@ Unreal Engine má ale i~své nevýhody oproti např. Unity nebo dokonce i~Godotu
 \end{figure}
 
 \subsection{Visual Studio}
-V~tomto projektu používám pro programování v~C++ vývojové prostředí Visual Studio, které slouží k~psaní kódu v~tomto jazyce. Unreal Engine 5~přímo vyžaduje Visual Studio pro jakoukoliv práci s~C++, protože je s~tímto prostředím úzce propojen. Bez něj nelze kompilovat ani spouštět vlastní, čistě C++ moduly.
+Visual Studio je používáno jako hlavní vývojové prostředí pro programování v~C++ v~rámci tohoto projektu. Unreal Engine 5~vyžaduje Visual Studio pro jakoukoli práci s~C++, protože jde o~úzce integrovaný nástroj — bez něj nelze kompilovat ani spouštět čistě C++ moduly.
 
-Visual Studio je komplexní integrované vývojové prostředí (IDE) vytvořené společností Microsoft. Ačkoli podporuje více programovacích jazyků, při práci s~Unreal Enginem se využívá především pro C++. Nabízí širokou škálu nástrojů – od správy projektů, přes inteligentní doplňování kódu (IntelliSense), až po ladění a~analýzu paměti.
+Visual Studio je komplexní integrované vývojové prostředí (IDE) vytvořené společností Microsoft. Ačkoli podporuje více programovacích jazyků, při práci s~Unreal Enginem se využívá zejména pro C++. Nabízí třeba správu projektů, inteligentní doplňování kódu (IntelliSense), ladění a~analýzu paměti.
 
-Při práci s~Unreal Enginem se Visual Studio stáhne a~automaticky nakonfiguruje pro správu projektové struktury a~závislostí. Využívá build systémy jako MSBuild nebo CMake a~přímo spolupracuje se soubory Unreal projektu, což zajišťuje, že nové C++ třídy a~funkce budou správně sestaveny a~propojeny s~editorem.
+Při používání Unreal Enginu Visual Studio automaticky stahuje a~konfiguruje projektové struktury a~závislosti. Využívá build systémy jako MSBuild nebo CMake a~úzce spolupracuje se soubory Unreal projektu — díky tomu se nové C++ třídy a~funkce správně sestavují a~propojují s~editorem.
 
-Visual Studio rovněž umožňuje ladění v~reálném čase, profilování výkonu a~sledování využití paměti – což jsou klíčové nástroje při vývoji rozsáhlých projektů v~UE5.
+Visual Studio umožňuje ladění v~reálném čase, profilování výkonu a~sledování využití paměti — klíčové nástroje při vývoji rozsáhlých projektů v~UE5.
 
-Při vývoji na Windows je Visual Studio pro Unreal prakticky nezbytné. Umožňuje efektivní práci s~C++, řízení kompilace a~plynulý vývojářský proces při programování na úrovni enginu.
+Při vývoji na Windows je Visual Studio pro Unreal prakticky nezbytné. Umožňuje efektivní práci s~C++, řízení kompilace a~hladký vývojářský proces při programování na úrovni enginu.
 
 \newpage
 
 \subsection{NevarokML}
-NevarokML\cite{Nevarok2025} je pokročilý plugin pro Unreal Engine 5, který umožňuje přímou integraci strojového učení – konkrétně reinforcement learningu (RL) – do herních nebo simulačních projektů. Plugin je postaven na knihovně Stable-Baselines3 a~zpřístupňuje populární RL algoritmy jako PPO, A2C, DDPG, DQN, SAC a~TD3, které agentům umožňují učit se optimálnímu chování metodou pokus–omyl.
+NevarokML\cite{Nevarok2025} představuje pokročilý plugin pro Unreal Engine 5, který umožňuje přímou integraci strojového učení — konkrétně posilovaného učení (reinforcement learning, RL) — do herních nebo simulačních projektů. Plugin je založen na knihovně Stable‑Baselines3 a~zpřístupňuje oblíbené RL algoritmy jako PPO, A2C, DDPG, DQN, SAC a~TD3, které agentům umožňují učit se optimálnímu chování metodou pokus–omyl.
 
-Podporována je jak jednoagentní, tak víceagentní interakce, včetně možnosti paralelního tréninku v~různých prostředích, čímž se výrazně zrychluje učení a~zvyšuje schopnost agentů generalizovat v~různých scénářích.
+NevarokML podporuje jak jednoagentní, tak víceagentní interakce a~nabízí možnost paralelního tréninku napříč odlišnými prostředími. To významně zrychluje učení a~pomáhá agentům lépe generalizovat v~různých scénářích.
 
-Architektura NevarokML funguje na principu modelu klient–server: Unreal Engine běží jako serverová část, která simuluje prostředí a~chování agentů, zatímco pythonový klient provádí samotné strojové učení pomocí algoritmů ze Stable-Baselines3.
+Architektura NevarokML funguje na principu klient–server: Unreal Engine zde působí jako serverová část, která simuluje prostředí a~chování agentů, zatímco pythonový klient provádí strojové učení pomocí algoritmů ze Stable‑Baselines3.
 
-Komunikace mezi Unreal Enginem a~Python klientem probíhá přes síť nebo sockety pomocí JSON struktury, která přenáší stav prostředí (pozorování, odměny, akce). Jakmile je model natrénován, výsledné váhy se převedou do formátu ONNX a~následně se jako objekt typu NNEModelData nasadí přímo do Unreal Enginu prostřednictvím jeho systému Neural Network Engine.
+Komunikace mezi Unreal Enginem a~Python klientem probíhá přes síť nebo sockety s~využitím JSON protokolů, které přenášejí informace o~stavu prostředí (pozorování, odměny, akce). Jakmile se model natrénuje, výsledné váhy se převedou do formátu ONNX a~nasadí se jako objekt typu NNEModelData přímo do Unreal Enginu skrze jeho systém Neural Network Engine.
 
-ONNX\cite{ONNX2025}, neboli Open Neural Network Exchange, je otevřený formát a~celý ekosystém navržený tak, aby umožnil snadný přenos již natrénovaných modelů hlubokého učení mezi různými vývojovými frameworky, platformami a~typy hardwaru – a~to bez potřeby složité nebo zdlouhavé konverze.
+ONNX\cite{ONNX2025} (Open Neural Network Exchange) představuje otevřený formát a~ekosystém navržený tak, aby umožnil snadný přenos již natrénovaných modelů hlubokého učení mezi různými vývojovými frameworky, platformami a~typy hardwaru — bez potřeby složité konverze nebo zdlouhavých procesů.
 
-Neural Network Engine (NNE)\cite{NNE2025} je plugin navržený pro provádění inferencí neuronových sítí v~reálném čase přímo v~prostředí Unreal Engine. Využívá formát ONNX, který umožňuje spouštění modelů exportovaných z~běžně používaných frameworků strojového učení, jako jsou PyTorch, TensorFlow nebo MXNet, ve formátu .onnx.
+Neural Network Engine (NNE)\cite{NNE2025} je plugin určený pro provádění inferencí neuronových sítí v~reálném čase přímo v~prostředí Unreal Engine. Plugin využívá formát ONNX, který umožňuje spouštění modelů exportovaných z~běžně používaných frameworků strojového učení, jako jsou PyTorch, TensorFlow nebo MXNet, ve formátu .onnx bez nutnosti dalšího převodu.
 
-Jak vypadá základní pracovní postup:
 \begin{enumerate}
-	\item Vytvoření prostředí:
-	\begin{itemize}
-		\item Začíná se vytvořením Blueprint třídy děděné z~ANevarokMLEnv, kde se definují základní události OnInit, OnStep, a~OnReset pro řízení logiky prostředí a~průběhu epizod.
-	\end{itemize} 
-	\item Trenérský modul:
-	\begin{itemize}
-		\item Poté se vytvoří Blueprint děděný z~ANevarokMLTrainer, kde se nastaví pozorovací a~akční prostor (OnConstruct) a~zahájí samotný trénink (OnStart).
-	\end{itemize} 
-	\item Implementace v~úrovni:
-	\begin{itemize}
-		\item Trenér a~prostředí se vloží do Unreal scény, kde trenér odkazuje na prostředí a~celý proces tréninku začne při spuštění levelu.
-	\end{itemize}
-	
-\newpage	
-	
-	\item Sledování učení:
-	\begin{itemize}
-		\item Pro vizualizaci průběhu tréninku lze použít TensorBoard, který umožňuje sledovat vývoj odměn, změny v~politice agenta nebo ladění hyperparametrů.
-	\end{itemize}
+\item Vytvoření prostředí:
+\begin{itemize}
+\item Práce začíná vytvořením Blueprint třídy děděné z~NevarokMLEnviroment, kde se definují základní události OnInit, OnStep a~OnReset, které řídí logiku prostředí a~průběh epizod.
+\end{itemize}
+\item Trenérský modul:
+\begin{itemize}
+\item Následuje vytvoření Blueprintu děděného z~NevarokMLTrainer, kde se nastavují pozorovací a~akční prostory (OnConstruct) a~spouští se samotný trénink (OnStart).
+\end{itemize}
+\item Implementace v~úrovni:
+\begin{itemize}
+\item Trenér i~prostředí se umisťují do scény v~Unreal Enginu, přičemž trenér odkazuje na prostředí a~celý trénink začíná při spuštění úrovně.
+\end{itemize}
+
+\newpage
+
+\item Sledování učení:
+\begin{itemize}
+\item Pro vizualizaci průběhu učení se používá TensorBoard, který umožňuje sledovat vývoj odměn, změny v~politice agenta nebo ladění hyperparametrů.
+\end{itemize}
 \end{enumerate}
 
-Plugin je dostupný pro Unreal Engine verzi 5.2, a~po aktivaci pluginu je nutné zprovoznit i~jeho backend klienta a~zkontrolovat připojení mezi Unreal a~Pythonovým prostředím.
+Plugin je dostupný pro Unreal Engine ve verzi 5.2~a~po jeho aktivaci je nutné spustit i~backend klienta a~ověřit připojení mezi Unreal Enginem a~Pythonovým prostředím.
 
 Hlavní vlastnosti a~využití:
 \begin{enumerate}
-	\item Široký výběr algoritmů:
-	\begin{itemize}
-		\item Podpora různých typů RL algoritmů umožňuje ladit chování agentů podle konkrétního použití (např. hodnotové nebo policy-gradient přístupy).
-	\end{itemize} 
-	\item Podpora Blueprints i~C++:
-	\begin{itemize}
-		\item Plugin je plně využitelný jak přes vizuální skriptování, tak i~přes nativní C++ rozhraní pro pokročilé zásahy.
-	\end{itemize} 
-	\item Cross-platform nasazení:
-	\begin{itemize}
-		\item I~když je trénink typicky prováděn na Windows, natrénované modely lze nasadit na jakoukoliv platformu podporovanou Unreal Enginem.
-	\end{itemize}
-	\item Vhodné pro výuku a~výzkum:
-	\begin{itemize}
-		\item Plugin je volně dostupný pro nekomerční využití, což z~něj činí ideální nástroj pro akademické projekty, simulace nebo vývoj prototypů.
-	\end{itemize}
+\item Široký výběr algoritmů:
+\begin{itemize}
+\item Podpora různých typů RL algoritmů umožňuje ladit chování agentů podle konkrétního použití (např. hodnotové nebo policy-gradient přístupy).
+\end{itemize}
+\item Podpora Blueprintů i~C++:
+\begin{itemize}
+\item Plugin lze plně využívat jak přes vizuální skriptování, tak i~přes nativní C++ rozhraní pro pokročilejší zásahy.
+\end{itemize}
+\item Cross-platform nasazení:
+\begin{itemize}
+\item I~když trénink typicky probíhá na Windows, natrénované modely je možné nasadit na jakoukoli platformu podporovanou Unreal Enginem.
+\end{itemize}
+\item Vhodné pro výuku a~výzkum:
+\begin{itemize}
+\item Plugin je volně dostupný pro nekomerční využití, což z~něj činí ideální nástroj pro akademické projekty, simulace nebo vývoj prototypů.
+\end{itemize}
 \end{enumerate}
 
 \newpage
 
 \section{Návrh hry}
 \subsection{Návrh prostředí hry}
-Prostředí, ve kterém bude autonomní agent existovat, může být realizováno různými způsoby – od jednoduchých až po technicky náročnější. Mezi přístupnější možnosti patří využití herních enginů, jako je Unity nebo Unreal Engine, zatímco pokročilejší varianta zahrnuje programování od základu pomocí nízkoúrovňových API, jako je OpenGL nebo DirectX.
+Prostředí, ve kterém bude autonomní agent fungovat, lze realizovat různými způsoby – od jednoduchých po technicky náročnější. Mezi přístupnější varianty patří využití herních enginů, jako je Unity nebo Unreal Engine, zatímco pokročilejší řešení zahrnuje programování vizualizace od základu pomocí nízkoúrovňových API, jako jsou OpenGL nebo DirectX.
 
-V~tomto projektu bude vizualizace agenta realizována v~Unreal Engine formou střílečky z~pohledu první osoby. Prvním krokem bude vytvoření herní mapy, která umožní volný pohyb hráče i~postavy řízené umělou inteligencí. Mapa bude inspirována městským náměstím po bitvě – její střed bude tvořit park s~bankovní budovou. Park bude téměř prázdný kvůli zpustošení a~bankovní budova bude obklopena barikádami. Právě v~této budově se hráč po spuštění hry objeví. Nacházet se zde budou zbraně a~box se zbraněmi a~brněním, které hráč využije v~boji.
+V~tomto projektu bude vizualizace agenta realizována v~Unreal Engine formou střílečky z~pohledu první osoby. Prvním krokem bude vytvoření herní mapy, která umožní volný pohyb hráče i~postavy řízené umělou inteligencí. Mapa bude inspirována městským náměstím po bitvě – její střed bude tvořit park s~bankovní budovou. Park bude téměř prázdný kvůli zpustošení a~bankovní budova bude obklopena barikádami. Právě v~této budově se hráč po spuštění hry objeví. Bude zde možné nalézt zbraně a~box se zbraněmi a~brněním, které hráč využije v~boji.
 
-Kromě parku bude mapa obsahovat i~zastavěnou oblast – uzavřenější prostor obklopený budovami, jenž bude představovat vyšší riziko kvůli omezené viditelnosti a~pohybu. Uvnitř zabarikádované zóny se budou nacházet výchozí body (spawn pointy) pro nepřátelské postavy ovládané AI.
+Kromě parku bude mapa zahrnovat i~zastavěnou oblast – uzavřenější prostor obklopený budovami, který bude představovat vyšší riziko kvůli omezené viditelnosti a~pohybu. Uvnitř zabarikádované zóny se budou nacházet výchozí body (spawn pointy) pro nepřátelské postavy ovládané AI.
 
 Pro vyvážení obtížnosti budou nepřátelé po smrti odhazovat sbíratelné předměty, jako jsou lékárničky a~zásobníky munice, které hráč využije k~doplnění zdraví nebo střeliva.
 
-Součástí uživatelského rozhraní bude tzv. HUD (Head-Up Display), jenž bude zobrazovat klíčové herní informace – aktuální stav zdraví, zásoby energie, počet nábojů a~další. Z~tohoto rozhraní bude dostupné jak hlavní menu, tak i~pauzovací nabídka.
+Součástí uživatelského rozhraní bude tzv. HUD (Head-Up Display), který bude zobrazovat klíčové herní informace – aktuální stav zdraví, zásoby energie, počet nábojů a~další. Z~tohoto rozhraní bude možné přistupovat jak k~hlavnímu menu, tak k~pauzovací nabídce.
 
-Celá hra bude mít strukturu založenou na kolových vlnách. Po spuštění prvního kola se dveře banky zavřou, ale venku bude umístěna další bedna s~vybavením, kde bude možné měnit zbraně a~brnění. V~každém kole bude úkolem hráče eliminovat stanovený počet nepřátel. Po jejich porážce se aktuální kolo uzavře a~automaticky začne nové – s~vyšší obtížností nebo větším počtem protivníků. Tím vznikne dynamický cyklus, který prověří schopnosti hráče i~chování autonomního agenta v~různých podmínkách.
+Celá hra bude strukturována do kolových vln. Po spuštění prvního kola se zavřou dveře banky, přičemž venku bude umístěna další bedna s~vybavením, která umožní výměnu zbraní a~brnění. V~každém kole bude úkolem hráče eliminovat předem daný počet nepřátel. Po jejich porážce se aktuální kolo uzavře a~automaticky začne nové – s~vyšší obtížností nebo větším počtem protivníků. Tím vznikne dynamický cyklus, který otestuje schopnosti hráče i~chování autonomního agenta v~různých podmínkách.
 
-Část prostředí a~kódu u~různých blueprintů byla převzata z~jednoho z~mých projektů, ale proběhly zde velké změny, takže v~další kapitole bude popis jednotlivých částí hry a~poté agenta. 
+Část prostředí a~kódu u~některých Blueprintů byla převzata z~mého předchozího projektu. Vzhledem k~rozsáhlým úpravám však bude v~následující kapitole podrobně popsána struktura jednotlivých částí hry a~následně samotného agenta.
 
 \newpage
 
 \subsection{Návrh agenta}
-Cílem je vytvořit agenta řízený pomocí technik strojového učení, který se dokáže samostatně orientovat v~herním prostředí, přiblížit se ke svému cíli (hráči) a~efektivně použít střelnou zbraň k~jeho eliminaci. Tento agent nebude řízen předem nadefinovanými skripty, ale bude se učit chování na základě zkušenosti pomocí posilovaného učení. Učící algoritmus bude založen na metodě Proximal Policy Optimization (PPO). Aby měl agent dostatečný přehled o~situaci, budeme mu prostřednictvím funkce CollectObservations (sbírej pozorování) muset předávat soubor dat, ze kterého bude moct čerpat. Tyto informace umožní agentovi učinit informované rozhodnutí o~tom, jaké akce má provést.
+Cílem je vytvořit agenta řízeného pomocí technik strojového učení, který se dokáže samostatně orientovat v~herním prostředí, přiblížit se ke svému cíli (hráči) a~efektivně využít střelnou zbraň k~jeho eliminaci. Tento agent nebude ovládán předem nadefinovanými skripty, ale své chování se bude učit na základě zkušeností pomocí posilovaného učení. Učící algoritmus bude založen na metodě Proximal Policy Optimization (PPO).
+
+Celkový algoritmus agenta vytvořeného pomocí NevarokML je schematicky znázorněn na obrázku~\ref{obrAlg}. Tento vývojový diagram ilustruje jednotlivé fáze interakce agenta s~prostředím — od sběru pozorování, přes předání dat do neuronové sítě, predikci a~provedení akce, až po získání odměny, uložení zkušeností a~následný trénink modelu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{2-2.png}
+    \caption{Vývojový diagram algoritmu agenta v~rámci NevarokML}
+    \label{obrAlg}
+\end{figure}
+
+Vzhledem k~tomu, že framework NevarokML neumožňuje přímou modifikaci architektury neuronové sítě, jsou všechna zlepšení zaměřena na okolní prvky smyčky — zejména strukturu pozorování, množinu dostupných akcí a~definici odměn. Tyto prvky přímo ovlivňují kvalitu politiky, kterou agent získává.
+
+Aby měl agent dostatečný přehled o~situaci, budou mu prostřednictvím funkce CollectObservations předávány relevantní informace, na jejichž základě bude činit rozhodnutí. Tyto pozorování mu umožní vyhodnotit aktuální stav prostředí a~adekvátně reagovat.
 
 Agent bude mít přístup ke třem základním typům akcí:
 \begin{itemize}
-    \item Pohyb 
-    \item Rotace
-    \item Střelba, pokud jsou splněny podmínky (např. není aktivní cooldown, kouká na nepřítele atd.)
+\item Pohyb,
+\item Rotace,
+\item Střelba – za předpokladu splnění podmínek (např. není aktivní cooldown, hráč se nachází v~zorném poli apod.).
 \end{itemize}
 
-Tyto akce budou implementovány ve funkci ApplyActions (aplikuj akce), která interpretuje výstup neuronové sítě během trénování i~při použití.
+Tyto akce budou implementovány ve funkci ApplyActions, která interpretuje výstup neuronové sítě jak během tréninku, tak i~v~nasazení.
 
-Jádrem efektivního tréninku bude systém odměn, implementován ve funkci HandleRewards, který určuje, jakým způsobem bude agent penalizován či odměňován za své chování. Musí dostat odměny za to, že bude mít správnou rotaci, směr pohybu nebo optimální vzdálenost a~musí být limitován tak, aby agent nebyl motivován jen farmit body bez reálného splnění cíle. Veškerá motivace bude vázána přímo na výsledek boje.
+Jádrem efektivního učení bude systém odměn implementovaný ve funkci HandleRewards, jenž určuje, jak bude agent penalizován nebo odměňován za své chování. Bude například odměňován za správnou rotaci, pohyb směrem k~cíli nebo udržování optimální vzdálenosti. Zároveň bude trénink omezen tak, aby agent nebyl motivován pouze maximalizovat počet bodů bez reálného splnění cíle. Veškerá motivace bude přímo vázána na výsledek boje.
 
-Na základě toho návrhu se očekává, že agent:
+Na základě tohoto návrhu se očekává, že agent:
 \begin{enumerate}
-    \item Rozpozná pozici cíle pomocí poskytnutých pozorování.
-    \item Přiblíží se na efektivní vzdálenost.
-    \item Srovná rotaci tak, aby byl správně natočen k~cíli.
-    \item Zahájí palbu a~pokusí se cíl eliminovat.
+\item Rozpozná pozici cíle na základě poskytnutých pozorování,
+\item Přiblíží se na efektivní vzdálenost,
+\item Srovná rotaci tak, aby směřoval k~cíli,
+\item Zahájí palbu a~pokusí se cíl eliminovat.
 \end{enumerate}
 
-Tato posloupnost chování by měla vzniknout emergentně díky optimalizaci očekávané kumulativní odměny. Agent si taky bude moct po každém kole si přizpůsobit svoje vybavení vůči vybavení, které měl minule kolo hráč, aby měl vyšší šanci ho porazit.
+Tato posloupnost chování by měla emergentně vzniknout díky optimalizaci očekávané kumulativní odměny. Agent si rovněž bude moci po každém kole upravit své vybavení na základě konfigurace, kterou měl hráč v~předchozím kole, aby zvýšil svou šanci na úspěch.
