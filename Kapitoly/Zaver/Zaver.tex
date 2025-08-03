@@ -1,9 +1,9 @@
-Hlavním cílem této diplomové práce bylo navrhnout jednoduchého autonomního agenta, který dokáže za pomoci strojového učení a~změny vybavení porazit protihráče.
+Hlavním cílem této diplomové práce bylo navrhnout jednoduchého autonomního agenta, který se dokáže za pomoci strojového učení a~změny vybavení adaptovat v~dynamickém prostředí a~snadněji porazit protihráče.
 
 Nejprve jsem popsal existující AI agenty ve hrách a~nejčastěji používané techniky a~algoritmy. Mezi zmíněnými agenty byli AlphaStar, OpenAI Five a~Voyager; z~algoritmů a~technik pak PPO, Deep Q-Network, Self-Play a~Population-Based Training.
 
 V~další části jsem uvedl technologie použité při tvorbě samotné hry a~agenta — např. Unreal Engine či plugin NevarokML. Popsán byl také návrh hry i~samotného agenta.
 
-Závěrečná část práce se věnovala implementaci jednotlivých modulů hry, jako jsou hráčská postava, zbraně, systém kol, získávání vybavení (zbraní a~brnění) a~především implementaci, trénování a~aplikaci agenta. Tento agent využívá logiku vytvořenou pomocí strojového učení a~je schopen pohybu, rotace, útoku i~výměny výbavy.
+Závěrečná část práce se věnovala implementaci jednotlivých modulů hry, jako jsou hráčská postava, zbraně, systém kol, získávání vybavení (zbraní a~brnění) a~především implementaci, trénování a~aplikaci agenta. Tento agent využívá logiku vytvořenou pomocí strojového učení a~je schopen pohybu, rotace, útoku a~změny výbavy.
 
-První verze agenta zvládala pouze pohyb, přičemž jejím hlavním účelem bylo osvojení si práce s~pluginem NevarokML. Druhá verze, která byla první plně funkční, fungovala pouze částečně — agent se občas zcela zasekl a~nevěděl, jak jednat, nebo se příliš přibližoval k~nepříteli místo toho, aby si udržoval odstup. Finální verze agenta, navzdory několika drobným chybám, prokázala schopnost samostatného učení a~fungování v~prostředí. Dokáže se pohybovat, otáčet, útočit na hráče a~po každém kole si správně změnit výbavu.
+První verze agenta zvládala pouze základní pohyb a~jejím hlavním účelem bylo osvojení si práce s~pluginem NevarokML. Druhá verze, která představovala první plně funkční implementaci, vykazovala částečnou úspěšnost — agent se občas zcela zasekl a~nevěděl, jak reagovat, nebo se místo udržování odstupu příliš přibližoval k~nepříteli. Finální verze agenta, navzdory několika drobným nedostatkům, nejlépe prokázala schopnost adaptace v~dynamickém prostředí a~na chování hráče. Dokáže se pohybovat, otáčet, útočit a~po každém kole měnit svou výbavu.

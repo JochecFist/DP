@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.20)  2 AUG 2025 19:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.9.20)  3 AUG 2025 10:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -684,7 +684,12 @@ Underfull \vbox (badness 1845) has occurred while \output is active []
 
 ]
 Kapitola 1.
-(./Kapitoly/1/1.tex [11] [12]
+(./Kapitoly/1/1.tex
+Overfull \hbox (11.15297pt too wide) in paragraph at lines 1--1
+[]\T1/cmr/bx/n/17.28 Strojov� u�en� a al-go-ritmy zp�t-no-va-zeb-n�ho u�en� 
+ []
+
+[11] [12]
 <./Kapitoly/1/Obrazky//1-4.png, id=373, 102.3825pt x 73.9563pt>
 File: ./Kapitoly/1/Obrazky//1-4.png Graphic file (type png)
 <use ./Kapitoly/1/Obrazky//1-4.png>
@@ -699,23 +704,23 @@ l.58 \newpage
 <./Kapitoly/1/Obrazky//1-7.png, id=405, 853.1875pt x 633.36626pt>
 File: ./Kapitoly/1/Obrazky//1-7.png Graphic file (type png)
 <use ./Kapitoly/1/Obrazky//1-7.png>
-Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-7.png  used on input line 130.
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-7.png  used on input line 132.
 
 (pdftex.def)             Requested size: 383.93083pt x 285.01218pt.
  [16pdfTeX warning (ext4): destination with the same identifier (name{figure.1.
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.136 \newpage
+l.138 \newpage
                <./Kapitoly/1/Obrazky//1-7.png>] [17]
 <./Kapitoly/1/Obrazky//1-5.png, id=424, 645.00975pt x 230.0595pt>
 File: ./Kapitoly/1/Obrazky//1-5.png Graphic file (type png)
 <use ./Kapitoly/1/Obrazky//1-5.png>
-Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-5.png  used on input line 164.
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-5.png  used on input line 166.
 
 (pdftex.def)             Requested size: 432.15428pt x 154.13905pt.
 
-Overfull \hbox (5.36295pt too wide) in paragraph at lines 164--166
+Overfull \hbox (5.36295pt too wide) in paragraph at lines 166--168
  [][] 
  []
 
@@ -723,28 +728,28 @@ Overfull \hbox (5.36295pt too wide) in paragraph at lines 164--166
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.170 \newpage
+l.172 \newpage
                <./Kapitoly/1/Obrazky//1-5.png>]
 <./Kapitoly/1/Obrazky//1-6.png, id=436, 1108.14pt x 575.14874pt>
 File: ./Kapitoly/1/Obrazky//1-6.png Graphic file (type png)
 <use ./Kapitoly/1/Obrazky//1-6.png>
-Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-6.png  used on input line 194.
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-6.png  used on input line 196.
 
 (pdftex.def)             Requested size: 387.85481pt x 201.30507pt.
  [19] [20pdfTeX warning (ext4): destination with the same identifier (name{figu
 re.1.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.210 \newpage
+l.212 \newpage
                <./Kapitoly/1/Obrazky//1-6.png>] [21]
 <./Kapitoly/1/Obrazky//1-1.jpg, id=472, 1046.40938pt x 606.76688pt>
 File: ./Kapitoly/1/Obrazky//1-1.jpg Graphic file (type jpg)
 <use ./Kapitoly/1/Obrazky//1-1.jpg>
-Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-1.jpg  used on input line 239.
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-1.jpg  used on input line 241.
 
 (pdftex.def)             Requested size: 429.03062pt x 248.77603pt.
 
-Overfull \hbox (2.23929pt too wide) in paragraph at lines 239--241
+Overfull \hbox (2.23929pt too wide) in paragraph at lines 241--243
  [][] 
  []
 
@@ -756,7 +761,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.251 \newpage
+l.253 \newpage
                <./Kapitoly/1/Obrazky//1-1.jpg>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -764,11 +769,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <./Kapitoly/1/Obrazky//1-2.png, id=497, 1156.32pt x 748.59676pt>
 File: ./Kapitoly/1/Obrazky//1-2.png Graphic file (type png)
 <use ./Kapitoly/1/Obrazky//1-2.png>
-Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-2.png  used on input line 275.
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-2.png  used on input line 277.
 
 (pdftex.def)             Requested size: 427.83171pt x 276.97646pt.
 
-Overfull \hbox (1.04037pt too wide) in paragraph at lines 275--277
+Overfull \hbox (1.04037pt too wide) in paragraph at lines 277--279
  [][] 
  []
 
@@ -776,12 +781,12 @@ Overfull \hbox (1.04037pt too wide) in paragraph at lines 275--277
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.283 \newpage
+l.285 \newpage
                <./Kapitoly/1/Obrazky//1-2.png>] [26]
 <./Kapitoly/1/Obrazky//1-3.png, id=518, 426.393pt x 187.29974pt>
 File: ./Kapitoly/1/Obrazky//1-3.png Graphic file (type png)
 <use ./Kapitoly/1/Obrazky//1-3.png>
-Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-3.png  used on input line 309.
+Package pdftex.def Info: ./Kapitoly/1/Obrazky//1-3.png  used on input line 311.
 
 (pdftex.def)             Requested size: 426.39195pt x 187.29927pt.
 ) [27pdfTeX warning (ext4): destination with the same identifier (name{figure.1
@@ -902,9 +907,6 @@ File: ./Kapitoly/3/Obrazky//3-5.png Graphic file (type png)
 Package pdftex.def Info: ./Kapitoly/3/Obrazky//3-5.png  used on input line 479.
 
 (pdftex.def)             Requested size: 415.24854pt x 302.82932pt.
-
-Underfull \vbox (badness 4686) has occurred while \output is active []
-
  [55pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1151,12 +1153,12 @@ png> <./Kapitoly/PrilohaB/Obrazky//B-5.png>]
  hře.aux)
 Package rerunfilecheck Info: File `"Algoritmy strojového učení pro adaptaci 
 autonomních agentů v 3D akční hře".out' has not changed.
-(rerunfilecheck)             Checksum: 65B9317F2A0EE2B3A8B172EF25227049;6087.
+(rerunfilecheck)             Checksum: 5388428D929AC273736A41DE69E09AB7;6105.
  ) 
 Here is how much of TeX's memory you used:
  13688 strings out of 480437
  206012 string characters out of 5898174
- 536388 words of memory out of 5000000
+ 536391 words of memory out of 5000000
  30836 multiletter control sequences out of 15000+600000
  421110 words of font info for 72 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
@@ -1185,7 +1187,7 @@ ams/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb><c:/Progra
 ms/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb><c:/Program
 s/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
 Output written on "Algoritmy strojového učení pro adaptaci autonomních agen
-tů v 3D akční hře.pdf" (72 pages, 3394718 bytes).
+tů v 3D akční hře.pdf" (72 pages, 3395563 bytes).
 PDF statistics:
  1032 PDF objects out of 1200 (max. 8388607)
  821 compressed objects within 9 object streams

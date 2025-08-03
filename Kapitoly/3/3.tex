@@ -89,7 +89,7 @@ Střed obrazovky je vybaven zaměřovačem, jehož velikost se dynamicky mění 
 
 \section{Autonomní agent}
 \subsection{První verze agenta}
-Pro začátek testuji samotný proces tréninku, tvorby modelu a~následného nasazení natrénovaného modelu do simulace pomocí pluginu NevarokML. V~první verzi se rozhoduji vytvořit jednoduchého agenta, který se dokáže pohybovat a~v~průběhu tréninku i~simulace postupně zlepšuje svou schopnost dosáhnout stanoveného cíle.
+Pro začátek testuji samotný proces tréninku, tvorby modelu a~následného nasazení natrénovaného modelu do simulace pomocí pluginu NevarokML. V~první verzi se rozhoduji vytvořit jednoduchého agenta, který se dokáže adaptivně pohybovat a~v~průběhu tréninku i~simulace postupně zlepšuje svou schopnost dosáhnout stanoveného cíle.
 
 \subsubsection{Trénovací mapa}
 Na trénovací mapě se nachází hlavní entita typu NevarokMLTrainer, která slouží k~tréninku agenta v~rámci pluginu NevarokML. Pod ní funguje 270 podřízených entit typu NevarokMLEnvironment, z~nichž každá obsahuje simulovaný herní svět pro konkrétního agenta. V~každém prostředí je zároveň přítomna entita agent, na níž probíhá samotný trénink nebo simulace.
@@ -349,7 +349,7 @@ Nejprve se pomocí uzlu \uv{Sample Box Line Trace} detekuje vzdálenost k~objekt
 
 Současně probíhá výpočet směrového rozdílu mezi agentem a~cílem. Uzel \uv{Get Actor Rotation} spolu s \uv{Break Rotator} extrahují hodnotu yaw agenta, zatímco funkce \uv{Find Look at Rotation} určuje požadovaný yaw směr k~cíli. Tyto hodnoty se ukládají jako \uv{Agent Yaw} a \uv{Look at Yaw}.
 
-Úhlový rozdíl se dále normalizuje pomocí uzlu \uv{Normalize Axis}, který zajišťuje, že výsledek zůstává v~rozsahu $[-180^\circ, 180^\circ]$. Absolutní hodnota odchylky se následně ukládá jako \uv{Yaw Diff}, opět pomocí \uv{Set Box Value}.
+Úhlový rozdíl se dále normalizuje pomocí uzlu \uv{Normalize Axis}, který zajišťuje, že výsledek zůstává v~rozsahu $[-180^\circ, 180^\circ]$. Hodnota odchylky se následně ukládá jako \uv{Yaw Diff}, opět pomocí \uv{Set Box Value}.
 
 Pro každý zápis do pozorovacího pole se využívá inkrementační čítač \uv{Index Counter}, který pomocí funkce \uv{Index Plus Plus} zajišťuje, že jednotlivé hodnoty se zapisují do různých indexů bez přepisování.
 
@@ -466,11 +466,11 @@ Jak ukazuje tabulka \ref{tab:training_summary2}, výsledky u~první plně implem
 
 Ztráta podle policy gradientu se zvyšuje z \texttt{–0.00192} na \texttt{–0.00472}, což ukazuje na silnější gradientové signály a~výraznější změny v~politice agenta. Přibližná KL divergence narůstá z \texttt{0.00098} na \texttt{0.00734}, což znamená, že se politika během tréninku aktualizuje agresivněji — typický jev při zpřesňování chování.
 
-\texttt{Entropy loss} klesá z \texttt{–0.157} na \texttt{–0.968}, což značí výrazné snížení náhodnosti v~rozhodování. Agentovo chování se stává více deterministickým, což často signalizuje pozitivní konvergenci. Naopak hodnota \texttt{explained variance} klesá z \texttt{0.926} na \texttt{0.499}, což znamená, že přesnost predikcí hodnotové funkce (kritiky) se zhoršuje. Predikce budoucích odměn jsou méně spolehlivé — běžný jev v~hlubokém posilovaném učení, obzvlášť při nasazení konkrétních strategií.
+\texttt{Entropy loss} klesá z \texttt{–0.157} na \texttt{–0.968}, což značí výrazné snížení náhodnosti v~rozhodování. Agentovo chování se stává více deterministickým, což často signalizuje pozitivní konvergenci. Naopak hodnota \texttt{explained variance} klesá z \texttt{0.926} na \texttt{0.499}, což znamená, že přesnost predikcí hodnotové funkce (kritiky) se zhoršuje. Predikce budoucích odměn jsou méně spolehlivé — běžný jev v~hlubokém zpětnovazebním učení, obzvlášť při nasazení konkrétních strategií.
 
 Pozoruhodným rozdílem je také nárůst \texttt{value loss} z \texttt{0.00187} na \texttt{1.02}, což může indikovat určitou nestabilitu hodnotové funkce během tréninku.
 
-Bohužel tento model vyžaduje úpravy. Ignoruje některá pravidla odměňování — místo aby udržuje optimální vzdálenost od nepřítele, přibližuje se co nejblíže, aby maximalizuje šanci na úspěšný zásah. Děje se tak proto, že odměny za zásah výrazně převyšují penalizace za nesprávnou vzdálenost. Kromě toho stále chybí implementace poslední funkcionality.
+Bohužel, i~když se tento model dokáže poměrně dobře adaptovat na hráče, stále vyžaduje úpravy. Ignoruje některá pravidla odměňování — místo aby si udržoval optimální vzdálenost od nepřítele, přibližuje se co nejblíže, aby maximalizoval šanci na úspěšný zásah. Děje se tak proto, že odměna za zásah výrazně převyšuje penalizaci za nevhodnou vzdálenost. Kromě toho dosud chybí implementace poslední požadované funkcionality.
 
 Vývojový diagram na obrázku \ref{obrAlg2} znázorňuje strukturu algoritmu agenta odpovídající této konkrétní verzi.
 
@@ -546,7 +546,7 @@ Tabulka \ref{tab:training_summaryfinal} ukazuje výsledky finální verze modelu
 \uv{Explained variance} roste z~0{,}499 na 0{,}604, čímž se zlepšuje schopnost modelu odhadovat hodnotu stavu a~predikovat budoucí odměny.
 \uv{Value loss} se snižuje z~1{,}02 na 0{,}70, což poukazuje na nižší nestabilitu hodnotové funkce.
 
-Finální agent dokáže správně volit zbraň a~brnění, pronásledovat hráče, nasměrovat se k~němu a~zahájit střelbu. Přesto systém není zcela bez chyb: při pohybu hráče občas agent místo jemné korekce rotace provede úplný obrat, než se správně natočí.
+Finální agent dokáže správně volit zbraň a~brnění, pronásledovat hráče, nasměrovat se k~němu a~zahájit střelbu. Tyto volby navíc dokáže během činnosti velice pomalu přizpůsobovat a~optimalizovat podle aktuální situace. Přesto systém není zcela bezchybný — při pohybu hráče občas agent místo jemné korekce rotace provede úplný obrat, než se správně natočí.
 
 \newpage
 
@@ -580,6 +580,6 @@ Obrázky \ref{obrModelFinal1/2} a \ref{obrModelFinal2/2} ilustrují vizuální p
 \newpage
 
 \subsection{Shrnutí všech verzí}
-První verze agenta se sice učí a~funguje nejlépe, ale zároveň je nejjednodušší, protože zvládá pouze pohyb. Hráč proto tento model dokáže snadno porazit. Druhá verze obsahuje veškerou potřebnou logiku, ale nedaří se ji efektivně natrénovat — agent se neustále drží těsně u~nepřítele, což sice vede k~vítězství, ale působí nepřirozeně. Finální verze je ze všech nejvyspělejší — učí se i~funguje téměř bezchybně: skutečně pronásleduje hráče, mění výbavu, útočí apod. Tato verze je zároveň nejobtížnější na poražení, což byl zamýšlený cíl.
+První verze agenta se sice dokáže adaptovat a~funguje nejlépe, ale zároveň je nejjednodušší, protože zvládá pouze pohyb. Hráč proto tento model dokáže snadno porazit. Druhá verze obsahuje veškerou potřebnou logiku, ale nefunguje a~neadaptuje se dle očekávání — agent se neustále drží těsně u~nepřítele, což sice může vést k~vítězství, ale působí nepřirozeně. Finální verze je ze všech nejvyspělejší — učí se, adaptuje se a~funguje téměř bezchybně: skutečně pronásleduje hráče, mění výbavu, útočí apod. Tato verze je zároveň nejobtížnější na poražení, což byl zamýšlený cíl.
 
-Bohužel, přestože se agent během hry dále učí, ve hře se vyskytuje výrazně méně instancí agentů než na trénovací mapě, takže online trénink během hry je téměř zanedbatelný.
+Bohužel, přestože se agent během hry dále učí a~adaptuje na hráče, ve hře se vyskytuje výrazně méně instancí agentů než na trénovací mapě, takže online trénink během hraní je téměř zanedbatelný.
