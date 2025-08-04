@@ -130,7 +130,7 @@ Následně se připravuje tzv. Observation Space (pozorovací prostor), do kter�
 Volitelné parametry zahrnují:
 \uv{Use SDE} pro aktivaci stavového šumu, \uv{Sde Sample Freq} pro určení jeho frekvence, a \uv{Verbose} pro zapnutí výpisu logů během tréninku.
 
-Po uzlu PPO následuje uzel Learn, který spouští samotný trénink nebo simulaci pomocí zvoleného algoritmu:
+Po uzlu PPO následuje uzel Learn, který spouští samotný trénink a simulaci pomocí zvoleného algoritmu:
 
 \begin{itemize}
 
@@ -142,7 +142,7 @@ Po uzlu PPO následuje uzel Learn, který spouští samotný trénink nebo simul
 
 \item \uv{Save Freq} a \uv{Log Interval} — určují frekvenci ukládání modelů a zapisování logů.
 
-\item \uv{Load Model Path} a \uv{Save Model Name} — správa checkpointů a ukládání nových verzí.
+\item \uv{Save Model Name} — jméno modelu.
 
 \item \uv{Deterministic} — zajišťuje deterministické chování při vyhodnocení po tréninku.
 
@@ -153,11 +153,9 @@ Volitelné ladicí volby jako \uv{Show Tensorboard}, \uv{Show Reward}, \uv{Show 
 \newpage
 
 \subsubsection{Nevarok prostředí}
-Po inicializaci prostředí se nejprve spouští událost \uv{Event On Init}. Ta kontroluje, zda je aktivní proměnná \uv{Simulate}, která určuje, zda prostředí začíná od začátku, nebo pokračuje s uloženým modelem. Pokud je podmínka splněna, vytváří se instance uzlu \uv{NNEModule}, který načítá a inicializuje uložený model. Tento uzel vyžaduje vstupy z \uv{Action Sample} a \uv{Observation Sample}, aby model věděl, s jakými akčními a pozorovacími daty bude pracovat.
+Po inicializaci prostředí se nejprve spouští událost \uv{Event On Init}. Pokud chceme načíst uložený model, aby trénink a simulace nezačínaly od začátku a bylo možné agenta využít kdekoliv, vytvoříme instanci modelu pomocí uzlu \uv{NNEModule}, který model načte a inicializuje. Pokud tento uzel nepoužijeme, vše probíhá od začátku. Uzel však vyžaduje vstupy z \uv{Action Sample} a \uv{Observation Sample}, aby model věděl, s jakými akčními a pozorovacími daty bude pracovat. Výstup modelu se následně ukládá do proměnné \uv{Model}. V této fázi se také ukládá počáteční pozice agenta do proměnné \uv{Agent Initial Location}, získaná z uzlu \uv{Get Actor Location}. Tato pozice se používá při resetování prostředí na začátku každé epizody. Agent je zároveň přidán do seznamu \uv{Ignore Actors} pomocí uzlu \uv{Add Unique}, aby byl ignorován při raycast kolizích.
 
-Výstup modelu se následně ukládá do proměnné \uv{Inference Model}, která slouží pro predikci akcí agenta. V této fázi se rovněž ukládá počáteční pozice agenta do proměnné \uv{Agent Initial Location}, získaná z uzlu \uv{Get Actor Location}. Tato pozice se používá pro resetování prostředí na začátku každé epizody. Agent se zároveň přidává do seznamu \uv{Ignore Actors} pomocí uzlu \uv{Add Unique}, aby byl ignorován při raycast kolizích během simulace.
-
-Po inicializaci následuje průběžná simulace skrze událost \uv{Event On Step}. Pokud je \uv{Simulate} stále aktivní, spouští se uzel \uv{Predict}, který navrhuje akce pro aktuální stav prostředí. Tyto akce se aplikují pomocí uzlu \uv{Apply Actions}, zatímco aktuální stav se zaznamenává přes uzel \uv{Collect Observations}. Odměny za jednotlivé akce vyhodnocuje funkce \uv{Handle Rewards} a volitelně se zobrazuje ladicí výstup prostřednictvím uzlu \uv{Debug}, který umožňuje sledování simulace v reálném čase.
+Po inicializaci následuje průběžná simulace skrze událost \uv{Event On Step}. Pokud jsme načetli existující model k použití a dalšímu trénování, musíme jej aktivovat pomocí uzlu \uv{Predict}, který navrhuje akce podle aktuálního stavu prostředí. Tyto akce se aplikují pomocí uzlu \uv{Apply Actions}, zatímco aktuální stav se zaznamenává uzlem \uv{Collect Observations}. Odměny za jednotlivé akce vyhodnocuje funkce \uv{Handle Rewards}, čímž dochází k úpravě modelu.
 
 Mezi hlavními ticky definovanými parametrem \uv{Trainer->TickInterval} se může spustit událost \uv{Event On Step Skip}. Ta slouží například k aplikaci akcí v jemnějších krocích nebo k vyplnění mezer mezi hlavními kroky. Pozorování získaná během \uv{Step Skip} se však do tréninkového procesu nezahrnují.
 
@@ -288,7 +286,7 @@ Ztrátové funkce vykazují očekávané hodnoty:
 
 Významným ukazatelem je také \texttt{explained\_variance = 0.926}, což znamená, že přibližně 92{,}6\% variability cílových hodnot je vysvětleno predikcemi hodnotové funkce — potvrzuje to dobrý odhad stavu a stabilitu tréninku.
 
-Model funguje téměř stoprocentně (vzhledem ke své jednoduchosti, zaměřené pouze na pohyb agenta směrem k cíli). Stejně přesně se chová i při nasazení na herní mapu, kde nahrazuje standardní pohyb agenta tímto algoritmem.
+Model funguje téměř stoprocentně (vzhledem ke své jednoduchosti, zaměřené pouze na pohyb agenta směrem k cíli). Stejně přesně se chová ipři nasazení na herní mapu, kde nahrazuje standardní pohyb agenta tímto algoritmem. Takto jednoduchý agent však samozřejmě nedokáže v reálné situaci konkurovat hráči.
 
 \begin{figure}[ht]
 \includegraphics[scale=0.6]{3-1.png} 
@@ -341,8 +339,6 @@ Rozšiřuje se také \uv{Observation Space} — agent nyní sbírá o dvě dalš
 Kromě toho se přidává ukládání počáteční rotace agenta, které se využívá při resetu a pro správnou orientaci v každé nové epizodě.
 
 \subsubsection{Změny v prostředí}
-Základní inicializační část \texttt{NevarokMLEnvironment} zůstává beze změny, ale ostatní části doznávají úprav.
-
 Ve funkci \uv{CollectObservations} se přidává logika, která vypočítává vzdálenost a úhlovou odchylku (yaw rozdíl) mezi agentem a nepřítelem. Tyto hodnoty se následně zapisují do pozorovacího prostoru.
 
 Nejprve se pomocí uzlu \uv{Sample Box Line Trace} detekuje vzdálenost k objektu před agentem. Výstup \uv{Difference Length} se ukládá do proměnné \uv{Distance To Enemy} a následně pomocí uzlu \uv{Set Box Value} do pozorovacího pole.
@@ -460,7 +456,7 @@ value\_loss & 1.02 \\
 \label{tab:training_summary2}
 \end{table}
 
-Jak ukazuje tabulka \ref{tab:training_summary2}, výsledky u první plně implementované verze algoritmu se výrazně liší. Jednotlivé epizody trvají déle než u první verze, protože agent musí nejen dojít k cíli, ale zároveň najít nepřítele, otočit se na něj, zahájit útok a eliminovat ho. Délka tréninku se proto přibližně ztrojnásobuje, aby agent dosáhl spolehlivého chování.
+Jak ukazuje tabulka \ref{tab:training_summary2}, výsledky první plně implementované verze algoritmu se výrazně liší. Jednotlivé epizody trvají déle než u první verze, protože agent již nesměřuje pouze k cíli, ale musí lokalizovat nepřítele, správně se na něj natočit, zahájit útok a úspěšně ho eliminovat. Z tohoto důvodu se délka tréninku přibližně ztrojnásobila.
 
 \newpage
 
@@ -513,8 +509,8 @@ V odměnové logice je přidáno nové omezení a je upraveno jedno existující
 \textbf{Metrika} & \textbf{Hodnota} \\
 \hline
 \multicolumn{2}{|l|}{\textbf{rollout/}} \\
-ep\_len\_mean & 27.4 \\
-ep\_rew\_mean & 8.8 \\
+ep\_len\_mean & 31.4 \\
+ep\_rew\_mean & 9.2 \\
 \hline
 \multicolumn{2}{|l|}{\textbf{time/}} \\
 fps & 2500 \\
@@ -582,4 +578,4 @@ Obrázky \ref{obrModelFinal1/2} a \ref{obrModelFinal2/2} ilustrují vizuální p
 \subsection{Shrnutí všech verzí}
 První verze agenta se sice dokáže adaptovat a funguje nejlépe, ale zároveň je nejjednodušší, protože zvládá pouze pohyb. Hráč proto tento model dokáže snadno porazit. Druhá verze obsahuje veškerou potřebnou logiku, ale nefunguje a neadaptuje se dle očekávání — agent se neustále drží těsně u nepřítele, což sice může vést k vítězství, ale působí nepřirozeně. Finální verze je ze všech nejvyspělejší — učí se, adaptuje se a funguje téměř bezchybně: skutečně pronásleduje hráče, mění výbavu, útočí apod. Tato verze je zároveň nejobtížnější na poražení, což byl zamýšlený cíl.
 
-Bohužel, přestože se agent během hry dále učí a adaptuje na hráče, ve hře se vyskytuje výrazně méně instancí agentů než na trénovací mapě, takže online trénink během hraní je téměř zanedbatelný.
+Bohužel, přestože se agent během hry dále učí a adaptuje na hráče, jak již bylo zmíněno výše, ve hře se vyskytuje výrazně méně instancí agentů než na trénovací mapě, takže online trénink během hraní je téměř zanedbatelný.
