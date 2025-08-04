@@ -22,14 +22,14 @@ Mechanismus spotřeby a~obnovy staminy funguje pomocí samostatných funkcí. B�
 
 Hráčská postava disponuje také funkcemi pro správu zdraví. V~případě zranění se okamžitě aktivuje odečet životů. Pokud postava stále žije, nastává fáze pomalé regenerace zdraví, která se zastavuje po dosažení maximální hodnoty. Pokud však zdraví klesne na nulu, postava umírá – veškeré ovládání se zablokuje, zvuky se deaktivují a~zobrazí se obrazovka smrti s~možností ukončení nebo restartu hry.
 
-\newpage
-
 \subsection{Zbraňový systém}
 Zbraňový systém ve hře simuluje chování střelných zbraní realistickým způsobem – včetně střelby, přebíjení, sběru munice a~interakce s~herním prostředím. Na začátku se inicializuje ukazatel na hráčskou postavu, což umožňuje přímé propojení mezi zbraní a~hráčem.
 
 Při výstřelu se automaticky odečte jeden náboj ze zásobníku a~zároveň se spustí dvě animace – jedna vizualizuje samotný výstřel, druhá zobrazuje animaci hráče při střelbě. Pokud jsou náboje vyčerpány, zbraň vydává charakteristický zvuk „cvaknutí naprázdno“, který hráče upozorňuje na nutnost přebití.
 
 Přebíjení probíhá pouze tehdy, pokud zásobník není plný. Systém nejprve zjišťuje, kolik nábojů chybí do plné kapacity, a~následně je doplní z~celkové zásoby. Celý proces doprovází přehrání přebíjecí animace. Když hráč sebere na mapě náboje, systém ověří, zda nebyl překročen maximální limit – pokud ne, munice se přičte.
+
+\newpage
 
 Interakce se zbraněmi probíhá pomocí dvou specifických tlačítek: klávesa E slouží ke sběru zbraní ze země, klávesa B umožňuje jejich odhození. Při sběru zbraně systém detekuje její přítomnost v~okolí hráče, načte informace o~typu zbraně, počtu nábojů v~zásobníku i~zásobě a~tyto údaje přenese do hráčova inventáře. Zbraň se poté odstraní ze scény a~nahrazuje se aktivní zbraní, která je vizuálně připojena k~hráči.
 
@@ -54,9 +54,9 @@ Logika řízení herních kol a~nepřátelských jednotek začíná inicializac�
 
 V~rámci této úvodní funkce se resetuje proměnná indikující, zda již byli všichni nepřátelé naspawnováni. Zvyšuje se čítač aktuálního kola a~spouští se časovač, který po předem definované době aktivuje začátek daného kola.
 
-Zahájení kola zahrnuje nastavení počtu nepřátel, kteří se mají v~daném kole objevit. Následně se spouští časovač, jenž s~definovaným zpožděním volá funkci pro výběr náhodného místa spawnování. Na tomto místě se poté vytvářejí instance nepřátelských jednotek, implementovaných jako trenéři neuronové sítě v~rámci tréninkové logiky.
+\newpage
 
-Každý spawnovaný nepřítel se generuje podle pozice a~orientace z~předem určených spawnovacích bodů, čímž se zajišťuje variabilita a~nepředvídatelnost jednotlivých kol.
+Zahájení kola zahrnuje nastavení počtu nepřátel, kteří se mají v~daném kole objevit. Následně se spouští časovač, jenž s~definovaným zpožděním volá funkci pro výběr náhodného místa spawnování. Na tomto místě se poté vytvářejí instance nepřátelských jednotek.
 
 Současně běží opakovaná kontrolní funkce, která sleduje počet aktivních nepřátel. Jakmile systém detekuje, že jsou všichni eliminováni, aktivuje ukončení aktuálního kola.
 
@@ -86,6 +86,8 @@ Během hraní může hráč kdykoli stisknutím klávesy P otevřít pauzovací 
 Hlavní herní HUD je rozdělen do několika oblastí. V~levém dolním rohu se nacházejí tři informační lišty: horní zobrazuje stav baterie svítilny na zbrani, prostřední ukazuje úroveň zdraví a~spodní indikuje množství energie postavy. Vedle těchto lišt se zobrazuje číslo aktuálního kola. V~pravém dolním rohu je uveden počet nábojů v~zásobníku, celkový počet náhradních nábojů a~informace o~aktuálně držené zbrani (název a~typ).
 
 Střed obrazovky je vybaven zaměřovačem, jehož velikost se dynamicky mění v~závislosti na rychlosti pohybu hráče, což přispívá k~přesnějšímu míření. V~horní části displeje se nachází časovač, který odpočítává čas do začátku nového kola. V~pravém horním rohu je umístěn panel zobrazující změny atributů nepřátel generované neuronovou sítí, a~nad ním se nachází počítadlo snímkové frekvence (FPS) pro sledování výkonnosti hry.
+
+\newpage
 
 \section{Autonomní agent}
 \subsection{První verze agenta}

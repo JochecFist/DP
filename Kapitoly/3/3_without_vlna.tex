@@ -54,9 +54,7 @@ Logika řízení herních kol a nepřátelských jednotek začíná inicializac�
 
 V rámci této úvodní funkce se resetuje proměnná indikující, zda již byli všichni nepřátelé naspawnováni. Zvyšuje se čítač aktuálního kola a spouští se časovač, který po předem definované době aktivuje začátek daného kola.
 
-Zahájení kola zahrnuje nastavení počtu nepřátel, kteří se mají v daném kole objevit. Následně se spouští časovač, jenž s definovaným zpožděním volá funkci pro výběr náhodného místa spawnování. Na tomto místě se poté vytvářejí instance nepřátelských jednotek, implementovaných jako trenéři neuronové sítě v rámci tréninkové logiky.
-
-Každý spawnovaný nepřítel se generuje podle pozice a orientace z předem určených spawnovacích bodů, čímž se zajišťuje variabilita a nepředvídatelnost jednotlivých kol.
+Zahájení kola zahrnuje nastavení počtu nepřátel, kteří se mají v daném kole objevit. Následně se spouští časovač, jenž s definovaným zpožděním volá funkci pro výběr náhodného místa spawnování. Na tomto místě se poté vytvářejí instance nepřátelských jednotek.
 
 Současně běží opakovaná kontrolní funkce, která sleduje počet aktivních nepřátel. Jakmile systém detekuje, že jsou všichni eliminováni, aktivuje ukončení aktuálního kola.
 
