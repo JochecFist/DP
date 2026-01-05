@@ -22,14 +22,14 @@ Mechanismus spotřeby a~obnovy staminy funguje pomocí samostatných funkcí. B�
 
 Hráčská postava disponuje také funkcemi pro správu zdraví. V~případě zranění se okamžitě aktivuje odečet životů. Pokud postava stále žije, nastává fáze pomalé regenerace zdraví, která se zastavuje po dosažení maximální hodnoty. Pokud však zdraví klesne na nulu, postava umírá – veškeré ovládání se zablokuje, zvuky se deaktivují a~zobrazí se obrazovka smrti s~možností ukončení nebo restartu hry.
 
+\newpage
+
 \subsection{Zbraňový systém}
 Zbraňový systém ve hře simuluje chování střelných zbraní realistickým způsobem – včetně střelby, přebíjení, sběru munice a~interakce s~herním prostředím. Na začátku se inicializuje ukazatel na hráčskou postavu, což umožňuje přímé propojení mezi zbraní a~hráčem.
 
 Při výstřelu se automaticky odečte jeden náboj ze zásobníku a~zároveň se spustí dvě animace – jedna vizualizuje samotný výstřel, druhá zobrazuje animaci hráče při střelbě. Pokud jsou náboje vyčerpány, zbraň vydává charakteristický zvuk „cvaknutí naprázdno“, který hráče upozorňuje na nutnost přebití.
 
 Přebíjení probíhá pouze tehdy, pokud zásobník není plný. Systém nejprve zjišťuje, kolik nábojů chybí do plné kapacity, a~následně je doplní z~celkové zásoby. Celý proces doprovází přehrání přebíjecí animace. Když hráč sebere na mapě náboje, systém ověří, zda nebyl překročen maximální limit – pokud ne, munice se přičte.
-
-\newpage
 
 Interakce se zbraněmi probíhá pomocí dvou specifických tlačítek: klávesa E slouží ke sběru zbraní ze země, klávesa B umožňuje jejich odhození. Při sběru zbraně systém detekuje její přítomnost v~okolí hráče, načte informace o~typu zbraně, počtu nábojů v~zásobníku i~zásobě a~tyto údaje přenese do hráčova inventáře. Zbraň se poté odstraní ze scény a~nahrazuje se aktivní zbraní, která je vizuálně připojena k~hráči.
 
@@ -54,13 +54,13 @@ Logika řízení herních kol a~nepřátelských jednotek začíná inicializac�
 
 V~rámci této úvodní funkce se resetuje proměnná indikující, zda již byli všichni nepřátelé naspawnováni. Zvyšuje se čítač aktuálního kola a~spouští se časovač, který po předem definované době aktivuje začátek daného kola.
 
-\newpage
-
 Zahájení kola zahrnuje nastavení počtu nepřátel, kteří se mají v~daném kole objevit. Následně se spouští časovač, jenž s~definovaným zpožděním volá funkci pro výběr náhodného místa spawnování. Na tomto místě se poté vytvářejí instance nepřátelských jednotek.
 
 Současně běží opakovaná kontrolní funkce, která sleduje počet aktivních nepřátel. Jakmile systém detekuje, že jsou všichni eliminováni, aktivuje ukončení aktuálního kola.
 
 Závěrečná funkce každého kola vyhodnocuje vybavení hráče — typ zbraně a~nastavené brnění (logika brnění je popsána v~další sekci) — a~poté spouští další kolo.
+
+Režim AI vs. AI využívá obdobnou řídicí logiku, nicméně v~každém kole se vytváří pouze jedna instance AI pro každého vybraného bota a~následně se sbírají metriky souboje (např. vítěz a~délka trvání). Integrace logiky kol se standardní AI a~neuronovou AI byla náročná zejména proto, že všechny tři subsystémy musí sdílet jednotné řízení běhu a~synchronizaci stavů, zatímco jejich architektura se výrazně liší.
 
 \subsection{Systém sbírání předmětů}
 Logika sběru herních předmětů využívá detekci kolize mezi hráčovou postavou a~specifickou kolizní sférou, která obklopuje sbíratelné objekty. Jakmile dojde ke kontaktu těchto dvou komponent, spustí se funkce, která umožňuje interakci a~zvednutí daného objektu. Pokud hráč oblast opustí, interakce se přeruší a~předmět zůstává nedotčen.
@@ -87,70 +87,119 @@ Hlavní herní HUD je rozdělen do několika oblastí. V~levém dolním rohu se 
 
 Střed obrazovky je vybaven zaměřovačem, jehož velikost se dynamicky mění v~závislosti na rychlosti pohybu hráče, což přispívá k~přesnějšímu míření. V~horní části displeje se nachází časovač, který odpočítává čas do začátku nového kola. V~pravém horním rohu je umístěn panel zobrazující změny atributů nepřátel generované neuronovou sítí, a~nad ním se nachází počítadlo snímkové frekvence (FPS) pro sledování výkonnosti hry.
 
+\subsection{Herní prostředí}
+Jak bylo uvedeno v~předchozí kapitole, herní část mapy se skládá z~bankovní budovy, ve které hráč zahajuje hru a~připravuje se na nadcházející souboje. Po opuštění budovy se prostřednictvím triggeru automaticky uzavřou dveře a~hra tímto okamžikem začíná.
+
+Hráč se následně snaží přežít jednotlivá kola proti botům řízeným umělou inteligencí, jejichž typ je zvolen před spuštěním hry. Souboje probíhají v~parku před bankovní budovou, který je obklopen barikádami s~cílem omezit herní prostor a~zabránit nutnosti zdlouhavého vyhledávání nepřátelských entit.
+
+Stejná mapa je rovněž využita v~režimu AI vs. AI, ve kterém hráč vystupuje pouze v~roli diváka a~sleduje souboj dvou botů řízených vybranými typy umělé inteligence. Zbytek mapy je stylizován jako střed zpustošeného velkoměsta a~slouží především k~dotvoření atmosféry prostředí.
+
+\subsection{Nepřátelské postavy}
+Pro klasickou AI i~neuronovou AI byly vytvořeny samostatné herní postavy, jejichž chování je záměrně zjednodušeno, avšak v~základních principech odpovídá chování hráčské postavy (např. ztráta životů).
+
+Pro klasickou AI byl implementován jednoduchý strom chování, který napodobuje základní schopnosti neuronové AI, jako je pohyb, střelba či náhodný výběr zbraně/zbroje. Detailní popis tohoto řešení je uveden v~následující kapitole.
+
+Postava řízená neuronovou AI obsahuje dodatečné mechanismy, zejména komponentu NevarokMLCommonSense, která zprostředkovává komunikaci mezi trénovacím modulem, prostředím a~samotnou postavou. Dále jsou využity tzv. tracery, tedy neviditelné paprsky vysílané z~postavy, jejichž účelem je poskytovat trenéru a~prostředí informace o~poloze a~okolí agenta.
+
+Všechny postavy ve hře, včetně hráče i~obou typů botů, jsou vybaveny senzory, aby je klasická AI byla schopna správně detekovat a~reagovat na jejich přítomnost.
+
 \newpage
 
 \section{Autonomní agent}
 \subsection{První verze agenta}
-Pro začátek testuji samotný proces tréninku, tvorby modelu a~následného nasazení natrénovaného modelu do simulace pomocí pluginu NevarokML. V~první verzi se rozhoduji vytvořit jednoduchého agenta, který se dokáže adaptivně pohybovat a~v~průběhu tréninku i~simulace postupně zlepšuje svou schopnost dosáhnout stanoveného cíle.
+Pro začátek testuji samotný proces tréninku, tvorby modelu a~následného nasazení natrénovaného modelu do simulace pomocí pluginu NevarokML. V~první verzi se rozhoduji vytvořit jednoduchého agenta, který se dokáže pohybovat a~v~průběhu tréninku i~simulace postupně zlepšuje svou schopnost dosáhnout stanoveného cíle.
 
 \subsubsection{Trénovací mapa}
-Na trénovací mapě se nachází hlavní entita typu NevarokMLTrainer, která slouží k~tréninku agenta v~rámci pluginu NevarokML. Pod ní funguje 270 podřízených entit typu NevarokMLEnvironment, z~nichž každá obsahuje simulovaný herní svět pro konkrétního agenta. V~každém prostředí je zároveň přítomna entita agent, na níž probíhá samotný trénink nebo simulace.
 
-Každé prostředí obsahuje pouze podlahu (bez stěn – v~této první verzi nejde o~uzavřený prostor), pod kterou se nachází spouštěcí oblast typu Trigger s~názvem AbyssTrigger. Kromě toho je poblíž každého agenta umístěn ještě jeden Trigger s~názvem GoalTrigger, který slouží jako cíl simulace.
+Na trénovací mapě se nachází hlavní entita typu \texttt{NevarokMLTrainer}, která je zodpovědná za inicializaci, koordinaci a~správu celého tréninkového procesu v~rámci pluginu NevarokML. 
+
+Pod touto entitou je 270 podřízených instancí typu \texttt{NevarokMLEnvironment}, z~nichž každá reprezentuje samostatné simulační prostředí pro jednoho agenta. V~každém takovém prostředí dále existuje entita \texttt{Agent}, na níž probíhá vlastní trénink nebo simulace podle konfigurace daného prostředí.
+
+Každé prostředí je konstruováno jako otevřená plocha bez ohraničených stěn. Pod podlahou je umístěna spouštěcí oblast typu \texttt{Trigger} s~názvem \texttt{AbyssTrigger}. Tento trigger slouží jako detekční zóna pro případné přetečení agenta mimo hranice validní plochy a~může iniciovat reset nebo jinou kontrolní akci v~tréninkovém cyklu. V~bezprostřední blízkosti každého agenta se nachází druhý trigger s~názvem \texttt{GoalTrigger}, který představuje cíl simulace — jeho dosažení je vyhodnocováno jako úspěch v~daném kroku tréninku.
+
+Při spuštění mapy Unreal Engine nejprve inicializuje všechny herní entity a~na pozadí zajišťuje renderování a~základní simulaci fyziky. Bezprostředně po načtení mapy však rovněž nastává spuštění tréninkového backendu pluginu NevarokML. Tento backend komunikuje s~herní mapou prostřednictvím konzolového rozhraní a~naváže spojení mezi NevarokML a~běžící instancí Unreal Engine. 
+
+Konkrétně backend NevarokML:
+
+\begin{itemize}
+	\item otevře konzoli (příkazovou linku), ve které vypisuje diagnostické informace, stav tréninku, epochy a~metriky z~aktuálních iterací,
+	\item začne přijímat a~odesílat data mezi tréninkovým serverem a~jednotlivými instancemi agentů v~mapě,
+	\item inicializuje tréninkové smyčky a~protokoly komunikace podle nastavení v~konfiguračních souborech NevarokML,
+	\item zajišťuje průběžné aktualizace parametrů politiky, hodnotových funkcí nebo jiných komponent učení.
+\end{itemize}
+
+Po navázání komunikace backendu s~Unreal Engine začínají agenti automaticky provádět první kroky simulace. V~konzoli lze sledovat:
+
+\begin{itemize}
+	\item výstupy o~stavu jednotlivých instancí (\texttt{episode}, \texttt{reward}, \texttt{loss}, atd.),
+	\item hlášení o~dosažení nebo selhání jednotlivých cílů (například aktivace \texttt{GoalTrigger}),
+	\item informace o~průběhu tréninku, jako jsou průměrné odměny, změny v~politikách nebo hodnotách, nebo případné chyby a~výjimky,
+	\item průběžné ukládání checkpointů modelů a~jejich verzí.
+\end{itemize}
+
+Z~pohledu vizuální simulace se v~herním okně Unreal Engine současně s~konzolovým výstupem začnou pohybovat agenti ve svých simulovaných prostředích podle jejich aktuálních politik. Agenti vykonávají akce, které jsou výsledkem jejich počátečních parametrů, případně postupně upravovaných během učení. Jejich interakce s~prostředím (např. dosažení \texttt{GoalTrigger}, proud signálů odměn, aktualizace stavových proměnných) se zpětně promítá do dat, která backend zpracovává a~vyhodnocuje.
 
 \subsubsection{Nevarok trenér}
-V~NevarokMLTraineru se nejprve nastavuje velikost tzv. Action Space (akčního prostoru), aby NevarokMLEnvironment věděl, kolik typů akcí může agent provádět – buď jednu po druhé, nebo, pokud je to nastaveno, i~několik akcí během jednoho tiku tréninku či simulace. V~první verzi, kdy agent zvládá pouze pohyb, obsahuje akční prostor pět akcí, které provádí sekvenčně.
 
-Následně se připravuje tzv. Observation Space (pozorovací prostor), do kterého agent během hry ukládá určená data sloužící k~učení a~rozhodování v~průběhu tréninku a~simulace. Po vytvoření Action Space a~Observation Space se aktivuje Blueprint uzel nazvaný PPO, což představuje algoritmus zvolený pro všechny tři verze tréninku a~simulace. Tento uzel definuje klíčové hyperparametry:
+Entita \texttt{NevarokMLTrainer} slouží jako centrální koordinátor tréninku v~rámci pluginu NevarokML. Jejím úkolem je inicializovat tréninkové prostředí, definovat akční a~pozorovací prostory pro agenty a~řídit samotný proces učení pomocí zvoleného algoritmu.
 
-\begin{itemize}
+Nejdříve se v~trenéru nastavuje tzv. \textit{Action Space} (akční prostor). Ten určuje, kolik a~jakých typů akcí může agent během jednoho tréninkového kroku provádět. V~první verzi, kde agent disponuje pouze základními pohybovými akcemi, akční prostor obsahuje pět definovaných akcí, které jsou prováděny sekvenčně.
 
-\item \uv{Policy = MlpPolicy} — agent používá plně propojenou vícervrstvou perceptronovou síť pro aproximaci politiky i~hodnotové funkce.
+Následně se připravuje tzv. \textit{Observation Space} (pozorovací prostor), do kterého agent ukládá relevantní informace o~svém okolí a~stavu světů simulovaných entitami \texttt{NevarokMLEnvironment}. Tyto informace slouží agentovi pro rozhodování a~učení během tréninku i~následné simulace.
 
-\item \uv{Learning Rate} — ovlivňuje velikost kroků při aktualizaci vah, nižší hodnota znamená stabilnější, ale pomalejší učení.
+Po inicializaci akčního a~pozorovacího prostoru se aktivuje uzel reprezentující algoritmus, který se má použít pro učení. V~tomto projektu je pro všechny tréninkové režimy zvolen algoritmus \textbf{Proximal Policy Optimization (PPO)}.
 
-\item \uv{N Steps} — počet kroků simulace sbíraných před aktualizací politiky.
+\newpage
 
-\item \uv{Batch Size} — počet přechodů (stav–akce–odměna) zpracovaných v~jednom mini‑batchi.
-
-\item \uv{N Epochs} — kolikrát se síť trénuje na nasbíraných datech před jejich zaházením.
-
-\item \uv{Gamma} — diskontní faktor pro budoucí odměny.
-
-\item \uv{GAE Lambda} — vyvažuje bias a~variance při výpočtu výhodnosti pomocí Generalized Advantage Estimation.
-
-\item \uv{Clip Range} — omezuje změny politiky při aktualizaci, aby se zabránilo nestabilnímu učení.
-
-\item \uv{Ent Coef} — zvyšuje exploraci odměňováním vyšší entropie politiky.
-
-\item \uv{Vf Coef} — určuje váhu hodnotové funkce v~celkové ztrátě.
-
-\item \uv{Max Grad Norm} — slouží k~ořezání gradientů a~prevenci divergence.
-
-\end{itemize}
-
-Volitelné parametry zahrnují:
-\uv{Use SDE} pro aktivaci stavového šumu, \uv{Sde Sample Freq} pro určení jeho frekvence, a \uv{Verbose} pro zapnutí výpisu logů během tréninku.
-
-Po uzlu PPO následuje uzel Learn, který spouští samotný trénink a~simulaci pomocí zvoleného algoritmu:
+Tento uzel definuje klíčové hyperparametry, které ovlivňují chování učení:
 
 \begin{itemize}
-
-\item \uv{Device} — umožňuje volbu mezi CPU a~GPU.
-
-\item \uv{Timesteps} — celkový počet tréninkových kroků.
-
-\item \uv{Eval Eps} — počet evaluačních epizod.
-
-\item \uv{Save Freq} a \uv{Log Interval} — určují frekvenci ukládání modelů a~zapisování logů.
-
-\item \uv{Save Model Name} — jméno modelu.
-
-\item \uv{Deterministic} — zajišťuje deterministické chování při vyhodnocení po tréninku.
-
+    \item \texttt{Policy = MlpPolicy} — agent používá plně propojenou vícervrstvou perceptronovou síť pro aproximaci politiky a~zároveň (v~některých implementacích) hodnotové funkce.
+    \item \texttt{Learning Rate = 0.0003} — řídí velikost kroků při aktualizaci vah modelu; nižší hodnota vede k~stabilnějšímu, ale pomalejšímu učení.
+    \item \texttt{N Steps = 200} — počet simulovaných stavů/akcí sbíraných před provedením aktualizace politiky.
+    \item \texttt{Batch Size = 54000} — celkový počet vzorků z~pozorovacích dat, které se použijí najednou při tréninkové iteraci.
+    \item \texttt{N Epochs = 200} — počet průchodů tréninkových dat při jedné aktualizaci politiky.
+    \item \texttt{Gamma = 0.9} — diskontní faktor pro budoucí odměny, který ovlivňuje, jak daleko do budoucna agent „vidí“.
+    \item \texttt{GAE Lambda = 0.95} — parametr pro Generalized Advantage Estimation, který vyvažuje bias a~variance při odhadu výhodnosti akcí.
+    \item \texttt{Clip Range = 0.2} — rozsah, v~němž se změny politiky při aktualizaci omezují, aby se zabránilo nestabilitě učení.
+    \item \texttt{Ent Coef = 0.0} — váha entropické složky ve ztrátové funkci; nulová hodnota nepreferuje vyšší entropii politiky (méně explorace).
+    \item \texttt{Vf Coef = 0.5} — váha hodnotové funkce ve výsledné ztrátě.
+    \item \texttt{Max Grad Norm = 0.5} — parametr pro ořezání (clipping) gradientů, který pomáhá předcházet numerické nestabilitě.
 \end{itemize}
 
-Volitelné ladicí volby jako \uv{Show Tensorboard}, \uv{Show Reward}, \uv{Show Step Debug} a \uv{Show Reset Debug} umožňují vizualizaci a~průběžné sledování učení i~chování agenta.
+Kromě těchto povinných parametrů uzel PPO nabízí i~volitelné nastavení, jako např. \texttt{Verbose}, který zapíná detailní výpis tréninkových logů během běhu.
+
+\newpage
+
+Po definici algoritmického uzlu následuje uzel \texttt{Learn}, jenž spouští vlastní trénink a~simulaci. Tento uzel obsahuje další klíčové parametry:
+
+\begin{itemize}
+    \item \texttt{Algorithm} — zde se připojuje zvolený algoritmus učení, v~tomto případě PPO.
+    \item \texttt{Device} — volba výpočetního zařízení (např. CPU nebo GPU), na kterém bude model trénován.
+    \item \texttt{Timesteps} — celkový počet tréninkových kroků během tréninku.
+    \item \texttt{Save Freq} — určuje, jak často se ukládají modely během tréninku.
+    \item \texttt{Log Interval} — frekvence zapisování monitorovacích metrik do logů.
+    \item \texttt{Save Model Name} — název souboru/modelu, pod kterým se budou trénované modely ukládat.
+    \item \texttt{Deterministic} — přístup k~deterministickému chování agenta při evaluaci po tréninku.
+\end{itemize}
+
+Dále existují volitelné ladicí volby, které usnadňují vizualizaci a~diagnostiku procesu učení:
+\begin{itemize}
+    \item \texttt{Show Tensorboard} – aktivuje export tréninkových metrik pro zobrazení v~TensorBoardu.
+    \item \texttt{Show Reward} – zobrazuje průběh odměn během tréninku.
+    \item \texttt{Show Step Debug} – umožňuje detailní výpis kroků simulace.
+    \item \texttt{Show Reset Debug} – vypisuje informace o~provedených resetech prostředí.
+\end{itemize}
+
+V~případě, že je tento trenér použit ve hře přímo, je navíc konfigurováno automatické vytváření prostředí a~instancí agentů při startu mapy. Trenér poté řídí dané entity v~herním režimu stejně, jako by je spravoval během tréninku — tj. zpracovává akce, vyhodnocuje odměny a~aktualizuje interní politiky bez dalšího zásahu uživatele.
+
+Všechny uvedené hyperparametry nebyly zvoleny arbitrárně nebo pouze převzaty z~literatury, ale byly \textbf{laděny experimentálně na základě pozorování chování učení}. Postup byl takový, že se jeden hyperparametr systematicky měnil (zvětšoval či zmenšoval) a~po každé změně se vyhodnocoval dopad na průběh tréninku — konkrétně se sledovalo, zda změna vedla k~rychlejšímu konvergenci, stabilnějším odhadům hodnot, plynulejšímu zvyšování odměn nebo naopak k~jejich oscilacím či divergenci. Tento cyklus opakovaných experimentů a~vyhodnocování vedl nakonec k~sestavení kombinace parametrů, které v~testovacích bězích poskytly \textbf{nejlepší kompromis mezi stabilitou učení a~rychlostí konvergence} v~rámci daných tréninkových světů. Takový empirický přístup ke ladění hyperparametrů byl pro tento projekt potřeba, protože kombinace prostředí, akčního prostoru a~pozorovacích signálů ovlivňuje samotnou dynamiku tréninkového procesu a~nelze ji plně odvodit pouze z~teoretických doporučení.
+
+Největší vliv na průběh tréninku má volba samotného algoritmu a~politiky. V~kontextu tohoto projektu, jak již bylo uvedeno dříve, se ukázal jako nejvhodnější algoritmus \textbf{Proximal Policy Optimization (PPO)}. Ze dvou standardních typů politik dostupných v~knihovnách, tedy \texttt{MlpPolicy} a \texttt{CnnPolicy}, jsem \textbf{vybral \texttt{MlpPolicy} z~pragmatických důvodů}.
+
+Rozdíl mezi těmito politikami spočívá především v~tom, jak zpracovávají vstupy z~prostředí. \texttt{CnnPolicy} využívá konvoluční neuronovou síť k~extrakci rysů z~obrazových nebo prostorově strukturovaných dat, což je vhodné především pro vstupy ve formě obrazů nebo vícekanálových matic. Oproti tomu \texttt{MlpPolicy} používá plně propojené vrstvy (MLP — multi-layer perceptron), které jsou optimalizované pro zpracování jednoduchých číselných vstupů bez prostorové struktury \cite{turn0search0}. V~našem případě agent nedostává obrazy ani jiné vícerozměrné struktury, ale pouze numerické hodnoty popisující stav prostředí. Proto použití konvolučních vrstev nepřináší žádnou výhodu a~zvyšovalo by složitost modelu bez zlepšení výsledků. Naopak \texttt{MlpPolicy} je pro takový typ vstupů přirozenější, vede k~rychlejší konvergenci a~stabilnější optimalizaci v~rámci pozorovaných experimentů.
+
+Naopak nejmenší vliv na konečný výkon modelu mělo nastavení velikosti mini-batchů (tj. kolik vzorků se zpracovává najednou během jedné iterace). U~těchto parametrů se projevoval spíše jejich dopad na \uv{rychlost učení} než na \uv{kvalitu konvergence} — příliš velké hodnoty vedly sice k~mírnému zpomalení tréninku, ale neměly zásadní negativní efekt na dosaženou kvalitu politiky.
 
 \newpage
 
@@ -241,82 +290,100 @@ Actor AbyssTrigger obsahuje obyčejný NevarokML sensor a~trigger typu NevarokML
 
 \newpage
 
-\subsubsection{Model první verze}
+\subsection{Vyhodnocení první verze agenta}
 
-\begin{table}[H]
-\centering
-\caption{Výsledky základního tréninku první verze agenta}
-\vspace{1em}
-\begin{tabularx}{\textwidth}{|l|X|}
-\hline
-\textbf{Metrika} & \textbf{Hodnota} \\
-\hline
-\multicolumn{2}{|l|}{\textbf{rollout/}} \\
-ep\_len\_mean & 6.34 \\
-ep\_rew\_mean & 0.937 \\
-\hline
-\multicolumn{2}{|l|}{\textbf{time/}} \\
-fps & 2502 \\
-iterations & 20 \\
-time\_elapsed & 457 \\
-total\_timesteps & 1080000 \\
-\hline
-\multicolumn{2}{|l|}{\textbf{train/}} \\
-approx\_kl & 0.0009790711 \\
-clip\_fraction & 0.01 \\
-clip\_range & 0.2 \\
-entropy\_loss & -0.157 \\
-explained\_variance & 0.926 \\
-learning\_rate & 0.0003 \\
-loss & -0.00125 \\
-n\_updates & 3800 \\
-policy\_gradient\_loss & -0.00192 \\
-value\_loss & 0.00187 \\
-\hline
-\end{tabularx}
-\label{tab:training_summary1}
-\end{table}
+První verze agenta byla koncipována jako ověřovací model s~velmi omezeným chováním. Jejím jediným cílem bylo naučit se základní navigační úlohu, konkrétně přesun k~cílové pozici v~prostředí bez další interakce. Smyslem této kapitoly je nejen shrnout průběh a~výsledky tréninku, ale také analyzovat chování agenta při praktickém testování na herní mapě.
 
-Výsledky základního tréninku první verze modelu zachycené v~tabulce \ref{tab:training_summary1} ukazují statistiky dosažené po celkovém počtu \texttt{1080000} simulovaných kroků (\texttt{total\_timesteps}) během \texttt{20} iterací. Průměrná délka epizody (\texttt{ep\_len\_mean}) činí \texttt{6.34} kroků a~průměrná kumulovaná odměna na epizodu (\texttt{ep\_rew\_mean}) dosahuje hodnoty \texttt{0.937}, což naznačuje, že agent se naučil úkol plnit s~relativně vysokou úspěšností.
+\subsubsection{Výsledky tréninku}
 
-Trénink probíhá rychlostí přibližně \texttt{2500} snímků za sekundu \texttt{fps} a~jeho celková doba trvá \texttt{719} sekund. Během tohoto období dochází k \texttt{3800} aktualizacím modelu \texttt{n\_updates} při konstantní hodnotě \texttt{learning\_rate = 0.0003}.
+Během tréninku agent nasbíral celkem 1\,080\,000 simulovaných kroků a~provedl přibližně 3\,800 aktualizací modelu při konstantní hodnotě učícího kroku (\texttt{learning\_rate = 0{,}0003}). Průměrná délka epizody činila zhruba 6{,}34 kroků, což odpovídá krátkému a~deterministickému úkolu, kde agent rychle dosahoval cílové pozice bez nutnosti složitějšího rozhodování.
 
-Hodnota přibližné KL divergence \texttt{approx\_kl} je velmi nízká (0.00098), což naznačuje minimální odchylku nových politik od předchozích. Nízká hodnota \texttt{clip\_fraction = 0.01} ve spojení s \texttt{clip\_range = 0.2} potvrzuje, že zásahy do gradientu jsou vzácné.
+Průměrná kumulovaná odměna na epizodu dosahovala hodnoty přibližně 0{,}937. Tato skutečnost indikuje, že agent dosahoval cíle s~vysokou mírou konzistence v~rámci definované odměnové funkce. Je však nutné zdůraznit, že tato metrika neodpovídá hernímu úspěchu ve smyslu skutečné hry, ale pouze splnění úzce vymezeného úkolu v~tréninkovém prostředí.
 
-Ztrátové funkce vykazují očekávané hodnoty: 
-\texttt{policy\_gradient\_loss = -0.00192}, \texttt{value\_loss = 0.00187} a~celková ztráta modelu \texttt{loss = -0.00125}. Hodnota \texttt{entropy\_loss = -0.157} odpovídá mírné míře explorace, která je během tréninku mírně penalizována.
+Další sledované metriky potvrzují stabilní průběh učení:
 
-Významným ukazatelem je také \texttt{explained\_variance = 0.926}, což znamená, že přibližně 92{,}6\% variability cílových hodnot je vysvětleno predikcemi hodnotové funkce — potvrzuje to dobrý odhad stavu a~stabilitu tréninku.
+\begin{description}
+    \item[\texttt{approx\_kl} $\approx 0{,}00098$] - Velmi nízká aproximovaná KL divergence mezi starou a~novou politikou značí, že aktualizace politiky byly malé a~plynulé, bez náhlých či nestabilních změn chování.
+    
+    \item[\texttt{clip\_fraction = 0{,}01}, \texttt{clip\_range = 0{,}2}] - Drtivá většina aktualizací politiky zůstávala uvnitř klipovací oblasti, což indikuje korektní nastavení algoritmu PPO a~stabilní optimalizaci.
+    
+    \item[\texttt{explained\_variance = 0{,}926}] - Hodnotová síť byla schopna vysvětlit přibližně 92~\% variability hodnoty stavu, což svědčí o~konzistentních a~spolehlivých odhadech návratnosti.
+    
+    \item[\texttt{entropy\_loss = -0{,}157}] - Entropická složka zůstávala v~rozumném rozmezí, což znamená, že agent si zachovával určitou míru explorace, aniž by docházelo k~chaotickému chování.
+\end{description}
 
-Model funguje téměř stoprocentně (vzhledem ke své jednoduchosti, zaměřené pouze na pohyb agenta směrem k~cíli). Stejně přesně se chová ipři nasazení na herní mapu, kde nahrazuje standardní pohyb agenta tímto algoritmem. Takto jednoduchý agent však samozřejmě nedokáže v~reálné situaci konkurovat hráči.
+Hodnoty ztrátových funkcí (\texttt{policy\_gradient\_loss}, \texttt{value\_loss} i~celková \texttt{loss}) se pohybovaly v~očekávaných mezích a~nevykazovaly žádné známky divergence či nestability učení.
 
+Na základě vysokého počtu simulovaných kroků a~konzistentních tréninkových metrik lze trénink považovat za konvergentní. Agent se spolehlivě naučil dosahovat cíle definovaného v~rámci tréninkové mapy.
+
+\subsubsection{Praktické testování na herní mapě}
+
+Po dokončení tréninku byl agent nasazen do testovací herní mapy a~podroben praktickému hodnocení v~herních podmínkách.
+
+Bylo provedeno 50 herních kol proti lidskému hráči. V~každém případě se agent pouze přesouval směrem k~cílové pozici, bez jakéhokoli projevu taktiky, bojového chování či obrany. Výsledkem bylo, že agent nezvítězil v~žádném utkání, tedy dosáhl úspěšnosti 0~\%.
+
+Dalších 50 kol bylo odehráno proti standardnímu NPC agentovi, jehož chování je řízeno statickými skripty (behavior tree). Ani v~tomto případě agent nezískal žádné vítězství, opět s~celkovou úspěšností 0~\%.
+
+Tato testování jednoznačně potvrzují, že první verze agenta představuje pouze základní navigační model a~nelze ji považovat za plnohodnotnou herní umělou inteligenci. Agent neprojevuje žádné bojové schopnosti, neinteraguje s~herními mechanikami, nereaguje na protivníka a~není schopen volby vybavení ani jiných strategických rozhodnutí.
+
+\subsubsection{Doplňková měření z~herních testů}
+
+Během praktických testů byly zaznamenány následující hodnoty:
+
+\begin{itemize}
+    \item Průměrná doba do eliminace agenta lidským hráčem: přibližně 4~s.
+    \item Průměrná doba do eliminace agenta standardním NPC: přibližně 10--15~s.
+    \item Způsobení poškození: agent žádné poškození neaplikoval.
+    \item Přesnost střelby a~výběr výzbroje: nerelevantní, jelikož agent nedisponuje střeleckým chováním ani volbou zbraní.
+    \item Robustnost vůči latenci a~handicapům: chování agenta zůstávalo konzistentní i~při umělém zpomalení, omezení zorného pole či jiných handicapech, neboť jeho chování není adaptivní v~herním smyslu.
+\end{itemize}
+
+\subsubsection{Shrnutí chování první verze}
+
+První verze agenta:
+
+\begin{itemize}
+    \item prokázala, že je možné úspěšně natrénovat agenta pro velmi jednoduchý navigační úkol,
+    \item dosahovala stabilních výsledků a~vysoké hodnoty odměny v~rámci definované odměnové funkce,
+    \item neuměla~-- a~ani neměla umět~-- herní chování, jako je boj, výběr vybavení či adaptace na protivníka,
+    \item byla výpočetně nenáročná a~vykazovala konzistentní chování napříč různými testovacími podmínkami.
+\end{itemize}
+
+Tato verze agenta tedy slouží primárně jako ověření správné implementace tréninkového frameworku, algoritmu PPO, akčního a~pozorovacího prostoru. Neřeší však kompetitivní herní situace, které vyžadují bohatší architekturu, širší akční prostor a~hlubší reprezentaci stavů. Tyto aspekty jsou adresovány v~následujících verzích agenta.
+
+\subsubsection{Model a~diagram algoritmu první verze agenta}
 \begin{figure}[ht]
-\includegraphics[scale=0.6]{3-1.png} 
-\centering
-\caption{Vzhled modelu z~první verze agenta}
-\label{obrModel1} 
+    \centering
+    \includegraphics[scale=0.6]{3-1.png}
+    \caption{Exportovaný ONNX model neuronové sítě první verze agenta}
+    \label{obrModel1}
 \end{figure}
-
-Pro představu je na obrázku \ref{obrModel1} zobrazen exportovaný ONNX model první verze. Model reprezentuje jednoduchou neuronovou síť typu MLP se dvěma skrytými vrstvami a~převážně actor–critic architekturou. Vstupní pole \uv{obs} má tvar $1 \times 1 \times 3$, který se následně převádí uzlem \uv{Cast} a~zplošťuje (Flatten) na trojici hodnot představujících stavové pozorování.
 
 \newpage
 
-Síť se dále větví do dvou částí:
+Na obrázku~\ref{obrModel1} je znázorněn exportovaný ONNX model neuronové sítě první verze agenta. Jedná se o~jednoduchou vícevrstvou perceptronovou síť (MLP) s~architekturou typu \emph{actor--critic}, která byla zvolena s~cílem ověřit správnost celého tréninkového a~inferenčního řetězce.
+
+Vstupní tenzor \uv{obs} má tvar $1 \times 1 \times 3$ a~reprezentuje stavové pozorování agenta. Toto pozorování je nejprve převedeno na odpovídající datový typ pomocí uzlu \uv{Cast} a~následně zploštěno operací \uv{Flatten} na vektor tří reálných hodnot. Tyto hodnoty odpovídají vzdálenosti agenta od cíle v~osách $X$ a $Y$ a~maximální odchylce délky, jak je dále schematicky znázorněno na obrázku~\ref{obrAlg1}.
+
+Po zpracování vstupu se síť větví do dvou samostatných větví odpovídajících politice a~hodnotové funkci:
 
 \begin{enumerate}
-\item \textbf{Policy head (levá větev):}
-\begin{itemize}
-\item obsahuje dvě plně propojené vrstvy (\uv{Gemm} $3 \to 64$ a $64 \to 64$) s~aktivační funkcí \uv{Tanh}, následované výstupní vrstvou ($64 \to 5$) pro pět diskrétních akcí. Výstup se dále zpracovává pomocí \uv{ReduceLogSumExp}, normalizuje funkcí \uv{Softmax} a~převádí pomocí \uv{ArgMax}, který vrací index akce s~nejvyšší pravděpodobností.
-\end{itemize}
-\item \textbf{Value head (pravá větev):}
-\begin{itemize}
-\item má stejnou strukturu skrytých vrstev ($3 \to 64$ a $64 \to 64$ s \uv{Tanh}) a~končí výstupní vrstvou ($64 \to 1$), která poskytuje skalární odhad hodnoty stavu (baseline pro algoritmus PPO).
-\end{itemize}
+    \item \textbf{Policy head (levá větev):}
+    \begin{itemize}
+        \item Tato část sítě implementuje aproximační model rozhodovací politiky. Obsahuje dvě plně propojené vrstvy realizované operací \uv{Gemm} s~dimenzemi $3 \rightarrow 64$ a $64 \rightarrow 64$, obě s~aktivační funkcí \uv{Tanh}. Výstupní vrstva mapuje skrytý stav na pět výstupních neuronů ($64 \rightarrow 5$), které odpovídají pěti diskrétním akcím agenta (čtyřsměrný pohyb a~nečinnost).
+        
+        Výstup je dále numericky stabilizován pomocí operace \uv{ReduceLogSumExp} a~normalizován funkcí \uv{Softmax}, čímž vznikne pravděpodobnostní distribuce nad akcemi. Operace \uv{ArgMax} následně určí akci s~nejvyšší pravděpodobností, která je při inferenci provedena v~herním prostředí.
+    \end{itemize}
+
+    \item \textbf{Value head (pravá větev):}
+    \begin{itemize}
+        \item Hodnotová větev má identickou strukturu skrytých vrstev ($3 \rightarrow 64 \rightarrow 64$ s \uv{Tanh}), avšak její výstupní vrstva obsahuje pouze jeden neuron ($64 \rightarrow 1$). Tento výstup reprezentuje skalární odhad hodnoty stavu, který slouží jako baseline pro výpočet výhod (\emph{advantage}) v~algoritmu PPO.
+    \end{itemize}
 \end{enumerate}
 
-V~pravé části grafu se nacházejí také podpůrné uzly \uv{Unsqueeze}, \uv{Shape}, \uv{Slice}, \uv{GatherElements}, které slouží k~úpravě tvarů tenzorů a~indexování výstupů při inferenci napříč více instancemi prostředí.
+V~pravé části modelu jsou dále patrné pomocné uzly jako \uv{Unsqueeze}, \uv{Shape}, \uv{Slice} a \uv{GatherElements}. Tyto operace neslouží k~vlastnímu rozhodování agenta, ale zajišťují korektní práci s~tvary tenzorů a~indexování výstupů při paralelním zpracování více instancí prostředí během inferenční fáze.
 
-Na obrázku \ref{obrAlg1} je uveden vývojový diagram algoritmu agenta, který shrnuje veškerou logiku implementovanou v~této verzi.
+Architektura modelu přímo odpovídá algoritmickému toku agenta, který je shrnut na obrázku~\ref{obrAlg1}. Tento diagram ilustruje celý cyklus jedné epizody: od získání stavového pozorování, přes jeho předání do neuronové sítě, predikci a~provedení akce, až po získání odměny a~uložení zkušenosti pro následný trénink.
 
 \begin{figure}[ht]
     \centering
@@ -324,6 +391,8 @@ Na obrázku \ref{obrAlg1} je uveden vývojový diagram algoritmu agenta, který 
     \caption{Vývojový diagram algoritmu agenta – první verze}
     \label{obrAlg1}
 \end{figure}
+
+Z~diagramu je patrné, že chování agenta je v~této verzi silně deterministické a~omezené výhradně na navigační úlohu. Odměnová funkce zohledňuje pouze časovou penalizaci, dosažení cíle a~případné vypadnutí z~arény. Tato zjednodušená logika odpovídá účelu první verze agenta, jejímž cílem nebylo řešit komplexní herní situace, ale vytvořit stabilní a~snadno analyzovatelný základ pro další rozšiřování architektury i~chování.
 
 \newpage
 
@@ -333,12 +402,23 @@ Druhá verze agenta již obsahuje kompletní logiku chování – dokáže se po
 \subsubsection{Změny v~trénovací mapě}
 Trénovací mapa se částečně mění. Místo podlahy bez stěn má nyní každé prostředí podlahu se stěnami, aby agent během základního tréninku nemůže spadnout mimo vymezenou oblast. Tato oblast je zároveň dvojnásobně větší. Agent na mapě zůstává beze změn, ale obě původní spouštěcí oblasti \texttt{GoalTrigger} a \texttt{AbyssTrigger} jsou odstraněny. Místo nich se na mapě nově nachází Actor s~názvem \texttt{Enemy} (nepřítel).
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.25]{training.png}
+    \caption{Vzhled trénovací mapy pro druhou verzi agenta}
+    \label{obrTraining}
+\end{figure}
+
+\newpage
+
 \subsubsection{Změny v~trenérovi}
 V \texttt{NevarokMLTrainer} dochází k~drobným úpravám. Trénér nyní nenastavuje velikost \uv{Action Space} pomocí jediné hodnoty, ale přijímá pole o~třech prvcích: první s~rozsahem 0–8, druhý 0–2~a~třetí 0–1. NevarokML tak v~pozadí vytváří akční krychli, která umožňuje agentovi provádět až tři akce současně namísto sekvenčního provádění. Celkový počet možných kombinací akcí se tím zvyšuje z~5~na 54.
 
 Rozšiřuje se také \uv{Observation Space} — agent nyní sbírá o~dvě další hodnoty navíc, což je nezbytné pro nové typy akcí.
 
 Kromě toho se přidává ukládání počáteční rotace agenta, které se využívá při resetu a~pro správnou orientaci v~každé nové epizodě.
+
+\newpage
 
 \subsubsection{Změny v~prostředí}
 Ve funkci \uv{CollectObservations} se přidává logika, která vypočítává vzdálenost a~úhlovou odchylku (yaw rozdíl) mezi agentem a~nepřítelem. Tyto hodnoty se následně zapisují do pozorovacího prostoru.
@@ -354,6 +434,8 @@ Pro každý zápis do pozorovacího pole se využívá inkrementační čítač 
 Tato sekvence poskytuje agentovi nové prostorové informace důležité pro navigaci – konkrétně vzdálenost k~cíli (nepříteli) a~velikost směrové odchylky, kterou musí agent korigovat, aby se správně natočil ke svému cíli.
 
 Funkce \uv{Apply Actions} nyní zpracovává výstup politiky agenta rozdělený do tří větví podle \uv{Multi Discrete} reprezentace: pohyb, rotace a~střelba.
+
+\newpage
 
 Pomocí uzlu \uv{Sequence} se zajišťuje sekvenční provedení všech tří akčních větví:
 
@@ -413,64 +495,102 @@ V~novém systému odměn je agent průběžně motivován k~dosažení cíle, sp
 \end{itemize}
 \end{enumerate}
 
+Všechny odměny v~této verzi i~v~předchozích či nadcházejících jsem nevolil arbitrárně, ale \textbf{experimentálně dle pozorovaného chování agenta}. Při ladění odměnové funkce jsem sledoval, jaké chování agent vykazuje a~jak se jeho strategie v~průběhu učení mění. Když agent vykazoval nechtěné chování — například opakovaně preferoval neefektivní pohyb, stagnoval, nebo využíval nežádoucí exploity prostředí — upravoval jsem \textbf{konkrétní složky odměny} tak, aby bylo toto chování potlačeno a~aby agent více preferoval žádoucí vzorce chování.
+
+\newpage
+
+Tento přístup vyžaduje postupné testování a~hodnocení. Pro každý návrh odměnové funkce jsem spustil sérii tréninků a~sledoval průběh odměn, stabilitu učení, změny politiky a~výsledné trajektorie akcí. Pokud některá úprava vedla k~nižší stabilitě nebo k~přetrvávání nežádoucích vzorců, byla dále upravena.
+
+V~konkrétním případě popisované verze se ukázalo, že původní odměňování samotné obsahovalo chybu nebo bylo nastaveno nevhodně pro cíle dané simulace. Tato chyba se projevovala tak, že agent nevykazoval očekávané učení ani po delší době tréninku — nikoli proto, že by samotný algoritmus PPO selhával, ale proto, že \textbf{odměnová funkce neodrážela správně žádoucí chování}. Po identifikaci tohoto problému bylo nezbytné odměnovou strukturu upravit tak, aby odpovídala cílovým metrikám učení a~vedla agenta ke stabilní konvergenci k~žádoucí politice.
+
 Funkce \uv{Reset Triggers} je nahrazena funkcí \uv{Reset Enemy}, která funguje obdobně, avšak navíc nastavuje poškozenému nepříteli proměnnou \uv{Death} na \texttt{false} a~obnovuje jeho zdraví na hodnotu \texttt{50}.
 
 Funkce \uv{Reset Agent} se kromě korekce počáteční rotace agenta nemění.
-
-\newpage
 
 Agent samotný zůstává beze změn, nicméně je vytvořen nový actor \uv{Enemy}, jenž obsahuje základní \uv{NevarokML} senzor a~také kód pro zpracování poškození a~případného úmrtí. Při zásahu se spouští událost \texttt{Event AnyDamage}, která volá vlastní událost \texttt{Health Modifier} s~předanou hodnotou poškození. Tato událost nejprve odečítá hodnotu \texttt{Damage} od aktuální proměnné \texttt{Health} a~poté výsledek ořezává pomocí funkce \texttt{Clamp (Float)} na rozsah $[0{,}0; \texttt{Max Health}]$, aby nedošlo k~přetečení nebo záporné hodnotě. Upravená hodnota se ukládá zpět do proměnné \texttt{Health}.
 
 Následuje kontrola, zda je zdraví menší nebo rovno nule. Pokud ano, aktivuje se větev \texttt{True}, která spouští uzel \texttt{Do Once}, a~následně vlastní událost \texttt{Dead}. Tím se proměnná \texttt{Death} nastavuje na \texttt{true}, což signalizuje zabití nepřítele. Při vyhodnocení odměn to automaticky spouští reset prostředí.
 
-\subsubsection{Model druhé verze}
-\begin{table}[H]
-\centering
-\caption{Výsledky základního tréninku druhé verze agenta}
-\vspace{1em}
-\begin{tabularx}{\textwidth}{|l|X|}
-\hline
-\textbf{Metrika} & \textbf{Hodnota} \\
-\hline
-\multicolumn{2}{|l|}{\textbf{rollout/}} \\
-ep\_len\_mean & 36.4 \\
-ep\_rew\_mean & 13.8 \\
-\hline
-\multicolumn{2}{|l|}{\textbf{time/}} \\
-fps & 2502 \\
-iterations & 59 \\
-time\_elapsed & 1273 \\
-total\_timesteps & 3240000 \\
-\hline
-\multicolumn{2}{|l|}{\textbf{train/}} \\
-approx\_kl & 0.007343081 \\
-clip\_fraction & 0.0368 \\
-clip\_range & 0.2 \\
-entropy\_loss & -0.968 \\
-explained\_variance & 0.499 \\
-learning\_rate & 0.0003 \\
-loss & 0.501 \\
-n\_updates & 11600 \\
-policy\_gradient\_loss & -0.00472 \\
-value\_loss & 1.02 \\
-\hline
-\end{tabularx}
-\label{tab:training_summary2}
-\end{table}
+\newpage
 
-Jak ukazuje tabulka \ref{tab:training_summary2}, výsledky první plně implementované verze algoritmu se výrazně liší. Jednotlivé epizody trvají déle než u~první verze, protože agent již nesměřuje pouze k~cíli, ale musí lokalizovat nepřítele, správně se na něj natočit, zahájit útok a~úspěšně ho eliminovat. Z~tohoto důvodu se délka tréninku přibližně ztrojnásobila.
+\subsection{Vyhodnocení druhé verze agenta}
+
+Druhá verze agenta představuje první variantu, která již neřeší pouze navigaci k~cíli, ale zahrnuje i~základní bojovou interakci. Oproti první verzi tedy agent musí protivníka lokalizovat, zaujmout vůči němu vhodnou orientaci, zahájit útok a~v~ideálním případě jej eliminovat. Tomu odpovídá jak delší průběh epizod, tak i~vyšší složitost optimalizace.
+
+\subsubsection{Výsledky tréninku}
+
+Agent během tréninku dosáhl celkem 3\,240\,000 kroků a~model byl aktualizován 11\,600$\times$ při konstantním učícím kroku (\texttt{learning\_rate = 0{,}0003}). \textbf{Nejlepší pozorované chování} se však v~praxi projevilo přibližně okolo 2{,}5~milionu kroků, tedy před dokončením celého tréninkového běhu; v~pozdější fázi se již zlepšení neprojevovalo konzistentně, či byl dokonce agent horší. Tento bod byl určen empiricky na základě praktických herních testů (stabilita chování a~výsledků), nikoliv pouze podle hodnot tréninkových metrik. Průměrná délka epizody vzrostla na \texttt{ep\_len\_mean = 36{,}4}, což je očekávatelný důsledek rozšíření úlohy o~vyhledání cíle, bojovou akci a~vyhodnocení výsledku střetu.
+
+Průměrná kumulovaná odměna na epizodu dosahovala \texttt{ep\_rew\_mean = 13{,}8}. Na rozdíl od první verze tato odměna již odráží kombinaci více signálů (např. detekce cíle, zásahy, penalizace za nevhodné chování a~časová složka), a~proto je její interpretace nutně více závislá na konkrétní konstrukci odměnové funkce.
+
+Z~hlediska stability a~dynamiky učení jsou podstatné následující metriky:
+
+\begin{description}
+    \item[\texttt{approx\_kl = 0{,}00734}] - Přibližná KL divergence je výrazně vyšší než u~první verze, což odpovídá agresivnějším aktualizacím politiky při učení komplexnějšího chování. Zároveň se stále pohybuje v~rozumném rozsahu pro PPO, tj. nedochází k~nekontrolovaným skokům v~politice.
+
+    \item[\texttt{clip\_fraction = 0{,}0368}, \texttt{clip\_range = 0{,}2}] - Vyšší podíl klipovaných aktualizací je přirozeným důsledkem silnějších gradientových signálů. PPO zde plní svou roli stabilizátoru tím, že tlumí příliš velké kroky v~parametrech politiky.
+
+    \item[\texttt{entropy\_loss = -0{,}968}] - Výrazně nižší entropie indikuje pokles náhodnosti a~přechod k~determinističtějšímu rozhodování. V~kontextu bojové úlohy to typicky znamená, že agent konverguje k~relativně konzistentní strategii.
+
+    \item[\texttt{explained\_variance = 0{,}499}] - Nižší vysvětlená variabilita ukazuje, že hodnotová síť (kritik) predikuje návratnost méně přesně. Tento jev je očekávatelný u~úloh s~více zdroji odměn a~vyšší stochastičností; zároveň však zvyšuje citlivost algoritmu na kvalitu návrhu odměn.
+\end{description}
 
 \newpage
 
-Ztráta podle policy gradientu se zvyšuje z \texttt{–0.00192} na \texttt{–0.00472}, což ukazuje na silnější gradientové signály a~výraznější změny v~politice agenta. Přibližná KL divergence narůstá z \texttt{0.00098} na \texttt{0.00734}, což znamená, že se politika během tréninku aktualizuje agresivněji — typický jev při zpřesňování chování.
+Hodnoty ztrát dále dokládají, že optimalizace je oproti první verzi náročnější: 
 
-\texttt{Entropy loss} klesá z \texttt{–0.157} na \texttt{–0.968}, což značí výrazné snížení náhodnosti v~rozhodování. Agentovo chování se stává více deterministickým, což často signalizuje pozitivní konvergenci. Naopak hodnota \texttt{explained variance} klesá z \texttt{0.926} na \texttt{0.499}, což znamená, že přesnost predikcí hodnotové funkce (kritiky) se zhoršuje. Predikce budoucích odměn jsou méně spolehlivé — běžný jev v~hlubokém zpětnovazebním učení, obzvlášť při nasazení konkrétních strategií.
+\texttt{policy\_gradient\_loss = -0{,}00472} naznačuje silnější tlak na změny politiky, zatímco \texttt{value\_loss = 1{,}02} odpovídá obtížnějšímu učení hodnotové funkce. Celková \texttt{loss = 0{,}501} přitom neindikuje divergenci, ale spíše typické kompromisy při souběžném tréninku aktéra a~kritika v~komplexnějším prostředí.
 
-Pozoruhodným rozdílem je také nárůst \texttt{value loss} z \texttt{0.00187} na \texttt{1.02}, což může indikovat určitou nestabilitu hodnotové funkce během tréninku.
+Z~praktického hlediska se v~této verzi projevuje limitace návrhu odměn (zejména ve funkci \uv{Handle Rewards}). Agent má tendenci ignorovat preferovanou bojovou vzdálenost a~přibližovat se k~protivníkovi \uv{co nejblíže}, pokud to krátkodobě maximalizuje pravděpodobnost zásahu. Příčina je přímočará: odměna za zásah v~aktuálním nastavení převyšuje penalizaci za nevhodnou vzdálenost, takže optimum politiky vzniká ve směru \uv{agresivního dotlačení} na cíl. Z~hlediska herního kontextu jde o~nežádoucí chování, které se následně promítá do výsledků proti některým typům soupeřů.
 
-Bohužel, i~když se tento model dokáže poměrně dobře adaptovat na hráče, stále vyžaduje úpravy. Ignoruje některá pravidla odměňování — místo aby si udržoval optimální vzdálenost od nepřítele, přibližuje se co nejblíže, aby maximalizoval šanci na úspěšný zásah. Děje se tak proto, že odměna za zásah výrazně převyšuje penalizaci za nevhodnou vzdálenost. Kromě toho dosud chybí implementace poslední požadované funkcionality.
+\subsubsection{Praktické testování na herní mapě}
 
-Vývojový diagram na obrázku \ref{obrAlg2} znázorňuje strukturu algoritmu agenta odpovídající této konkrétní verzi.
+Po dokončení tréninku byl agent nasazen do testovací herní mapy a~hodnocen ve třech typech střetů: proti lidskému hráči, proti standardnímu NPC agentovi (behavior tree) a~proti první verzi neuronového agenta (NAI V1).
+
+\paragraph{Testy proti lidskému hráči (50 pokusů).}
+Namísto klasického vyhodnocení \uv{50 herních kol} bylo v~praxi provedeno 50 samostatných pokusů, protože agent v~této verzi dokázal hráče eliminovat opakovaně (tj. ve více po sobě jdoucích kolech) v~rámci jednoho běhu. Typicky se ukázalo, že k~eliminaci hráče docházelo po 5--6~kolech, což odpovídá situaci, kdy proti hráči postupně stojí 5--6~instancí agenta. Průměrná doba eliminace jedné instance agentem--hráčem byla přibližně 5~s. Agent zároveň dokázal způsobovat poškození; průměrné udělené poškození vůči hráči bylo přibližně 21.
+
+\paragraph{Testy proti standardnímu NPC (50 kol).}
+Proti klasickému NPC dosáhl agent přibližně 45~\% úspěšnosti. Nižší úspěšnost souvisela především s~výše popsaným chováním: v~některých epizodách agent ignoroval bezpečnou vzdálenost, přiblížil se k~protivníkovi na minimální odstup a~stal se snadným cílem. Průměrná délka kola se pohybovala kolem 10~s~a~průměrné udělené poškození činilo přibližně 50 ze 100.
+
+\paragraph{Testy proti NAI V1 (50 kol).}
+Ve střetech proti první verzi neuronového agenta dosáhla druhá verze 100~\% úspěšnosti (50/50). Tento výsledek je konzistentní s~rozdílem schopností: zatímco NAI V1 disponuje pouze navigací, NAI V2 již aktivně vyhledává cíl, natáčí se a~útočí. Průměrná délka kola byla přibližně 10~s~a~průměrné udělené poškození dosahovalo 100, tj. plné eliminace protivníka.
+
+\newpage
+
+\subsubsection{Doplňková měření z~herních testů}
+
+Během praktických testů byly pozorovány následující vlastnosti a~limity:
+
+\begin{itemize}
+    \item \textbf{Přesnost střelby:} průměrná přesnost se pohybovala přibližně v~rozmezí 50--65~\%. Záznamy chování ukazují, že část nepřesnosti souvisí s~problémem rotace: agent se při zaměřování místy \uv{cukal} a~korekce směru nebyly plynulé.
+    \item \textbf{Výběr výzbroje a~brnění:} agent v~této verzi stále nedisponuje mechanikami pro změnu zbraně ani brnění, a~proto tyto aspekty nelze hodnotit.
+    \item \textbf{Latence a~handicapy:} oproti první verzi se projevila degradace výkonu při uměle zavedené latenci (zpoždění), což je konzistentní s~větší závislostí na časově přesné orientaci a~střelbě. Naopak omezení zorného pole (FOV handicap) v~této verzi nevedlo k~jednoznačně pozorovatelnému zhoršení.
+\end{itemize}
+
+\subsubsection{Shrnutí chování druhé verze}
+
+Druhá verze agenta:
+
+\begin{itemize}
+    \item rozšířila schopnosti z~čisté navigace na základní bojovou interakci (vyhledání cíle, orientace, útok),
+    \item dosáhla stabilního tréninku, avšak s~očekávatelně vyšší náročností učení hodnotové funkce,
+    \item prokázala schopnost aktivně způsobovat poškození a~konzistentně porážet NAI V1, ale ne porazit klasické AI,
+    \item vykazovala neoptimální chování vyplývající z~návrhu odměn (příliš agresivní přiblížení), což se negativně projevilo zejména proti standardnímu NPC,
+    \item zůstává omezená absencí výběru zbraní a~brnění a~citlivostí na latenci.
+\end{itemize}
+
+\subsubsection{Diagram algoritmu druhé verze agenta}
+
+Na rozdíl od první verze je z~vývojového diagramu na obrázku~\ref{obrAlg2} patrné výrazné rozšíření pozorovacího i~akčního prostoru agenta. Fáze \uv{Sběr pozorování} již nezahrnuje pouze základní navigační informace, ale také veličiny přímo související s~bojovou interakcí. Konkrétně se jedná o~vzdálenost od hráče, rozdíl v~natočení (relativní orientaci) a~složky vzdálenosti v~osách $X$ a $Y$, doplněné o~maximální odchylku délky.
+
+Z~diagramu je zároveň patrné, že výstupní akce již nejsou omezeny pouze na pohyb, ale zahrnují osmisměrný pohyb, rotaci a~jednoduché střelecké chování. Tím se agent poprvé dostává do situace, kdy musí koordinovat více typů akcí současně.
+
+\newpage
+
+Odměnová část diagramu explicitně rozlišuje několik dílčích signálů, zejména správnou rotaci vůči hráči, udržení určité vzdálenosti a~samotné zásahy. Právě tato struktura vysvětluje některé pozorované projevy chování: agent má tendenci optimalizovat krátkodobý zisk z~úspěšného zásahu i~za cenu porušení preferované vzdálenosti, pokud je váha odměny za zásah dominantní. Diagram tak názorně ukazuje, že nežádoucí chování není důsledkem chybné implementace neuronové sítě, ale přímo vyplývá z~konstrukce odměnové funkce.
+
+Na rozdíl od první verze je zde rovněž zřetelnější vazba mezi jednotlivými kroky epizody. Akce agenta přímo ovlivňují další pozorování, která jsou ukládána do paměti zkušeností a~následně využívána při tréninku. Tento uzavřený zpětnovazební cyklus je u~druhé verze výrazně dynamičtější, což se promítá jak do delší délky epizod, tak do vyšší citlivosti na zpoždění (latenci) při inferenci.
 
 \begin{figure}[ht]
     \centering
@@ -478,6 +598,8 @@ Vývojový diagram na obrázku \ref{obrAlg2} znázorňuje strukturu algoritmu ag
     \caption{Vývojový diagram algoritmu agenta – druhá verze}
     \label{obrAlg2}
 \end{figure}
+
+\newpage
 
 \subsection{Finální verze agenta}
 \subsubsection{Modifikace prostředí}
@@ -499,56 +621,70 @@ V~odměnové logice je přidáno nové omezení a~je upraveno jedno existující
 \end{itemize}
 \end{enumerate}
 
-\newpage
-
-\subsubsection{Finální verze modelu}
-\begin{table}[H]
-\centering
-\caption{Výsledky základního tréninku finální verze agenta}
-\vspace{1em}
-\begin{tabularx}{\textwidth}{|l|X|}
-\hline
-\textbf{Metrika} & \textbf{Hodnota} \\
-\hline
-\multicolumn{2}{|l|}{\textbf{rollout/}} \\
-ep\_len\_mean & 31.4 \\
-ep\_rew\_mean & 9.2 \\
-\hline
-\multicolumn{2}{|l|}{\textbf{time/}} \\
-fps & 2500 \\
-iterations & 59 \\
-time\_elapsed & 1237 \\
-total\_timesteps & 3240000 \\
-\hline
-\multicolumn{2}{|l|}{\textbf{train/}} \\
-approx\_kl & 0.004143081 \\
-clip\_fraction & 0.0332 \\
-clip\_range & 0.2 \\
-entropy\_loss & -0.994 \\
-explained\_variance & 0.604 \\
-learning\_rate & 0.0003 \\
-loss & 0.301 \\
-n\_updates & 11600 \\
-policy\_gradient\_loss & -0.00432 \\
-value\_loss & 0.7 \\
-\hline
-\end{tabularx}
-\label{tab:training_summaryfinal}
-\end{table}
-
-Tabulka \ref{tab:training_summaryfinal} ukazuje výsledky finální verze modelu, která vykazuje zlepšení ve všech sledovaných oblastech oproti verzi druhé. Jednotlivé epizody trvají mírně kratší dobu — agent nyní nachází nepřítele rychleji, otáčí se směrem k~němu, zahajuje útok a~eliminuje ho, přičemž tréninková doba zůstává zachována.
-
-\uv{Ztráta podle policy gradientu} klesá z –0{,}00472 na –0{,}00432, což naznačuje menší výkyvy v~aktualizaci politiky — žádoucí trend.
-\uv{Přibližná KL divergence} se snižuje z~0{,}00734 na 0{,}00414, což znamená, že aktualizace politiky probíhají méně agresivně — agentovo chování je stabilnější a~přesnější.
-\uv{Entropy loss} klesá z –0{,}968 na –0{,}994, což odráží další redukci náhodnosti v~rozhodování.
-\uv{Explained variance} roste z~0{,}499 na 0{,}604, čímž se zlepšuje schopnost modelu odhadovat hodnotu stavu a~predikovat budoucí odměny.
-\uv{Value loss} se snižuje z~1{,}02 na 0{,}70, což poukazuje na nižší nestabilitu hodnotové funkce.
-
-Finální agent dokáže správně volit zbraň a~brnění, pronásledovat hráče, nasměrovat se k~němu a~zahájit střelbu. Tyto volby navíc dokáže během činnosti velice pomalu přizpůsobovat a~optimalizovat podle aktuální situace. Přesto systém není zcela bezchybný — při pohybu hráče občas agent místo jemné korekce rotace provede úplný obrat, než se správně natočí.
+Nakonec byla upravena i~entita actor \uv{Enemy} tak, aby se aktivně pohybovala po trénovací mapě a~postupně — i~když s~nižší rychlostí — střílela na tréninkového agenta. Tento režim je navržen tak, aby bylo prostředí náročnější, a~agent tak nečelil pouze statickému protivníkovi, který se spawnuje na místě a~pasivně čeká, zda jej agent zasáhne.
 
 \newpage
 
-Obrázek \ref{obrAlg3} představuje vizuální přehled rozhodovací logiky agenta, jak byla implementována v~rámci této verze.
+\subsection{Vyhodnocení finální verze agenta}
+
+Finální verze agenta představuje nejkomplexnější variantu implementovanou v~rámci této práce. Oproti druhé verzi již agent nejen střílí a~rotuje, ale zároveň stabilněji udržuje vhodnou vzdálenost od protivníka a~je schopen využívat jednoduchou adaptaci výbavy mezi koly. To se projevuje jak ve stabilnějších tréninkových metrikách, tak ve zlepšených výsledcích praktických herních testů.
+
+\subsubsection{Výsledky tréninku}
+
+Trénink proběhl po dobu 3\,240\,000 kroků, při 11\,600 aktualizacích modelu a~konstantní hodnotě učícího kroku (\texttt{learning\_rate = 0{,}0003}), kde poslední krok byl také nejlepší. Průměrná délka epizody byla \texttt{ep\_len\_mean = 31{,}4}, což je mírně méně než u~druhé verze (\texttt{36{,}4}). Tento pokles odpovídá efektivnějšímu průběhu epizod: agent rychleji navazuje kontakt s~protivníkem, stabilněji se orientuje a~častěji dokončuje střet bez zbytečných prodlev.
+
+Průměrná kumulovaná odměna na epizodu dosahovala \texttt{ep\_rew\_mean = 9{,}2}. Nižší hodnota oproti druhé verzi (\texttt{13{,}8}) je v~tomto případě očekávatelná a~konzistentní s~přísnějšími podmínkami odměňování, které více penalizují nevhodné chování a~omezují exploitační strategie.
+
+Z~hlediska stability učení jsou klíčové následující metriky:
+
+\begin{description}
+    \item[\texttt{approx\_kl = 0{,}00414}] Přibližná KL divergence je nižší než u~druhé verze (\texttt{0{,}00734}), což značí méně agresivní a~stabilnější aktualizace politiky.
+    \item[\texttt{clip\_fraction = 0{,}0332}, \texttt{clip\_range = 0{,}2}] Podíl klipovaných aktualizací zůstává v~podobném rozsahu jako u~druhé verze, což odpovídá tomu, že PPO stále aktivně omezuje příliš velké kroky, avšak bez známek nestability.
+    \item[\texttt{entropy\_loss = -0{,}994}] Další pokles entropie oproti druhé verzi indikuje vyšší determinističnost rozhodování, což se v~praxi projevuje menším jitterem a~stabilnějším zaměřováním.
+    \item[\texttt{explained\_variance = 0{,}604}] Hodnota je vyšší než u~druhé verze (\texttt{0{,}499}), což ukazuje na zlepšení predikce návratnosti hodnotovou sítí.
+    \item[\texttt{value\_loss = 0{,}7}] Pokles oproti druhé verzi (\texttt{1{,}02}) naznačuje menší nestabilitu kritika a~konzistentnější odhady hodnoty stavu.
+\end{description}
+
+Celkově lze finální trénink hodnotit jako stabilnější než u~druhé verze: politika se aktualizuje méně agresivně, hodnotová síť predikuje návratnost spolehlivěji a~chování v~praxi působí konzistentněji.
+
+\subsubsection{Praktické testování na herní mapě}
+
+Finální verze agenta byla testována ve třech typech střetů: proti lidskému hráči, proti standardnímu NPC a~proti druhé verzi neuronového agenta (NAI V2).
+
+\paragraph{Testy proti lidskému hráči (50 pokusů).}
+V~rámci 50 samostatných pokusů docházelo typicky k~eliminaci hráče ve 4.~kole. Oproti druhé verzi agent působil výrazně přesněji a~stabilněji: rotace byla plynulejší (bez výrazného \uv{cukání}) a~agent si častěji udržoval vhodnou vzdálenost od cíle, což snižovalo možnost hráče využít krátkého odstupu k~rychlé eliminaci. Průměrné poškození způsobené jednou instancí agenta bylo přibližně 40.
+
+\paragraph{Testy proti standardnímu NPC (50 kol).}
+Proti klasickému NPC agent dosáhl přibližně 55~\% úspěšnosti. Průměrná délka kola byla okolo 10~s~a~průměrné udělené poškození činilo přibližně 50--55. Ve srovnání s~druhou verzí je patrné, že agent již častěji volí efektivnější chování (zejména v~práci se vzdáleností) a~méně často se dostává do situací, kdy je snadno eliminovatelný.
+
+\paragraph{Testy proti NAI V2 (50 kol).}
+Ve střetech proti druhé verzi neuronového agenta dosáhla finální verze úspěšnosti přibližně 55--60~\%. Délka kola se pohybovala kolem 10--12~s~a~průměrné udělené poškození činilo přibližně 55--60. Výsledek odpovídá tomu, že finální verze je vůči V2 stabilnější a~přesnější, avšak stále nejde o~absolutně dominantní strategii.
+
+\subsubsection{Doplňková měření z~herních testů}
+
+\begin{itemize}
+    \item \textbf{Přesnost střelby:} průměrná přesnost se pohybovala přibližně v~rozmezí 75--80~\%. Přetrvávají pouze mírné problémy v~oblasti rotace, avšak výrazně menší než u~druhé verze.
+    \item \textbf{Adaptace výbavy:} agent dokázal v~dalším kole zvolit výhodnou kombinaci zbraně a~brnění přibližně v~80--90~\% případů. Chybná volba se objevovala jen sporadicky a~typicky nepůsobila jako konzistentní systematická chyba.
+    \item \textbf{Latence a~FOV:} zavedená latence výkon mírně zhoršovala, avšak v~menší míře než u~druhé verze. Změna zorného pole (FOV) nevedla k~pozorovatelnému zhoršení chování.
+\end{itemize}
+
+\subsubsection{Shrnutí chování finální verze}
+
+Finální verze agenta:
+
+\begin{itemize}
+    \item vykazovala stabilnější trénink než druhá verze 
+    
+    (nižší \texttt{approx\_kl}, vyšší \texttt{explained\_variance}, nižší \texttt{value\_loss}),
+    \item v~praxi působila přesněji a~konzistentněji (vyšší přesnost střelby a~menší jitter v~rotaci),
+    \item dokázala adaptovat výbavu s~vysokou úspěšností (80--90~\% správných voleb),
+    \item dosahovala lepších výsledků proti standardnímu NPC i~proti NAI V2 (cca 55--60~\% úspěšnosti),
+    \item zůstává mírně citlivá na latenci, avšak méně než druhá verze, přičemž FOV změny chování neovlivnily.
+\end{itemize}
+
+\subsubsection{Diagram algoritmu finální verze}
+
+Obrázek~\ref{obrAlg3} zachycuje vývojový diagram finální verze. Oproti druhé verzi je patrné doplnění akce pro výměnu zbraní a~brnění a~rozšíření odměnové logiky o~kombinované podmínky (správná vzdálenost a~rotace). Diagram tím přímo odráží dvě prakticky důležité vlastnosti finální verze: stabilnější udržování odstupu a~schopnost adaptovat výbavu podle předchozího kola.
 
 \begin{figure}[ht]
     \centering
@@ -556,28 +692,39 @@ Obrázek \ref{obrAlg3} představuje vizuální přehled rozhodovací logiky agen
     \caption{Vývojový diagram algoritmu agenta – finální verze}
     \label{obrAlg3}
 \end{figure}
-    
-Obrázky \ref{obrModelFinal1/2} a \ref{obrModelFinal2/2} ilustrují vizuální podobu finálního modelu.
 
-\newpage
+\subsubsection{Model finální verze agenta}
+
+Obrázky~\ref{obrModelFinal1/2} a~\ref{obrModelFinal2/2} zobrazují exportovaný ONNX model finální verze ve dvou částech. Oproti první verzi (jednoduchý \emph{actor--critic} s~jedním diskrétním výstupem) je zde patrná vyšší komplexita, která odpovídá rozšířenému akčnímu prostoru: model již neřeší pouze volbu směru pohybu, ale samostatně rozhoduje také o~rotaci, střelbě a~volbě výbavy.
+
+V~modelu je zachována struktura s~plně propojenými vrstvami (\uv{Gemm}) a~nelinearitami (\uv{Tanh}), nicméně výstupní část je výrazně bohatší a~je realizována více větvemi (\emph{multi-head} výstupy). Tyto výstupy jsou typicky normalizovány pomocí \uv{Softmax} a~převáděny na konkrétní akci pomocí \uv{ArgMax}, přičemž podpůrné operace jako \uv{Unsqueeze}, \uv{Shape}, \uv{Slice} a \uv{GatherElements} slouží k~úpravám tvarů tenzorů a~k~indexování jednotlivých složek akce při inferenci.
+
+Z~praktického hlediska tato architektura umožňuje, aby agent koordinoval více rozhodnutí v~rámci jednoho kroku prostředí (pohyb, natočení a~střelbu) a~zároveň prováděl výběr výbavy mezi koly. To odpovídá pozorovanému zlepšení oproti druhé verzi, zejména v~plynulosti chování, přesnosti střelby a~udržování vhodné vzdálenosti.
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=0.56, angle=270]{3-2.png}
-\caption{Vzhled modelu z~finální verze agenta 1/2}
-\label{obrModelFinal1/2}
+    \centering
+    \includegraphics[scale=0.56, angle=270]{3-2.png}
+    \caption{Vzhled modelu z~finální verze agenta 1/2}
+    \label{obrModelFinal1/2}
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\includegraphics[scale=0.56, angle=90]{3-3.png}
-\caption{Vzhled modelu z~finální verze agenta 2/2}
-\label{obrModelFinal2/2}
+    \centering
+    \includegraphics[scale=0.56, angle=90]{3-3.png}
+    \caption{Vzhled modelu z~finální verze agenta 2/2}
+    \label{obrModelFinal2/2}
 \end{figure}
 
 \newpage
 
 \subsection{Shrnutí všech verzí}
-První verze agenta se sice dokáže adaptovat a~funguje nejlépe, ale zároveň je nejjednodušší, protože zvládá pouze pohyb. Hráč proto tento model dokáže snadno porazit. Druhá verze obsahuje veškerou potřebnou logiku, ale nefunguje a~neadaptuje se dle očekávání — agent se neustále drží těsně u~nepřítele, což sice může vést k~vítězství, ale působí nepřirozeně. Finální verze je ze všech nejvyspělejší — učí se, adaptuje se a~funguje téměř bezchybně: skutečně pronásleduje hráče, mění výbavu, útočí apod. Tato verze je zároveň nejobtížnější na poražení, což byl zamýšlený cíl.
 
-Bohužel, přestože se agent během hry dále učí a~adaptuje na hráče, jak již bylo zmíněno výše, ve hře se vyskytuje výrazně méně instancí agentů než na trénovací mapě, takže online trénink během hraní je téměř zanedbatelný.
+Vyhodnocení jednotlivých verzí agenta ukazuje jasnou postupnou evoluci chování, komplexity i~herní kompetence. Každá verze plnila specifickou roli v~procesu vývoje a~přispěla k~ověření jiného aspektu návrhu.
+
+První verze prokázala, že zvolený tréninkový framework a~algoritmus PPO jsou schopny stabilně řešit jednoduché úlohy. Agent se v~této fázi naučil spolehlivě navigovat v~prostředí, avšak bez jakékoli herní interakce. Její význam spočíval především v~technickém ověření celého systému, nikoli v~herní použitelnosti.
+
+Druhá verze představovala zásadní krok směrem k~hernímu chování. Agent byl schopen aktivně vyhledávat protivníka, rotovat, střílet a~vstupovat do bojových situací. Zároveň se však ukázalo, že samotné rozšíření akčního a~pozorovacího prostoru není dostačující. Nevhodné vyvážení odměnové funkce vedlo k~chování, které sice bylo krátkodobě efektivní, ale herně nepřirozené a~nestabilní. Tato verze tak jasně odhalila limity návrhu bez důsledné kontroly optimalizačních cílů.
+
+Finální verze agenta tyto nedostatky ve velké míře odstranila. Agent vykazuje konzistentní a~čitelné chování, dokáže udržovat vhodnou vzdálenost, plynule se orientovat, útočit s~vyšší přesností a~adaptovat výbavu na základě předchozích kol. Z~praktických testů vyplývá, že právě tato verze je pro hráče nejobtížnější a~nejblíže zamýšlenému hernímu protivníkovi.
+
+Současně se však ukázalo, že skutečná adaptace během samotného hraní je omezená. Ačkoliv agent disponuje mechanismy pro průběžné učení, nízký počet instancí v~herním prostředí a~omezení použitého frameworku NevarokML prakticky znemožňují smysluplnou online adaptaci. Agent tak například není schopen dynamicky upravovat optimální vzdálenost od protivníka ani adaptovat střelecké chování (např. volbu mezi rychlejší, méně přesnou střelbou a~pomalejší, přesnější palbou) v~reakci na konkrétní styl hráče. Tyto limity nejsou důsledkem návrhu agenta samotného, ale vyplývají z~omezení použité infrastruktury a~budou podrobně rozebrány v~závěrečné kapitole práce.
